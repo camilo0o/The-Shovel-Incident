@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmg4j084thlg1"
-path="res://.godot/imported/Metal_Corrugated_018_height.png-d70da8f8cf62bbbb4c2e991cbed28faa.ctex"
+uid="uid://be0uhf4ueav4l"
+path="res://.godot/imported/joypad_contols.png-b89c085d8b45aa19fe492b5ecad66056.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Metal_Corrugated_018_height.png"
-dest_files=["res://.godot/imported/Metal_Corrugated_018_height.png-d70da8f8cf62bbbb4c2e991cbed28faa.ctex"]
+source_file="res://addons/fightvania/new_org/art/copy right free art assets/joypad_contols.png"
+dest_files=["res://.godot/imported/joypad_contols.png-b89c085d8b45aa19fe492b5ecad66056.ctex"]
 
 [params]
 
