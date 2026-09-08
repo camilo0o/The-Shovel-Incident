@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://by6k523jiu337"]
 
-[ext_resource type="Script" uid="uid://iclb0kxmounk" path="res://settings.gd" id="1_r6d6q"]
-[ext_resource type="AudioStream" uid="uid://d28bmuqlkywy3" path="res://Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster).mp3" id="2_6wm04"]
+[ext_resource type="Script" uid="uid://iclb0kxmounk" path="res://scripts/settings.gd" id="1_r6d6q"]
+[ext_resource type="AudioStream" uid="uid://d28bmuqlkywy3" path="res://assets/audio/Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster).mp3" id="2_6wm04"]
 
 [node name="Settings" type="Control" unique_id=784784311]
 layout_mode = 3

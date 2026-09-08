@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c14nho0uwlctg"
-path="res://.godot/imported/Ancient Medium.ttf-68e452e5ef87a658151c9efa58fd00f8.fontdata"
+path="res://.godot/imported/Ancient Medium.ttf-aead4310f5a12d85e3e85fb66248ebf3.fontdata"
 
 [deps]
 
-source_file="res://Ancient Medium.ttf"
-dest_files=["res://.godot/imported/Ancient Medium.ttf-68e452e5ef87a658151c9efa58fd00f8.fontdata"]
+source_file="res://assets/ui/fonts/Ancient Medium.ttf"
+dest_files=["res://.godot/imported/Ancient Medium.ttf-aead4310f5a12d85e3e85fb66248ebf3.fontdata"]
 
 [params]
 

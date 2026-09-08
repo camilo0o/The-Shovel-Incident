@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c30hm1hfoel3g"]
 
-[ext_resource type="Texture2D" uid="uid://bdqjdepqycwsx" path="res://pared.svg" id="1_7vrkn"]
-[ext_resource type="Script" uid="uid://utx5olw7vsce" path="res://main_menu.gd" id="1_fu7sn"]
-[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://Ancient Medium.ttf" id="2_fu7sn"]
+[ext_resource type="Script" uid="uid://utx5olw7vsce" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://bdqjdepqycwsx" path="res://assets/ui/pared.svg" id="2_bqqt6"]
+[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="3_bqqt6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1oqn"]
-texture = ExtResource("1_7vrkn")
+texture = ExtResource("2_bqqt6")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1oqn"]
 bg_color = Color(1, 0.9882353, 1, 1)
@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fu7sn")
+script = ExtResource("1_bqqt6")
 
 [node name="Panel" type="Panel" parent="." unique_id=1839345852]
 layout_mode = 1
@@ -118,7 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/shadow_offset_y = 10
-theme_override_fonts/font = ExtResource("2_fu7sn")
+theme_override_fonts/font = ExtResource("3_bqqt6")
 theme_override_font_sizes/font_size = 64
 text = "The Shovel Incident"
 horizontal_alignment = 1
