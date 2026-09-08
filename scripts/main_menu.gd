@@ -1,7 +1,7 @@
 extends Control
 
 func _on_start_pressed() -> void:
-	print("Empezar")
+	get_tree().change_scene_to_file("res://scenes/player.tscn")
 
 func _on_options_pressed() -> void:
 	print("Opciones")
