@@ -194,10 +194,8 @@ metadata/_edit_group_ = true
 position = Vector2(86.5, 92.99999)
 scale = Vector2(0.17506298, 0.16562778)
 sprite_frames = SubResource("SpriteFrames_sau36")
-animation = &"personaje_right"
+animation = &"personaje_down"
 autoplay = "personaje_at_rest"
-frame = 2
-frame_progress = 0.7051971
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1016968543]
 position = Vector2(85, 95)
