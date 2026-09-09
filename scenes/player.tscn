@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cc74ntlygyglh"]
 
-[ext_resource type="Script" uid="uid://d1cl0gjafryas" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://d1cl0gjafryas" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://di3i00tnuegat" path="res://assets/sprites/personaje_at_rest.svg" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://d3kkdxt0ateue" path="res://assets/sprites/personaje_down.svg" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dg0do1tx7of6w" path="res://assets/sprites/personaje_left.svg" id="4_smehm"]
@@ -110,8 +110,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_oprun")
 }],
 "loop": 1,
-"name": &"personaje_at_rest",
-"speed": 2.0
+"name": &"idle_down",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -127,7 +127,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_4r5pv")
 }],
 "loop": 1,
-"name": &"personaje_down",
+"name": &"run_down",
 "speed": 8.0
 }, {
 "frames": [{
@@ -144,7 +144,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_4ni07")
 }],
 "loop": 1,
-"name": &"personaje_left",
+"name": &"run_left",
 "speed": 8.0
 }, {
 "frames": [{
@@ -161,7 +161,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_31cv2")
 }],
 "loop": 1,
-"name": &"personaje_right",
+"name": &"run_right",
 "speed": 8.0
 }, {
 "frames": [{
@@ -178,7 +178,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_wnwbv")
 }],
 "loop": 1,
-"name": &"personaje_up",
+"name": &"run_up",
 "speed": 10.0
 }]
 
@@ -188,14 +188,13 @@ size = Vector2(36, 58)
 [node name="Player" type="CharacterBody2D" unique_id=194799799]
 position = Vector2(41, 31)
 script = ExtResource("1_g2els")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=76437711]
 position = Vector2(86.5, 92.99999)
 scale = Vector2(0.17506298, 0.16562778)
 sprite_frames = SubResource("SpriteFrames_sau36")
-animation = &"personaje_down"
-autoplay = "personaje_at_rest"
+animation = &"idle_down"
+autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1016968543]
 position = Vector2(85, 95)
