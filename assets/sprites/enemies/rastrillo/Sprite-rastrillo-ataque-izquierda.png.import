@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doahqrp73ci7b"
-path="res://.godot/imported/personaje_at_rest.png-c2b7e317011772705bbbd4d91611deb8.ctex"
+uid="uid://dn3j6443knyfl"
+path="res://.godot/imported/Sprite-rastrillo-ataque-izquierda.png-ceb96738e470f72fef43e43e6e108b46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje_at_rest.png"
-dest_files=["res://.godot/imported/personaje_at_rest.png-c2b7e317011772705bbbd4d91611deb8.ctex"]
+source_file="res://assets/sprites/enemies/rastrillo/Sprite-rastrillo-ataque-izquierda.png"
+dest_files=["res://.godot/imported/Sprite-rastrillo-ataque-izquierda.png-ceb96738e470f72fef43e43e6e108b46.ctex"]
 
 [params]
 

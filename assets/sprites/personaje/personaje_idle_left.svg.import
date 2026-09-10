@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq86qkjb13xiu"
-path="res://.godot/imported/personaje_right.svg-922e4e3fe3cf12f9b326d8248af7b9a0.ctex"
+uid="uid://c8a6v1ywhika2"
+path="res://.godot/imported/personaje_idle_left.svg-072a391d9171ceb022c4ed36f452a383.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje_right.svg"
-dest_files=["res://.godot/imported/personaje_right.svg-922e4e3fe3cf12f9b326d8248af7b9a0.ctex"]
+source_file="res://assets/sprites/personaje/personaje_idle_left.svg"
+dest_files=["res://.godot/imported/personaje_idle_left.svg-072a391d9171ceb022c4ed36f452a383.ctex"]
 
 [params]
 
