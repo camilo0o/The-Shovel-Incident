@@ -2,7 +2,7 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 
 var speed = 100.0
-var last_direction = "down"
+var last_direction = "front"
 
 func _physics_process(delta: float) -> void:
 	get_input()
@@ -23,9 +23,9 @@ func get_input():
 			last_direction = "left"
 	else:
 		if input_direction.y > 0:
-			last_direction = "down"
+			last_direction = "front"
 		else:
-			last_direction = "up"
+			last_direction = "back"
 	update_animation("run")
 	velocity = input_direction * speed
 	

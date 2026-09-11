@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs6arvgkt43rj"
-path="res://.godot/imported/personaje.svg-75c7ddcddc02ca3d064e0fb21ec189e9.ctex"
+uid="uid://bsbncjafcisp1"
+path="res://.godot/imported/Character_Run_Left-Sheet.png-7161de989a959a7c9a1639889f955b04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje.svg"
-dest_files=["res://.godot/imported/personaje.svg-75c7ddcddc02ca3d064e0fb21ec189e9.ctex"]
+source_file="res://assets/sprites/personaje/Character_Run_Left-Sheet.png"
+dest_files=["res://.godot/imported/Character_Run_Left-Sheet.png-7161de989a959a7c9a1639889f955b04.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

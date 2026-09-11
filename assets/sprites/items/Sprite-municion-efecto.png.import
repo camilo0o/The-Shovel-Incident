@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di3i00tnuegat"
-path="res://.godot/imported/personaje_at_rest.svg-a100f41489b9cd5347bda9d379d284eb.ctex"
+uid="uid://c5twc17xbqk3x"
+path="res://.godot/imported/Sprite-municion-efecto.png-eb7a789ca3581f590c88b712f46751fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_at_rest.svg"
-dest_files=["res://.godot/imported/personaje_at_rest.svg-a100f41489b9cd5347bda9d379d284eb.ctex"]
+source_file="res://assets/sprites/items/Sprite-municion-efecto.png"
+dest_files=["res://.godot/imported/Sprite-municion-efecto.png-eb7a789ca3581f590c88b712f46751fa.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

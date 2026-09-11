@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dye4mex6d56my"
-path="res://.godot/imported/personaje_up.svg-ca9fc9812a3a60668e90c5c7ebc38310.ctex"
+uid="uid://h7bevt8ujul8"
+path="res://.godot/imported/Sprite-Martin-el-martillo-ataque-izquierda.png-f191cea89686e011ca41512779676009.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_up.svg"
-dest_files=["res://.godot/imported/personaje_up.svg-ca9fc9812a3a60668e90c5c7ebc38310.ctex"]
+source_file="res://assets/sprites/enemies/martin el martillo/Sprite-Martin-el-martillo-ataque-izquierda.png"
+dest_files=["res://.godot/imported/Sprite-Martin-el-martillo-ataque-izquierda.png-f191cea89686e011ca41512779676009.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

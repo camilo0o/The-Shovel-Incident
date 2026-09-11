@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8a6v1ywhika2"
-path="res://.godot/imported/personaje_idle_left.svg-072a391d9171ceb022c4ed36f452a383.ctex"
+uid="uid://c7xibgc3d4t3d"
+path="res://.godot/imported/Sprite-Martin-el-martillo-caminata.png-7430e00f74920cdd97206eefabb74275.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_idle_left.svg"
-dest_files=["res://.godot/imported/personaje_idle_left.svg-072a391d9171ceb022c4ed36f452a383.ctex"]
+source_file="res://assets/sprites/enemies/martin el martillo/Sprite-Martin-el-martillo-caminata.png"
+dest_files=["res://.godot/imported/Sprite-Martin-el-martillo-caminata.png-7430e00f74920cdd97206eefabb74275.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

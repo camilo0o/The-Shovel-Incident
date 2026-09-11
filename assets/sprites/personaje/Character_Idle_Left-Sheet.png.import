@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2kf72apyvvjn"
-path="res://.godot/imported/personaje_idle_up.svg-921a90f9609f234b473a95cc58fff7d0.ctex"
+uid="uid://b2qxf2jenxige"
+path="res://.godot/imported/Character_Idle_Left-Sheet.png-aa5790a5ede262aa43865f60f95a4fa2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_idle_up.svg"
-dest_files=["res://.godot/imported/personaje_idle_up.svg-921a90f9609f234b473a95cc58fff7d0.ctex"]
+source_file="res://assets/sprites/personaje/Character_Idle_Left-Sheet.png"
+dest_files=["res://.godot/imported/Character_Idle_Left-Sheet.png-aa5790a5ede262aa43865f60f95a4fa2.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

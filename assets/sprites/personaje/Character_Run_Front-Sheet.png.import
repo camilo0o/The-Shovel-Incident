@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doahqrp73ci7b"
-path="res://.godot/imported/personaje_at_rest.png-b44581d4012666c9dcf8b5d04c756319.ctex"
+uid="uid://bab0pek7s661i"
+path="res://.godot/imported/Character_Run_Front-Sheet.png-56318b36c0dc11d497a010a8b01bb6b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_at_rest.png"
-dest_files=["res://.godot/imported/personaje_at_rest.png-b44581d4012666c9dcf8b5d04c756319.ctex"]
+source_file="res://assets/sprites/personaje/Character_Run_Front-Sheet.png"
+dest_files=["res://.godot/imported/Character_Run_Front-Sheet.png-56318b36c0dc11d497a010a8b01bb6b6.ctex"]
 
 [params]
 

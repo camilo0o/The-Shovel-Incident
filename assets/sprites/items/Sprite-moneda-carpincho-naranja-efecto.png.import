@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ecmlh7xfr5k1"
-path="res://.godot/imported/personaje_idle_right.svg-f1f206c7ffcb82ec16bb213c5cbd6fb2.ctex"
+uid="uid://dwb5vw1fh7fbe"
+path="res://.godot/imported/Sprite-moneda-carpincho-naranja-efecto.png-3defab2f952eec8ec70fae76aa2c9527.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/personaje/personaje_idle_right.svg"
-dest_files=["res://.godot/imported/personaje_idle_right.svg-f1f206c7ffcb82ec16bb213c5cbd6fb2.ctex"]
+source_file="res://assets/sprites/items/Sprite-moneda-carpincho-naranja-efecto.png"
+dest_files=["res://.godot/imported/Sprite-moneda-carpincho-naranja-efecto.png-3defab2f952eec8ec70fae76aa2c9527.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
