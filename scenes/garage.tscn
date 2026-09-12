@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cxvo3n8xa8qnv" path="res://scripts/garage.gd" id="1_gnlqp"]
 [ext_resource type="Texture2D" uid="uid://p272pj267kvx" path="res://assets/backgrounds/PostApoc_Workshop_RoomTiles.png" id="1_rao6x"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="3_f50xb"]
+[ext_resource type="Script" uid="uid://cfgblaaqc5svw" path="res://scripts/door.gd" id="4_6thhw"]
+[ext_resource type="Texture2D" uid="uid://638c5asf0sv0" path="res://assets/backgrounds/door.png" id="5_d8qye"]
+[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="6_18b1i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13b6"]
 texture = ExtResource("1_rao6x")
@@ -416,7 +419,19 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_r13b6")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8j5m5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mhqhg"]
+font = ExtResource("6_18b1i")
+font_size = 20
+font_color = Color(1, 0.98669523, 0.13335153, 0.94000006)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.34705882)
+
 [node name="Node2D" type="Node2D" unique_id=793803112]
+y_sort_enabled = true
 position = Vector2(-10, -32)
 script = ExtResource("1_gnlqp")
 
@@ -429,4 +444,31 @@ metadata/_edit_group_ = true
 position = Vector2(13, 27)
 
 [node name="Player" parent="." unique_id=194799799 instance=ExtResource("3_f50xb")]
-position = Vector2(40, 46)
+position = Vector2(116, 161)
+
+[node name="Door" type="Area2D" parent="." unique_id=2084758739]
+position = Vector2(124, 113)
+script = ExtResource("4_6thhw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door" unique_id=1615817271]
+shape = SubResource("RectangleShape2D_8j5m5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Door" unique_id=1470478539]
+position = Vector2(8.499992, -32.500004)
+scale = Vector2(0.94000006, 0.68666667)
+texture = ExtResource("5_d8qye")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PromptLabel" type="Label" parent="UI" groups=["prompt_label"]]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 220.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2(220, 50)
+text = "Presiona \"E\"
+para avanzar"
+label_settings = SubResource("LabelSettings_mhqhg")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false

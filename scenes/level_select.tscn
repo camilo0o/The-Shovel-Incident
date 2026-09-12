@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://byvogfl3rf18y"]
+
+[ext_resource type="Script" uid="uid://cf4xgmt4pdi0o" path="res://scripts/level_select.gd" id="1_3shnc"]
+
+[node name="LevelSelect" type="Control" unique_id=1124545189]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3shnc")
+
+[node name="Nivel1" type="Button" parent="." unique_id=241404087]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Nivel2" type="Button" parent="." unique_id=1719977228]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Nivel3" type="Button" parent="." unique_id=1683429037]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
