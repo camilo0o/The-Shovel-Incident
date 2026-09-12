@@ -27,7 +27,7 @@ func _process(_delta):
 		return
 	# canvas_transform convierte coordenadas del mundo (global_position) a
 	# coordenadas de PANTALLA, ya teniendo en cuenta el zoom/posición
-	# de la cámara activa. Camera2D no tiene unproject_position (eso es de Camera3D).
+	# de la cámara activa. 
 	var screen_pos: Vector2 = get_viewport().get_canvas_transform() * global_position
 	var ancho: float = prompt_label.size.x
 	prompt_label.position = screen_pos + OFFSET_DEBAJO_PUERTA - Vector2(ancho / 2.0, 0)
