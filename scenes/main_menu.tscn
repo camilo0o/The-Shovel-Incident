@@ -2,10 +2,88 @@
 
 [ext_resource type="Script" uid="uid://utx5olw7vsce" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://bdqjdepqycwsx" path="res://assets/ui/pared.svg" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://6e5ja71fcerr" path="res://assets/elements/Lantern 1 Small - Bronze and Yellow_003.png" id="3_8ln24"]
 [ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="3_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://baisa8xh4h3om" path="res://assets/textures/shape_a.png" id="4_rtw2f"]
+[ext_resource type="Script" uid="uid://doe74yc4ytrhe" path="res://scripts/antorcha_flicker.gd" id="5_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://b86elsn3udqnm" path="res://assets/elements/telaraña.png" id="6_oa1go"]
+[ext_resource type="Texture2D" uid="uid://bbs5aikygmt4q" path="res://assets/elements/herramientas.png" id="6_tbmy8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1oqn"]
 texture = ExtResource("2_bqqt6")
+
+[sub_resource type="Curve" id="Curve_rtw2f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jk1qb"]
+curve = SubResource("Curve_rtw2f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oa1go"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+velocity_pivot = Vector3(0, -1, 0)
+spread = 23.824
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, -15, 0)
+damping_max = 2.0
+scale_min = 0.5
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_jk1qb")
+turbulence_enabled = true
+turbulence_noise_strength = 0.56
+
+[sub_resource type="Gradient" id="Gradient_tbmy8"]
+offsets = PackedFloat32Array(0.6385542, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tbmy8"]
+gradient = SubResource("Gradient_tbmy8")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.47391304, 0.5)
+fill_to = Vector2(0, 0)
+repeat = 1
+
+[sub_resource type="Gradient" id="Gradient_jk1qb"]
+offsets = PackedFloat32Array(0.14788732, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hstxw"]
+gradient = SubResource("Gradient_jk1qb")
+width = 114
+
+[sub_resource type="Gradient" id="Gradient_5dd4i"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5pajh"]
+gradient = SubResource("Gradient_5dd4i")
+width = 3
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbmy8"]
+lifetime_randomness = 0.51
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(350, 250, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -580.2
+angle_max = 412.40002
+direction = Vector3(0, -1, 0)
+spread = 180.0
+orbit_velocity_min = 0.020000096
+orbit_velocity_max = 0.050000098
+gravity = Vector3(0, 1, 0)
+scale_min = 0.29999998
+scale_max = 0.7
+color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+color_ramp = SubResource("GradientTexture1D_5pajh")
+color_initial_ramp = SubResource("GradientTexture1D_hstxw")
+anim_speed_min = 2.02
+anim_speed_max = 9.559999
+turbulence_enabled = true
+turbulence_noise_strength = 0.78
+turbulence_noise_scale = 5.044
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1oqn"]
 bg_color = Color(1, 0.9882353, 1, 1)
@@ -39,6 +117,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -18.0
+offset_right = -21.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
@@ -48,21 +130,65 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 9.0
+offset_right = 23.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_y1oqn")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1065563658]
+color = Color(0.39638966, 0.33667618, 0.46348548, 1)
+
+[node name="Decoraciones" type="Node2D" parent="." unique_id=1193550760]
+position = Vector2(-9, 16)
+
+[node name="Antorcha1" type="Sprite2D" parent="Decoraciones" unique_id=1376091100]
+position = Vector2(205, 213)
+scale = Vector2(4.625, 3.7647057)
+texture = ExtResource("3_8ln24")
+
+[node name="PointLight2D" type="PointLight2D" parent="Decoraciones/Antorcha1" unique_id=867646597]
+position = Vector2(0.9729681, 5.910162)
+scale = Vector2(0.3627534, 0.25239563)
+color = Color(0.746448, 0.3968752, 0, 1)
+texture = ExtResource("4_rtw2f")
+script = ExtResource("5_rtw2f")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Decoraciones/Antorcha1" unique_id=1373933459]
+position = Vector2(1.7297287, 9.03125)
+process_material = SubResource("ParticleProcessMaterial_oa1go")
+
+[node name="Herramientas" type="Sprite2D" parent="Decoraciones" unique_id=1232571253]
+position = Vector2(898, 478.00003)
+scale = Vector2(0.22300704, 0.20331186)
+texture = ExtResource("6_tbmy8")
+
+[node name="Telaraña" type="Sprite2D" parent="Decoraciones" unique_id=1719760984]
+position = Vector2(998, 189.5)
+scale = Vector2(0.14328961, 0.11867525)
+texture = ExtResource("6_oa1go")
+
+[node name="PolvoAmbiente" type="GPUParticles2D" parent="Decoraciones" unique_id=610002867]
+position = Vector2(541, 348)
+amount = 30
+texture = SubResource("GradientTexture2D_tbmy8")
+lifetime = 13.66
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_tbmy8")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1753013631]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -229.5
-offset_top = -94.0
-offset_right = 229.5
-offset_bottom = 94.0
+anchors_preset = -1
+anchor_left = 0.186
+anchor_top = 0.758
+anchor_right = 0.186
+anchor_bottom = 0.758
+offset_left = 132.228
+offset_top = -295.18402
+offset_right = 589.728
+offset_bottom = -71.18402
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 11
@@ -110,10 +236,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -145.75
-offset_top = -258.0
-offset_right = 145.75
-offset_bottom = -156.0
+offset_left = -241.0
+offset_top = -230.0
+offset_right = 220.0
+offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
