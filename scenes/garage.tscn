@@ -451,6 +451,7 @@ metadata/_edit_group_ = true
 position = Vector2(13, 27)
 
 [node name="Player" parent="." unique_id=194799799 instance=ExtResource("3_f50xb")]
+top_level = true
 position = Vector2(116, 161)
 
 [node name="Door" type="Area2D" parent="." unique_id=2084758739]

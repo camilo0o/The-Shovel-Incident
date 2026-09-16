@@ -278,7 +278,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qe4n8"]
-size = Vector2(12, 9)
+size = Vector2(9, 9)
 
 [node name="Player" type="CharacterBody2D" unique_id=194799799]
 position = Vector2(41, 31)
@@ -290,5 +290,6 @@ sprite_frames = SubResource("SpriteFrames_sau36")
 animation = &"run_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1016968543]
-position = Vector2(0, 8.5)
+top_level = true
+position = Vector2(0.5, 8.5)
 shape = SubResource("RectangleShape2D_qe4n8")
