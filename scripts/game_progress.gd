@@ -5,9 +5,9 @@ var level_unlocked: Array[bool] = [true, false, false]
 var level_completed: Array[bool] = [false, false, false]
 
 var level_scenes: Array[String] = [
-	"res://scenes/nivel1.tscn",
-	"res://scenes/nivel2.tscn",
-	"res://scenes/nivel3.tscn"
+	"res://scenes/level1.tscn",
+	"res://scenes/level2.tscn",
+	"res://scenes/level3.tscn"
 ]
 
 func complete_level(index: int) -> void:
