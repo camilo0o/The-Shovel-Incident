@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://w3agww0xt17j" path="res://assets/sprites/enemies/palin/Sprite-palin3-ataque-izquierda.png" id="1_dg0ha"]
 [ext_resource type="Texture2D" uid="uid://dn1wed2oompid" path="res://assets/sprites/enemies/palin/Sprite-palin2-ataque-derecha-Sheet.png" id="2_c6ir5"]
 [ext_resource type="Texture2D" uid="uid://dpfyfmdriyg6v" path="res://assets/sprites/enemies/palin/Sprite-palin1-caminata-Sheet.png" id="3_6jpam"]
+[ext_resource type="Script" uid="uid://by1kdub1eclw0" path="res://scripts/palin.gd" id="4_palin"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gfsww"]
 atlas = ExtResource("1_dg0ha")
@@ -63,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ope4f")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_left",
 "speed": 14.0
 }, {
@@ -80,7 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_apo2f")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_right",
 "speed": 14.0
 }, {
@@ -99,106 +100,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqyde"]
-size = Vector2(26, 192)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_palin"]
+size = Vector2(10, 26)
 
-[sub_resource type="Animation" id="Animation_dg0ha"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack_left"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D:shape")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_aqyde")]
-}
+[node name="Palin" type="CharacterBody2D" unique_id=1717164484]
+collision_layer = 4
+script = ExtResource("4_palin")
 
-[sub_resource type="Animation" id="Animation_c6ir5"]
-resource_name = "attack_left"
-length = 2.3333333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack_left"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.46666667, 0.8, 1.1666666),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D:shape")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.47),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_aqyde"), SubResource("RectangleShape2D_aqyde")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jpam"]
-_data = {
-&"RESET": SubResource("Animation_dg0ha"),
-&"attack_left": SubResource("Animation_c6ir5")
-}
-
-[node name="Palin" type="Node2D" unique_id=2031540051]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=373101335]
-position = Vector2(8, 0)
-scale = Vector2(0.875, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2053349691]
+scale = Vector2(0.16, 0.16)
 sprite_frames = SubResource("SpriteFrames_y1oqn")
-animation = &"attack_left"
+animation = &"movement"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1352827028]
-position = Vector2(24, 0)
-rotation = -0.13962634
-shape = SubResource("RectangleShape2D_aqyde")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=147261979]
-libraries/ = SubResource("AnimationLibrary_6jpam")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1539096964]
+shape = SubResource("RectangleShape2D_palin")

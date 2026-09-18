@@ -1,10 +1,11 @@
 [gd_scene format=4 uid="uid://ds8h4raf4orl6"]
 
-[ext_resource type="Script" uid="uid://cy25nqyu25pfk" path="res://scenes/level_1.gd" id="1_ru4tf"]
+[ext_resource type="Script" uid="uid://cy25nqyu25pfk" path="res://scripts/level_1.gd" id="1_ru4tf"]
 [ext_resource type="Texture2D" uid="uid://c06aabb22iljl" path="res://assets/backgrounds/Dungeon tileset.png" id="2_6sh32"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="3_ejswk"]
-[ext_resource type="Script" uid="uid://dsupgkb1n7i1s" path="res://scenes/portal.gd" id="4_bbk5w"]
+[ext_resource type="Script" uid="uid://dsupgkb1n7i1s" path="res://scripts/portal.gd" id="4_bbk5w"]
 [ext_resource type="Texture2D" uid="uid://dy6lw0qdw5nrq" path="res://assets/sprites/structures/Dimensional_Portal.png" id="5_conm7"]
+[ext_resource type="PackedScene" uid="uid://co7mm4oam0e4w" path="res://scenes/palin.tscn" id="6_6sh32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -589,5 +590,8 @@ frame_progress = 0.67687964
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Portal" unique_id=1210441270]
 position = Vector2(1037, 145)
 shape = SubResource("CapsuleShape2D_y1oqn")
+
+[node name="Palin" parent="." unique_id=1717164484 instance=ExtResource("6_6sh32")]
+position = Vector2(780, 136)
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
