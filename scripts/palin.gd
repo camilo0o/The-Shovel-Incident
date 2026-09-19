@@ -21,11 +21,13 @@ var jugador: Node2D
 var puede_atacar := true
 var empuje := Vector2.ZERO
 
+var _barra_vida: ProgressBar
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING  # vista cenital, sin "suelo"
 	add_to_group("enemigos")
 	vida = vida_maxima
+	_crear_barra_vida()
 	_pose_reposo()
 
 
@@ -111,6 +113,8 @@ func _morir() -> void:
 	murio.emit()
 	colision.set_deferred("disabled", true)
 	set_physics_process(false)
+	if _barra_vida != null:
+		_barra_vida.visible = false
 	sprite.modulate = Color(1, 0.3, 0.3)
 	var tween := create_tween()
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
@@ -129,3 +133,36 @@ func _pose_reposo() -> void:
 		sprite.animation = &"movement"
 		sprite.stop()
 		sprite.frame = 0
+
+# Barra de vida flotante sobre la cabeza del enemigo.
+# Es hija directa del enemigo (Node2D), así que se mueve con él automáticamente.
+func _crear_barra_vida() -> void:
+	_barra_vida = ProgressBar.new()
+	_barra_vida.min_value = 0
+	_barra_vida.max_value = vida_maxima
+	_barra_vida.value = vida
+	_barra_vida.show_percentage = false
+	_barra_vida.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	var ancho := 20.0
+	var alto := 4.0
+	
+	_barra_vida.custom_minimum_size = Vector2(ancho, alto)
+	_barra_vida.size = Vector2(ancho, alto)
+	_barra_vida.position = Vector2(-ancho / 2.0, -22.0)   # centrada, arriba de la cabeza
+	_barra_vida.z_index = 10
+	
+	var fondo := StyleBoxFlat.new()
+	fondo.bg_color = Color(0.1, 0.1, 0.1, 0.85)
+	var relleno := StyleBoxFlat.new()
+	relleno.bg_color = Color(0.85, 0.15, 0.15)
+ 
+	_barra_vida.add_theme_stylebox_override("background", fondo)
+	_barra_vida.add_theme_stylebox_override("fill", relleno)
+ 
+	add_child(_barra_vida)
+
+func _actualizar_barra_vida() -> void:
+	if _barra_vida == null:
+		return
+	_barra_vida.value = vida

@@ -8,7 +8,6 @@ const MASK_ENEMIGOS := 1 << 2   # capa de colisión 3 = enemigos
 
 # Controles: clic izq / J = piñazo (siempre disponible)
 #            clic der / K = arma elegida en la armería
-# Para invertirlos alcanza con intercambiar estas dos constantes.
 const ACCION_PUNO := "ataque_corto"
 const ACCION_ARMA := "ataque_largo"
 
@@ -35,6 +34,10 @@ var last_direction = "front"
 var vida := 0
 var invulnerable := false
 
+# HUD de vida (esquina inferior izquierda)
+var _hud_layer: CanvasLayer
+var _hud_barra: ProgressBar
+
 var arma: ArmaData = null            # se sincroniza con GameProgress.arma_equipada
 var puede_pegar_puno := true
 var puede_usar_arma := true
@@ -53,6 +56,7 @@ func _ready() -> void:
 	add_to_group("jugador")
 	vida = vida_maxima
 	_crear_visuales_de_ataque()
+	_crear_hud_vida()
 	GameProgress.arma_cambiada.connect(_on_arma_cambiada)
 	_on_arma_cambiada(GameProgress.arma_equipada)
 
@@ -219,6 +223,54 @@ func _disparar() -> void:
 
 func agregar_municion(cantidad: int) -> void:
 	municion += cantidad
+
+
+# HUD de vida: barra fija en la esquina inferior izquierda de la pantalla.
+# Va en un CanvasLayer para no verse afectada por la cámara ni el zoom.
+
+func _crear_hud_vida() -> void:
+	_hud_layer = CanvasLayer.new()
+	_hud_layer.layer = 10
+	add_child(_hud_layer)
+
+	_hud_barra = ProgressBar.new()
+	_hud_barra.min_value = 0
+	_hud_barra.max_value = vida_maxima
+	_hud_barra.value = vida
+	_hud_barra.show_percentage = false
+	_hud_barra.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	# Ancla inferior izquierda + offsets = posición fija en esa esquina
+	# sin importar la resolución de la ventana.
+	_hud_barra.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_hud_barra.offset_left = 16
+	_hud_barra.offset_right = 16 + 120
+	_hud_barra.offset_top = -32
+	_hud_barra.offset_bottom = -16
+
+	var fondo := StyleBoxFlat.new()
+	fondo.bg_color = Color(0.1, 0.1, 0.1, 0.85)
+	fondo.set_corner_radius_all(3)
+	fondo.set_border_width_all(2)
+	fondo.border_color = Color(0, 0, 0)
+
+	var relleno := StyleBoxFlat.new()
+	relleno.bg_color = Color(0.8, 0.15, 0.15)
+	relleno.set_corner_radius_all(3)
+
+	_hud_barra.add_theme_stylebox_override("background", fondo)
+	_hud_barra.add_theme_stylebox_override("fill", relleno)
+
+	_hud_layer.add_child(_hud_barra)
+
+	vida_cambiada.connect(_actualizar_hud_vida)
+
+
+func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
+	if _hud_barra == null:
+		return
+	_hud_barra.max_value = vida_max
+	_hud_barra.value = vida_actual
 
 
 # Arma en la mano

@@ -470,15 +470,15 @@ position = Vector2(8.499992, -32.500004)
 scale = Vector2(0.94000006, 0.68666667)
 texture = ExtResource("5_d8qye")
 
-[node name="PuestoBate" parent="." instance=ExtResource("7_puesto")]
+[node name="PuestoBate" parent="." unique_id=851983296 instance=ExtResource("7_puesto")]
 position = Vector2(30, 136)
 arma = ExtResource("8_bate")
 
-[node name="PuestoAk47" parent="." instance=ExtResource("7_puesto")]
+[node name="PuestoAk47" parent="." unique_id=864026747 instance=ExtResource("7_puesto")]
 position = Vector2(64, 136)
 arma = ExtResource("9_ak47")
 
-[node name="PuestoPistolaClavos" parent="." instance=ExtResource("7_puesto")]
+[node name="PuestoPistolaClavos" parent="." unique_id=1563160558 instance=ExtResource("7_puesto")]
 position = Vector2(98, 136)
 arma = ExtResource("10_pistola")
 
