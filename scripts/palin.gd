@@ -10,6 +10,10 @@ signal murio
 @export var cooldown_ataque := 1.2       # pausa entre ataques
 @export var fuerza_retroceso := 140.0    # empujón al recibir un golpe
 
+@export_group("Jefe de nivel")
+@export var es_jefe := false             # true = al morir dispara la pantalla de victoria
+@export var nivel_index := 0             # qué nivel (0, 1, 2) marca como completo en GameProgress
+
 enum Estado { LIBRE, ATACANDO, MUERTO }
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -22,6 +26,7 @@ var puede_atacar := true
 var empuje := Vector2.ZERO
 
 var _barra_vida: ProgressBar
+
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING  # vista cenital, sin "suelo"
@@ -93,6 +98,7 @@ func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:
 	if estado == Estado.MUERTO:
 		return
 	vida -= cantidad
+	_actualizar_barra_vida()
 
 	if origen != Vector2.ZERO:
 		empuje = (global_position - origen).normalized() * fuerza_retroceso
@@ -120,6 +126,12 @@ func _morir() -> void:
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
 	tween.tween_callback(queue_free)
 
+	if es_jefe:
+		GameProgress.complete_level(nivel_index)
+		var jugador_actual := get_tree().get_first_node_in_group("jugador")
+		if jugador_actual != null and jugador_actual.has_method("mostrar_victoria"):
+			jugador_actual.mostrar_victoria()
+
 
 # Animaciones
 
@@ -134,8 +146,10 @@ func _pose_reposo() -> void:
 		sprite.stop()
 		sprite.frame = 0
 
+
 # Barra de vida flotante sobre la cabeza del enemigo.
 # Es hija directa del enemigo (Node2D), así que se mueve con él automáticamente.
+
 func _crear_barra_vida() -> void:
 	_barra_vida = ProgressBar.new()
 	_barra_vida.min_value = 0
@@ -143,24 +157,24 @@ func _crear_barra_vida() -> void:
 	_barra_vida.value = vida
 	_barra_vida.show_percentage = false
 	_barra_vida.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
+
 	var ancho := 20.0
 	var alto := 4.0
-	
 	_barra_vida.custom_minimum_size = Vector2(ancho, alto)
 	_barra_vida.size = Vector2(ancho, alto)
 	_barra_vida.position = Vector2(-ancho / 2.0, -22.0)   # centrada, arriba de la cabeza
 	_barra_vida.z_index = 10
-	
+
 	var fondo := StyleBoxFlat.new()
 	fondo.bg_color = Color(0.1, 0.1, 0.1, 0.85)
 	var relleno := StyleBoxFlat.new()
 	relleno.bg_color = Color(0.85, 0.15, 0.15)
- 
+
 	_barra_vida.add_theme_stylebox_override("background", fondo)
 	_barra_vida.add_theme_stylebox_override("fill", relleno)
- 
+
 	add_child(_barra_vida)
+
 
 func _actualizar_barra_vida() -> void:
 	if _barra_vida == null:

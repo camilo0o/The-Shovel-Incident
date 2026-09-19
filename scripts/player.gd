@@ -2,12 +2,14 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 
 signal vida_cambiada(vida_actual: int, vida_maxima: int)
+signal municion_cambiada(cantidad: int)
 signal murio
 
 const MASK_ENEMIGOS := 1 << 2   # capa de colisión 3 = enemigos
 
 # Controles: clic izq / J = piñazo (siempre disponible)
 #            clic der / K = arma elegida en la armería
+# Para invertirlos alcanza con intercambiar estas dos constantes.
 const ACCION_PUNO := "ataque_corto"
 const ACCION_ARMA := "ataque_largo"
 
@@ -37,6 +39,13 @@ var invulnerable := false
 # HUD de vida (esquina inferior izquierda)
 var _hud_layer: CanvasLayer
 var _hud_barra: ProgressBar
+var _hud_municion: Label
+
+# Pantallas de pausa / victoria / derrota
+var _panel_pausa: Control
+var _panel_derrota: Control
+var _panel_victoria: Control
+var _juego_terminado := false   # evita reaccionar dos veces (ya ganó o ya perdió)
 
 var arma: ArmaData = null            # se sincroniza con GameProgress.arma_equipada
 var puede_pegar_puno := true
@@ -53,15 +62,27 @@ var _golpe_rect := Rect2()
 
 
 func _ready() -> void:
+	# Sigue procesando aunque el árbol esté en pausa (para poder despausar
+	# y para que los botones de los paneles respondan). El propio
+	# _physics_process corta apenas confirma que está pausado.
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	animated_sprite.process_mode = Node.PROCESS_MODE_PAUSABLE
+
 	add_to_group("jugador")
 	vida = vida_maxima
 	_crear_visuales_de_ataque()
 	_crear_hud_vida()
+	_crear_paneles_de_estado()
 	GameProgress.arma_cambiada.connect(_on_arma_cambiada)
 	_on_arma_cambiada(GameProgress.arma_equipada)
 
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel") and not _juego_terminado:
+		_alternar_pausa()
+	if get_tree().paused:
+		return
+
 	get_input()
 	move_and_slide()
 	_actualizar_arma_visual()
@@ -200,6 +221,7 @@ func _impactar_arma() -> void:
 func _disparar() -> void:
 	if arma.consume_municion:
 		municion -= 1
+		municion_cambiada.emit(municion)
 
 	var dir := _direccion_vector()
 	var bala := bala_scene.instantiate()
@@ -223,6 +245,7 @@ func _disparar() -> void:
 
 func agregar_municion(cantidad: int) -> void:
 	municion += cantidad
+	municion_cambiada.emit(municion)
 
 
 # HUD de vida: barra fija en la esquina inferior izquierda de la pantalla.
@@ -265,12 +288,128 @@ func _crear_hud_vida() -> void:
 
 	vida_cambiada.connect(_actualizar_hud_vida)
 
+	# Contador de munición, pegado a la derecha de la barra de vida.
+	_hud_municion = Label.new()
+	_hud_municion.text = "Munición: %d" % municion
+	_hud_municion.add_theme_font_size_override("font_size", 16)
+	_hud_municion.add_theme_color_override("font_color", Color.WHITE)
+	_hud_municion.add_theme_color_override("font_outline_color", Color.BLACK)
+	_hud_municion.add_theme_constant_override("outline_size", 4)
+
+	_hud_municion.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_hud_municion.offset_left = 16 + 120 + 12   # a la derecha de la barra, con separación
+	_hud_municion.offset_right = 16 + 120 + 12 + 100
+	_hud_municion.offset_top = -32
+	_hud_municion.offset_bottom = -16
+	_hud_municion.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
+	_hud_layer.add_child(_hud_municion)
+
+	municion_cambiada.connect(_actualizar_hud_municion)
+
 
 func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
 	if _hud_barra == null:
 		return
 	_hud_barra.max_value = vida_max
 	_hud_barra.value = vida_actual
+
+
+func _actualizar_hud_municion(cantidad: int) -> void:
+	if _hud_municion == null:
+		return
+	_hud_municion.text = "Munición: %d" % cantidad
+
+
+# Pantallas de pausa, victoria y derrota
+# Las tres son overlays de pantalla completa dentro del mismo CanvasLayer del HUD.
+
+func _crear_paneles_de_estado() -> void:
+	_panel_pausa = _crear_overlay("Pausa")
+	_agregar_boton(_panel_pausa, "Continuar", _alternar_pausa)
+	_agregar_boton(_panel_pausa, "Volver a selección de niveles", _ir_a_seleccion_de_niveles)
+	_hud_layer.add_child(_panel_pausa)
+
+	_panel_derrota = _crear_overlay("Se acabó el juego, tu pierdes...")
+	_hud_layer.add_child(_panel_derrota)
+
+	_panel_victoria = _crear_overlay("¡Nivel superado!")
+	_agregar_boton(_panel_victoria, "Volver a selección de niveles", _ir_a_seleccion_de_niveles)
+	_hud_layer.add_child(_panel_victoria)
+
+
+# Fondo oscuro + mensaje centrado. Se agregan botones aparte con _agregar_boton.
+func _crear_overlay(mensaje: String) -> Panel:
+	var fondo := Panel.new()
+	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fondo.mouse_filter = Control.MOUSE_FILTER_STOP   # bloquea clics hacia el juego
+	fondo.visible = false
+
+	var estilo := StyleBoxFlat.new()
+	estilo.bg_color = Color(0, 0, 0, 0.75)
+	fondo.add_theme_stylebox_override("panel", estilo)
+
+	var caja := VBoxContainer.new()
+	var ancho := 260.0
+	var alto := 160.0
+	caja.set_anchors_preset(Control.PRESET_CENTER)
+	caja.offset_left = -ancho / 2.0
+	caja.offset_right = ancho / 2.0
+	caja.offset_top = -alto / 2.0
+	caja.offset_bottom = alto / 2.0
+	caja.alignment = BoxContainer.ALIGNMENT_CENTER
+	caja.add_theme_constant_override("separation", 12)
+	fondo.add_child(caja)
+
+	var titulo := Label.new()
+	titulo.text = mensaje
+	titulo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	titulo.autowrap_mode = TextServer.AUTOWRAP_WORD
+	titulo.add_theme_font_size_override("font_size", 22)
+	caja.add_child(titulo)
+
+	fondo.set_meta("caja", caja)
+	return fondo
+
+
+func _agregar_boton(overlay: Panel, texto: String, al_presionar: Callable) -> void:
+	var caja: VBoxContainer = overlay.get_meta("caja")
+	var boton := Button.new()
+	boton.text = texto
+	boton.pressed.connect(al_presionar)
+	caja.add_child(boton)
+
+
+func _alternar_pausa() -> void:
+	if _juego_terminado:
+		return
+	get_tree().paused = not get_tree().paused
+	_panel_pausa.visible = get_tree().paused
+
+
+func _ir_a_seleccion_de_niveles() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/level_select.tscn")
+
+
+# Llamado por el jefe (palin.gd) al morir, si tiene es_jefe = true
+func mostrar_victoria() -> void:
+	if _juego_terminado:
+		return
+	_juego_terminado = true
+	get_tree().paused = true
+	_panel_victoria.visible = true
+
+
+func _mostrar_derrota() -> void:
+	if _juego_terminado:
+		return
+	_juego_terminado = true
+	get_tree().paused = true
+	_panel_derrota.visible = true
+	await get_tree().create_timer(2.0).timeout
+	get_tree().paused = false
+	get_tree().call_deferred("reload_current_scene")
 
 
 # Arma en la mano
@@ -358,8 +497,7 @@ func recibir_dano(cantidad: int, _origen: Vector2 = Vector2.ZERO) -> void:
 
 	if vida <= 0:
 		murio.emit()
-		# Provisional: reinicia el nivel. Cambiar por pantalla de derrota cuando exista.
-		get_tree().call_deferred("reload_current_scene")
+		_mostrar_derrota()
 		return
 
 	invulnerable = true

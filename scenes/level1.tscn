@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dsupgkb1n7i1s" path="res://scripts/portal.gd" id="4_bbk5w"]
 [ext_resource type="Texture2D" uid="uid://dy6lw0qdw5nrq" path="res://assets/sprites/structures/Dimensional_Portal.png" id="5_conm7"]
 [ext_resource type="PackedScene" uid="uid://co7mm4oam0e4w" path="res://scenes/palin.tscn" id="6_6sh32"]
+[ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="7_ejswk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -593,5 +594,35 @@ shape = SubResource("CapsuleShape2D_y1oqn")
 
 [node name="Palin" parent="." unique_id=1717164484 instance=ExtResource("6_6sh32")]
 position = Vector2(780, 136)
+
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1487694904 node_paths=PackedStringArray("puntos_spawn")]
+script = ExtResource("7_ejswk")
+puntos_spawn = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4"), NodePath("Marker2D5"), NodePath("Marker2D6"), NodePath("Marker2D7"), NodePath("Marker2D8")]
+intervalo_minimo = 3.0
+intervalo_maximo = 10.0
+
+[node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=1913116667]
+position = Vector2(118, 127)
+
+[node name="Marker2D2" type="Marker2D" parent="MunicionSpawner" unique_id=916806018]
+position = Vector2(284, 152)
+
+[node name="Marker2D3" type="Marker2D" parent="MunicionSpawner" unique_id=546590409]
+position = Vector2(372, 82)
+
+[node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=791243953]
+position = Vector2(469, 149)
+
+[node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=1576948902]
+position = Vector2(584, 64)
+
+[node name="Marker2D6" type="Marker2D" parent="MunicionSpawner" unique_id=311983456]
+position = Vector2(688, 159)
+
+[node name="Marker2D7" type="Marker2D" parent="MunicionSpawner" unique_id=581340195]
+position = Vector2(825, 65)
+
+[node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=90180758]
+position = Vector2(932, 102)
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
