@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/puesto_arma.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/puesto_armeria.png" id="2_base"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/Ancient Medium.ttf" id="3_font"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zona"]
+size = Vector2(24, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mesa"]
+size = Vector2(22, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_etiqueta"]
+font = ExtResource("3_font")
+font_size = 24
+font_color = Color(1, 0.98669523, 0.13335153, 0.94)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PuestoArma" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("2_base")
+
+[node name="Icono" type="Sprite2D" parent="."]
+position = Vector2(0, -22)
+
+[node name="Zona" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_zona")
+
+[node name="Cuerpo" type="StaticBody2D" parent="."]
+
+[node name="Mesa" type="CollisionShape2D" parent="Cuerpo"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_mesa")
+
+[node name="Etiqueta" type="Label" parent="."]
+visible = false
+z_index = 10
+custom_minimum_size = Vector2(300, 0)
+offset_left = -45.0
+offset_top = -50.0
+offset_right = 255.0
+offset_bottom = -6.0
+scale = Vector2(0.3, 0.3)
+text = "Arma
+[E] Equipar"
+label_settings = SubResource("LabelSettings_etiqueta")
+horizontal_alignment = 1

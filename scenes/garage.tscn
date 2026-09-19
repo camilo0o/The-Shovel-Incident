@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://cfgblaaqc5svw" path="res://scripts/door.gd" id="4_6thhw"]
 [ext_resource type="Texture2D" uid="uid://638c5asf0sv0" path="res://assets/backgrounds/door.png" id="5_d8qye"]
 [ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="6_18b1i"]
+[ext_resource type="PackedScene" path="res://scenes/puesto_arma.tscn" id="7_puesto"]
+[ext_resource type="Resource" path="res://resources/armas/bate.tres" id="8_bate"]
+[ext_resource type="Resource" path="res://resources/armas/ak47.tres" id="9_ak47"]
+[ext_resource type="Resource" path="res://resources/armas/pistola_clavos.tres" id="10_pistola"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13b6"]
 texture = ExtResource("1_rao6x")
@@ -465,6 +469,18 @@ shape = SubResource("RectangleShape2D_8j5m5")
 position = Vector2(8.499992, -32.500004)
 scale = Vector2(0.94000006, 0.68666667)
 texture = ExtResource("5_d8qye")
+
+[node name="PuestoBate" parent="." instance=ExtResource("7_puesto")]
+position = Vector2(30, 136)
+arma = ExtResource("8_bate")
+
+[node name="PuestoAk47" parent="." instance=ExtResource("7_puesto")]
+position = Vector2(64, 136)
+arma = ExtResource("9_ak47")
+
+[node name="PuestoPistolaClavos" parent="." instance=ExtResource("7_puesto")]
+position = Vector2(98, 136)
+arma = ExtResource("10_pistola")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=749508165]
 

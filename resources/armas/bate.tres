@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmaData" format=3]
+
+[ext_resource type="Script" path="res://scripts/arma_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/bate.png" id="2_icono"]
+
+[resource]
+script = ExtResource("1_script")
+nombre = "Bate de béisbol"
+tipo = 0
+icono = ExtResource("2_icono")
+descripcion = "Buen alcance y buen daño."
+dano = 2
+cooldown = 0.5
+alcance = 24.0
+tamano_golpe = Vector2(30, 30)

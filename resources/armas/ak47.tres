@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ArmaData" format=3]
+
+[ext_resource type="Script" path="res://scripts/arma_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/ak47.png" id="2_icono"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/bala_ak.png" id="3_bala"]
+
+[resource]
+script = ExtResource("1_script")
+nombre = "AK-47"
+tipo = 1
+icono = ExtResource("2_icono")
+descripcion = "Ráfagas rápidas. Gasta munición."
+dano = 1
+cooldown = 0.12
+bala_textura = ExtResource("3_bala")
+velocidad_bala = 340.0
+vida_util_bala = 1.0
+consume_municion = true
+automatica = true
+distancia_boca = 16.0

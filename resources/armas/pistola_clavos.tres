@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ArmaData" format=3]
+
+[ext_resource type="Script" path="res://scripts/arma_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/pistola_clavos.png" id="2_icono"]
+[ext_resource type="Texture2D" path="res://assets/sprites/armas/clavo.png" id="3_bala"]
+
+[resource]
+script = ExtResource("1_script")
+nombre = "Pistola de clavos"
+tipo = 1
+icono = ExtResource("2_icono")
+descripcion = "Dispara clavos a distancia. Gasta munición."
+dano = 1
+cooldown = 0.45
+bala_textura = ExtResource("3_bala")
+velocidad_bala = 280.0
+vida_util_bala = 1.2
+consume_municion = true

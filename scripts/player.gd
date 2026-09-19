@@ -6,27 +6,44 @@ signal murio
 
 const MASK_ENEMIGOS := 1 << 2   # capa de colisión 3 = enemigos
 
+# Controles: clic izq / J = piñazo (siempre disponible)
+#            clic der / K = arma elegida en la armería
+# Para invertirlos alcanza con intercambiar estas dos constantes.
+const ACCION_PUNO := "ataque_corto"
+const ACCION_ARMA := "ataque_largo"
+
+const TEXTURA_PUNO := preload("res://assets/sprites/armas/puno.png")
+
 @export var vida_maxima := 5
+@export var municion := 60
 
-@export_group("Ataque corto (cuerpo a cuerpo)")
-@export var dano_corto := 1
-@export var alcance_corto := 22.0        # distancia del golpe desde el jugador
-@export var tamano_golpe := Vector2(26, 26)
-@export var cooldown_corto := 0.35
+@export_group("Piñazo")
+@export var dano_puno := 1
+@export var alcance_puno := 16.0
+@export var tamano_puno := Vector2(16, 16)
+@export var cooldown_puno := 0.3
 
-@export_group("Ataque largo (proyectil)")
+@export_group("Proyectil")
 @export var bala_scene: PackedScene = preload("res://scenes/bala.tscn")
-@export var dano_largo := 1
-@export var cooldown_largo := 0.5
-@export var municion := 10
+
+@export_group("Debug")
+@export var debug_hitbox := false   # dibuja la caja del golpe
 
 var speed = 100.0
 var last_direction = "front"
 
 var vida := 0
 var invulnerable := false
-var puede_atacar_corto := true
-var puede_atacar_largo := true
+
+var arma: ArmaData = null            # se sincroniza con GameProgress.arma_equipada
+var puede_pegar_puno := true
+var puede_usar_arma := true
+
+var _arma_pivote: Node2D             # queda en la mano; el arma gira alrededor de este punto
+var _arma_sprite: Sprite2D
+var _puno_sprite: Sprite2D
+var _animando_arma := false
+var _direccion_dibujada := ""
 
 var _golpe_visible := false
 var _golpe_rect := Rect2()
@@ -35,16 +52,20 @@ var _golpe_rect := Rect2()
 func _ready() -> void:
 	add_to_group("jugador")
 	vida = vida_maxima
+	_crear_visuales_de_ataque()
+	GameProgress.arma_cambiada.connect(_on_arma_cambiada)
+	_on_arma_cambiada(GameProgress.arma_equipada)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	get_input()
 	move_and_slide()
+	_actualizar_arma_visual()
 
-	if Input.is_action_just_pressed("ataque_corto"):
-		ataque_corto()
-	elif Input.is_action_just_pressed("ataque_largo"):
-		ataque_largo()
+	if Input.is_action_just_pressed(ACCION_PUNO):
+		atacar_con_puno()
+	elif Input.is_action_just_pressed(ACCION_ARMA) or (arma != null and arma.automatica and Input.is_action_pressed(ACCION_ARMA)):
+		atacar_con_arma()
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -85,18 +106,14 @@ func _direccion_vector() -> Vector2:
 			return Vector2.DOWN
 
 
-# Ataque corto: golpea todo enemigo dentro de una caja delante del jugador
+# Golpe genérico: daña a todo enemigo dentro de una caja delante del jugador.
+# Lo usan el piñazo y las armas cuerpo a cuerpo. Devuelve cuántos golpeó.
 
-func ataque_corto() -> void:
-	if not puede_atacar_corto:
-		return
-	puede_atacar_corto = false
-
-	var dir := _direccion_vector()
-	var centro_local := dir * alcance_corto
+func _golpear(dano: int, alcance: float, tamano: Vector2) -> int:
+	var centro_local := _direccion_vector() * alcance
 
 	var forma := RectangleShape2D.new()
-	forma.size = tamano_golpe
+	forma.size = tamano
 	var consulta := PhysicsShapeQueryParameters2D.new()
 	consulta.shape = forma
 	consulta.transform = Transform2D(0.0, global_position + centro_local)
@@ -110,15 +127,161 @@ func ataque_corto() -> void:
 			continue
 		golpeados.append(cuerpo)
 		if cuerpo.has_method("recibir_dano"):
-			cuerpo.recibir_dano(dano_corto, global_position)
+			cuerpo.recibir_dano(dano, global_position)
 
-	_mostrar_golpe(Rect2(centro_local - tamano_golpe / 2.0, tamano_golpe))
+	if debug_hitbox:
+		_mostrar_golpe(Rect2(centro_local - tamano / 2.0, tamano))
+	return golpeados.size()
 
-	await get_tree().create_timer(cooldown_corto).timeout
-	puede_atacar_corto = true
+
+# Ñapi: siempre disponible, con o sin arma
+
+func atacar_con_puno() -> void:
+	if not puede_pegar_puno:
+		return
+	puede_pegar_puno = false
+
+	_golpear(dano_puno, alcance_puno, tamano_puno)
+	_animar_puno()
+
+	await get_tree().create_timer(cooldown_puno).timeout
+	puede_pegar_puno = true
+
+func _animar_puno() -> void:
+	var dir := _direccion_vector()
+	var mano := Vector2(0, 4)
+	_puno_sprite.position = mano + dir * 4.0
+	_puno_sprite.visible = true
+	var tween := create_tween()
+	tween.tween_property(_puno_sprite, "position", mano + dir * alcance_puno, 0.06)
+	tween.tween_interval(0.05)
+	tween.tween_callback(func(): _puno_sprite.visible = false)
 
 
-# Feedback visual provisional del golpe (reemplazar por una animación de ataque).
+# Arma equipada: solo se puede usar la que se eligió en la armería
+
+func atacar_con_arma() -> void:
+	if arma == null or not puede_usar_arma:
+		return
+	if arma.tipo == ArmaData.Tipo.DISTANCIA and arma.consume_municion and municion <= 0:
+		return
+	puede_usar_arma = false
+
+	match arma.tipo:
+		ArmaData.Tipo.CUERPO_A_CUERPO:
+			_giro_de_arma()
+		ArmaData.Tipo.DISTANCIA:
+			_disparar()
+
+	await get_tree().create_timer(arma.cooldown).timeout
+	puede_usar_arma = true
+
+func _giro_de_arma() -> void:
+	_animando_arma = true
+	var base := _direccion_vector().angle() + PI / 2.0     # el arma mira hacia arriba con rotación 0
+	var signo := -1.0 if last_direction == "left" else 1.0
+	var inicio := base - signo * deg_to_rad(70.0)
+	inicio = _arma_pivote.rotation + angle_difference(_arma_pivote.rotation, inicio)   # evita dar vueltas de más
+
+	var tween := create_tween()
+	tween.tween_property(_arma_pivote, "rotation", inicio, 0.05)          # preparación
+	tween.tween_callback(_impactar_arma)                                  # el golpe cae acá
+	tween.tween_property(_arma_pivote, "rotation", inicio + signo * deg_to_rad(140.0), 0.09)   # tajo
+	await tween.finished
+	_animando_arma = false
+
+func _impactar_arma() -> void:
+	_golpear(arma.dano, arma.alcance, arma.tamano_golpe)
+
+func _disparar() -> void:
+	if arma.consume_municion:
+		municion -= 1
+
+	var dir := _direccion_vector()
+	var bala := bala_scene.instantiate()
+	bala.direccion = dir
+	bala.dano = arma.dano
+	bala.velocidad = arma.velocidad_bala
+	bala.vida_util = arma.vida_util_bala
+	bala.textura = arma.bala_textura
+	bala.tirador = self
+	get_tree().current_scene.add_child(bala)
+	bala.global_position = global_position + dir * arma.distancia_boca
+
+	# retroceso visual del arma
+	_animando_arma = true
+	var pos0 := _arma_pivote.position
+	var tween := create_tween()
+	tween.tween_property(_arma_pivote, "position", pos0 - dir * 3.0, 0.04)
+	tween.tween_property(_arma_pivote, "position", pos0, 0.08)
+	await tween.finished
+	_animando_arma = false
+
+func agregar_municion(cantidad: int) -> void:
+	municion += cantidad
+
+
+# Arma en la mano
+
+func _crear_visuales_de_ataque() -> void:
+	_arma_pivote = Node2D.new()
+	_arma_pivote.visible = false
+	add_child(_arma_pivote)
+
+	_arma_sprite = Sprite2D.new()
+	_arma_sprite.offset = Vector2(0, -8)   # el pivote queda en el mango, el arma "crece" hacia arriba
+	_arma_pivote.add_child(_arma_sprite)
+
+	_puno_sprite = Sprite2D.new()
+	_puno_sprite.texture = TEXTURA_PUNO
+	_puno_sprite.visible = false
+	add_child(_puno_sprite)
+
+func _on_arma_cambiada(nueva: ArmaData) -> void:
+	arma = nueva
+	_animando_arma = false
+	_direccion_dibujada = ""
+	_arma_pivote.visible = arma != null and arma.icono != null
+	if arma != null:
+		_arma_sprite.texture = arma.icono
+		if arma.icono != null:
+			# el pivote queda en la base del arma sin importar su alto
+			_arma_sprite.offset = Vector2(0, -arma.icono.get_height() / 2.0)
+	_actualizar_arma_visual()
+
+func _actualizar_arma_visual() -> void:
+	if arma == null or _animando_arma:
+		return
+	_arma_pivote.position = _posicion_mano()
+	_arma_pivote.rotation = _rotacion_reposo()
+
+	if _direccion_dibujada != last_direction:
+		_direccion_dibujada = last_direction
+		# de espaldas el arma queda detrás del cuerpo; en el resto, delante
+		if last_direction == "back":
+			move_child(_arma_pivote, animated_sprite.get_index())
+		else:
+			move_child(_arma_pivote, get_child_count() - 1)
+
+func _posicion_mano() -> Vector2:
+	match last_direction:
+		"right":
+			return Vector2(7, 4)
+		"left":
+			return Vector2(-7, 4)
+		"back":
+			return Vector2(-6, 3)
+		_:
+			return Vector2(6, 5)
+
+func _rotacion_reposo() -> float:
+	if arma.tipo == ArmaData.Tipo.DISTANCIA:
+		return _direccion_vector().angle() + PI / 2.0   # apunta hacia donde mira
+	var inclinacion := deg_to_rad(20.0)
+	return -inclinacion if (last_direction == "left" or last_direction == "back") else inclinacion
+
+
+# Feedback visual opcional de la caja del golpe (Debug > debug_hitbox)
 func _mostrar_golpe(rect: Rect2) -> void:
 	_golpe_rect = rect
 	_golpe_visible = true
@@ -130,29 +293,6 @@ func _mostrar_golpe(rect: Rect2) -> void:
 func _draw() -> void:
 	if _golpe_visible:
 		draw_rect(_golpe_rect, Color(1, 1, 1, 0.35))
-
-
-# Ataque largo: dispara una bala en la dirección a la que mira
-
-func ataque_largo() -> void:
-	if not puede_atacar_largo or municion <= 0:
-		return
-	puede_atacar_largo = false
-	municion -= 1
-
-	var dir := _direccion_vector()
-	var bala := bala_scene.instantiate()
-	bala.direccion = dir
-	bala.dano = dano_largo
-	bala.tirador = self
-	get_tree().current_scene.add_child(bala)
-	bala.global_position = global_position + dir * 12.0
-
-	await get_tree().create_timer(cooldown_largo).timeout
-	puede_atacar_largo = true
-
-func agregar_municion(cantidad: int) -> void:
-	municion += cantidad
 
 
 # Recibir daño
