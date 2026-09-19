@@ -15,6 +15,7 @@ The Shovel Incident es un videojuego de acción y disparos en 2D, creado en el m
 | Piñazo (siempre disponible) | Clic izquierdo / `J` |
 | Atacar con el arma equipada | Clic derecho / `K` |
 | Interactuar (puertas, puestos de armas) | `E` |
+| Pausar | `Esc` |
  
 ## Armas disponibles
  
