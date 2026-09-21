@@ -343,7 +343,7 @@ func _actualizar_hud_municion(cantidad: int) -> void:
 func _crear_paneles_de_estado() -> void:
 	_panel_pausa = _crear_overlay("Pausa")
 	_agregar_boton(_panel_pausa, "Continuar", _alternar_pausa)
-	_agregar_boton(_panel_pausa, "Volver a selección de niveles", _ir_a_seleccion_de_niveles)
+	_agregar_boton(_panel_pausa, "Volver", _volver)
 	_hud_layer.add_child(_panel_pausa)
 
 	_panel_derrota = _crear_overlay("Se acabó el juego, tu pierdes...")
@@ -401,6 +401,13 @@ func _alternar_pausa() -> void:
 		return
 	get_tree().paused = not get_tree().paused
 	_panel_pausa.visible = get_tree().paused
+
+
+# Botón "Volver" del menú de pausa: regresa a la escena en la que estabas antes
+# de la actual (el historial lo lleva GameProgress).
+func _volver() -> void:
+	get_tree().paused = false
+	GameProgress.volver()
 
 
 func _ir_a_seleccion_de_niveles() -> void:
