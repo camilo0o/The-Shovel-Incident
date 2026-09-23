@@ -35,6 +35,10 @@ func _intentar_spawnear() -> void:
 	if puntos_spawn.is_empty() or _activos >= maximo_activos:
 		return
 
+	var arma := GameProgress.arma_equipada
+	if arma == null or arma.tipo != ArmaData.Tipo.DISTANCIA:
+		return   # sin arma a distancia equipada, no tiene sentido spawnear munición
+
 	var punto := puntos_spawn[randi() % puntos_spawn.size()]
 	if punto == null:
 		return
@@ -45,3 +49,4 @@ func _intentar_spawnear() -> void:
 
 	_activos += 1
 	item.tree_exited.connect(func(): _activos -= 1)
+	

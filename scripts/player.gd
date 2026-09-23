@@ -304,6 +304,7 @@ func _crear_hud_vida() -> void:
 	_hud_municion.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 	_hud_layer.add_child(_hud_municion)
+	_hud_municion.visible = false # se muestra solo si corresponde
 
 	municion_cambiada.connect(_actualizar_hud_municion)
 
@@ -320,6 +321,10 @@ func _actualizar_hud_municion(cantidad: int) -> void:
 		return
 	_hud_municion.text = "Munición: %d" % cantidad
 
+func _actualizar_visibilidad_municion() -> void:
+	if _hud_municion == null:
+		return
+	_hud_municion.visible = arma != null and arma.tipo == ArmaData.Tipo.DISTANCIA
 
 # Pantallas de pausa, victoria y derrota
 # Las tres son overlays de pantalla completa dentro del mismo CanvasLayer del HUD.
@@ -446,6 +451,7 @@ func _on_arma_cambiada(nueva: ArmaData) -> void:
 			# el pivote queda en la base del arma sin importar su alto
 			_arma_sprite.offset = Vector2(0, -arma.icono.get_height() / 2.0)
 	_actualizar_arma_visual()
+	_actualizar_visibilidad_municion()
 
 func _actualizar_arma_visual() -> void:
 	if arma == null or _animando_arma:
