@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="the shovel incident"
-run/main_scene="uid://c30hm1hfoel3g"
+run/main_scene="uid://c6u2b1ht4556w"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/ui/icons/icon.svg"
 

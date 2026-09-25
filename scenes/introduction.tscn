@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c6u2b1ht4556w"]
+
+[ext_resource type="VideoStream" uid="uid://3lmwcai3dm3e" path="res://assets/cinematics/intro/introduction.ogv" id="1_fiwxd"]
+[ext_resource type="Script" uid="uid://7a53yh08o8ot" path="res://scripts/introduction.gd" id="1_tgans"]
+
+[node name="Introduction" type="Node2D" unique_id=599931519]
+script = ExtResource("1_tgans")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=866298577]
+offset_right = 1153.0
+offset_bottom = 648.0
+stream = ExtResource("1_fiwxd")
+expand = true
