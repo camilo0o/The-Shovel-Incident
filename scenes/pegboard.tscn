@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bsdc5l0vwhioy"]
+
+[ext_resource type="Script" uid="uid://cufp1r4q5cw2i" path="res://scripts/puesto_arma.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cq0v5c7sqf17l" path="res://assets/backgrounds/PostApoc_Workshop.png" id="2_my7ok"]
+[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="3_font"]
+[ext_resource type="Texture2D" uid="uid://c8e2mlvw5oohk" path="res://assets/sprites/armas/ak47.png" id="4_ex68t"]
+[ext_resource type="Texture2D" uid="uid://16sc87gh7olh" path="res://assets/sprites/armas/pistola_clavos.png" id="5_308ju"]
+[ext_resource type="Texture2D" uid="uid://cg348frr4xovo" path="res://assets/sprites/armas/bate.png" id="6_tsb68"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mesa"]
+size = Vector2(62, 39)
+
+[sub_resource type="LabelSettings" id="LabelSettings_etiqueta"]
+font = ExtResource("3_font")
+font_size = 24
+font_color = Color(1, 0.98669523, 0.13335153, 0.94)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wqac"]
+size = Vector2(62, 62)
+
+[node name="PuestoArma" type="Area2D" unique_id=1148541293]
+script = ExtResource("1_script")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1526752889]
+position = Vector2(0, -32)
+texture = ExtResource("2_my7ok")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Cuerpo" type="StaticBody2D" parent="." unique_id=1210579293]
+
+[node name="Mesa" type="CollisionShape2D" parent="Cuerpo" unique_id=98503838]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_mesa")
+
+[node name="Etiqueta" type="Label" parent="." unique_id=1754764024]
+z_index = 10
+custom_minimum_size = Vector2(300, 0)
+offset_left = -45.0
+offset_top = -78.0
+offset_right = 255.0
+offset_bottom = -21.0
+scale = Vector2(0.3, 0.3)
+text = "
+[E] Armería"
+label_settings = SubResource("LabelSettings_etiqueta")
+horizontal_alignment = 1
+
+[node name="Avtomat Kalashnikova 1947" type="Sprite2D" parent="." unique_id=741161096]
+position = Vector2(-12, -29)
+rotation = 1.5707964
+texture = ExtResource("4_ex68t")
+
+[node name="Nail gun" type="Sprite2D" parent="." unique_id=79139398]
+position = Vector2(15, -29)
+rotation = 1.5707964
+texture = ExtResource("5_308ju")
+
+[node name="Bat" type="Sprite2D" parent="." unique_id=376448934]
+position = Vector2(-13, -49)
+rotation = 1.5707964
+texture = ExtResource("6_tsb68")
+
+[node name="Zona" type="CollisionShape2D" parent="." unique_id=600030267]
+position = Vector2(0, -31)
+shape = SubResource("RectangleShape2D_8wqac")
