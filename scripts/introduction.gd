@@ -16,7 +16,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _go_to_main_menu() -> void:
 	get_tree().change_scene_to_file(MAIN_MENU_PATH)
 
-# Opcional: conectá esto a un botón "Saltar" si le agregás uno a la escena
 func _on_skip_button_pressed() -> void:
 	video.stop()
 	_go_to_main_menu()
