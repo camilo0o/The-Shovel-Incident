@@ -16,7 +16,7 @@ const ACCION_ARMA := "ataque_largo"
 const TEXTURA_PUNO := preload("res://assets/sprites/armas/puno.png")
 
 @export var vida_maxima := 5
-@export var municion := 60
+var municion := 0
 
 @export_group("Piñazo")
 @export var dano_puno := 1
@@ -68,6 +68,9 @@ func _ready() -> void:
 
 	add_to_group("jugador")
 	vida = vida_maxima
+	
+	municion = GameProgress.municion
+	
 	_crear_visuales_de_ataque()
 	_crear_hud_vida()
 	_crear_paneles_de_estado()
@@ -225,6 +228,7 @@ func _impactar_arma() -> void:
 func _disparar() -> void:
 	if arma.consume_municion:
 		municion -= 1
+		GameProgress.municion = municion
 		municion_cambiada.emit(municion)
 
 	var dir := _direccion_vector()
@@ -249,6 +253,7 @@ func _disparar() -> void:
 
 func agregar_municion(cantidad: int) -> void:
 	municion += cantidad
+	GameProgress.municion = municion
 	municion_cambiada.emit(municion)
 
 

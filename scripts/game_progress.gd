@@ -5,6 +5,7 @@ signal arma_cambiada(arma: ArmaData)
 # true = desbloqueado, false = bloqueado
 var level_unlocked: Array[bool] = [true, false, false]
 var level_completed: Array[bool] = [false, false, false]
+var municion := 60
 
 var level_scenes: Array[String] = [
 	"res://scenes/level1.tscn",

@@ -10,7 +10,7 @@ var _abierto := false
 var _capa: CanvasLayer
 var _botones: Dictionary = {}   # ArmaData -> Button
 
-
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	etiqueta.visible = false
 	body_entered.connect(_on_body_entered)
@@ -30,14 +30,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("jugador"):
 		_jugador = body
 		if not _abierto:
 			etiqueta.visible = true
+			
 
-
-func _on_body_exited(body: Node) -> void:
+func _on_body_exited(body: Node2D) -> void:
 	if body == _jugador:
 		_jugador = null
 		etiqueta.visible = false
