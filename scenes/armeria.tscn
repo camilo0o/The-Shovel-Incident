@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://byh2eumjl60np"]
+
+[ext_resource type="Script" uid="uid://c583n52wmkksg" path="res://scripts/armeria.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="2_font"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zona"]
+size = Vector2(72, 45)
+
+[sub_resource type="LabelSettings" id="LabelSettings_etiqueta"]
+font = ExtResource("2_font")
+font_size = 24
+font_color = Color(1, 0.98669523, 0.13335153, 0.94)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Armeria" type="Area2D" unique_id=1674739501]
+script = ExtResource("1_script")
+
+[node name="Zona" type="CollisionShape2D" parent="." unique_id=1843703499]
+position = Vector2(18, 6.5)
+shape = SubResource("RectangleShape2D_zona")
+
+[node name="Etiqueta" type="Label" parent="." unique_id=373171886]
+visible = false
+z_index = 10
+custom_minimum_size = Vector2(300, 0)
+offset_left = -45.0
+offset_top = -62.0
+offset_right = 255.0
+offset_bottom = -26.0
+scale = Vector2(0.3, 0.3)
+text = "Armería
+[E] Abrir"
+label_settings = SubResource("LabelSettings_etiqueta")
+horizontal_alignment = 1

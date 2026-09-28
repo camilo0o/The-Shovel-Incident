@@ -48,6 +48,7 @@ var _panel_victoria: Control
 var _juego_terminado := false   # evita reaccionar dos veces (ya ganó o ya perdió)
 
 var arma: ArmaData = null            # se sincroniza con GameProgress.arma_equipada
+var controles_bloqueados := false     # lo usa la armería mientras el menú está abierto
 var puede_pegar_puno := true
 var puede_usar_arma := true
 
@@ -62,9 +63,6 @@ var _golpe_rect := Rect2()
 
 
 func _ready() -> void:
-	# Sigue procesando aunque el árbol esté en pausa (para poder despausar
-	# y para que los botones de los paneles respondan). El propio
-	# _physics_process corta apenas confirma que está pausado.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	animated_sprite.process_mode = Node.PROCESS_MODE_PAUSABLE
 
@@ -78,9 +76,15 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel") and not _juego_terminado:
+	if Input.is_action_just_pressed("ui_cancel") and not _juego_terminado and not controles_bloqueados:
 		_alternar_pausa()
 	if get_tree().paused:
+		return
+
+	if controles_bloqueados:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		update_animation("idle")
 		return
 
 	get_input()
