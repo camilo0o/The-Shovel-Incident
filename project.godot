@@ -72,6 +72,7 @@ ataque_largo={
 
 [layer_names]
 
+2d_physics/layer_2="obstaculos_jefe"
 2d_physics/layer_3="enemigos"
 
 [physics]

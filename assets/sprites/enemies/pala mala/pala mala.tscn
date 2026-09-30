@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://luo4oh6hlau3" path="res://assets/sprites/enemies/pala mala/pala_mala_espalda_caminar_espalda.png" id="2_jlpc7"]
 [ext_resource type="Texture2D" uid="uid://bwo8mpx5il58g" path="res://assets/sprites/enemies/pala mala/pala_mala_caminar_derecha.png" id="3_tjuyc"]
 [ext_resource type="Texture2D" uid="uid://dmca3p3dlhm0f" path="res://assets/sprites/enemies/pala mala/pala_mala_izquierda_caminar_izquierdabrazo arriba_v2.png" id="4_x5boe"]
+[ext_resource type="Script" path="res://scripts/pala_mala.gd" id="5_pala_mala"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_40veh"]
 atlas = ExtResource("1_0a51n")
@@ -283,7 +284,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0a51n"]
 size = Vector2(23, 54)
 
-[node name="PalaMala" type="Node2D" unique_id=1683400480]
+[node name="PalaMala" type="CharacterBody2D" unique_id=1683400480]
+collision_layer = 4
+script = ExtResource("5_pala_mala")
+vida_maxima = 12
+rango_deteccion = 240.0
+rango_ataque = 42.0
+dano = 2
+es_jefe = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1131574615]
 position = Vector2(1.9073486e-06, -0.9999981)

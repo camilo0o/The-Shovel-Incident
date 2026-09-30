@@ -271,7 +271,7 @@ texture = ExtResource("1_2sna0")
 13:15/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_g66rc"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
 sources/0 = SubResource("TileSetAtlasSource_81uxj")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mrrxw"]
@@ -423,7 +423,7 @@ texture = ExtResource("1_2sna0")
 15:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.0576, -4.3166084, -3.0576, -4.1367493, 8, -8, 8)
 16:6/0 = 0
 17:6/0 = 0
-17:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
+17:6/0/physics_layer_1/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
 0:7/0 = 0
 2:7/0 = 0
 3:7/0 = 0
@@ -440,11 +440,11 @@ texture = ExtResource("1_2sna0")
 14:7/0 = 0
 15:7/0 = 0
 16:7/0 = 0
-16:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(7.0052633, -7.1067886, 6.903736, 8, -5.786957, 8, -6.0915327, 2.03051, 4.873227, 2.1320362, 5.177802, -4.771701)
+16:7/0/physics_layer_1/polygon_0/points = PackedVector2Array(7.0052633, -7.1067886, 6.903736, 8, -5.786957, 8, -6.0915327, 2.03051, 4.873227, 2.1320362, 5.177802, -4.771701)
 17:7/0 = 0
-17:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(7.0052643, 1.3198318, 6.903736, 8, -6.8022127, 8, -7.1067877, 1.6244087, -4.873227, -1.1167803, 4.873226, -1.2183065)
+17:7/0/physics_layer_1/polygon_0/points = PackedVector2Array(7.0052643, 1.3198318, 6.903736, 8, -6.8022127, 8, -7.1067877, 1.6244087, -4.873227, -1.1167803, 4.873226, -1.2183065)
 18:7/0 = 0
-18:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(7.0052633, -4.6701756, 7.0052624, 8, -5.888481, 8, -5.888482, 2.03051, 4.467123, 1.6244087, 4.9747505, -4.771701, 6.8022118, -6.903737)
+18:7/0/physics_layer_1/polygon_0/points = PackedVector2Array(7.0052633, -4.6701756, 7.0052624, 8, -5.888481, 8, -5.888482, 2.03051, 4.467123, 1.6244087, 4.9747505, -4.771701, 6.8022118, -6.903737)
 0:8/0 = 0
 1:8/0 = 0
 2:8/0 = 0
@@ -460,16 +460,16 @@ texture = ExtResource("1_2sna0")
 14:8/0 = 0
 15:8/0 = 0
 16:8/0 = 0
-16:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 5.0762777, -1.015255, -5.888482, -0.81220436, -5.888482, -8)
+16:8/0/physics_layer_1/polygon_0/points = PackedVector2Array(8, -8, 5.0762777, -1.015255, -5.888482, -0.81220436, -5.888482, -8)
 17:8/0 = 0
-17:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.7006855, -8, 6.903736, 8, -6.8022127, 8, -7.1067877, 1.6244087, -7.0052624, -8, 1.015255, -8)
+17:8/0/physics_layer_1/polygon_0/points = PackedVector2Array(6.7006855, -8, 6.903736, 8, -6.8022127, 8, -7.1067877, 1.6244087, -7.0052624, -8, 1.015255, -8)
 18:8/0 = 0
-18:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(5.888481, -5.685431, 4.873226, -0.81220436, -4.2640734, -0.81220436, -5.9900074, -1.2183065, -5.888482, -8, 6.8022118, -8)
+18:8/0/physics_layer_1/polygon_0/points = PackedVector2Array(5.888481, -5.685431, 4.873226, -0.81220436, -4.2640734, -0.81220436, -5.9900074, -1.2183065, -5.888482, -8, 6.8022118, -8)
 2:9/0 = 0
 3:9/0 = 0
 4:9/0 = 0
 5:9/0 = 0
-5:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.9465978, -0.06469822, 4.0436454, 0, 4.068905, 2.6361918, 1.2034788, 6.017394, -5.845469, 6.0173945, -5.845469, 4.9285326, -7.0489473, 4.928532, -6.991639, 3.09466)
+5:9/0/physics_layer_1/polygon_0/points = PackedVector2Array(-3.9465978, -0.06469822, 4.0436454, 0, 4.068905, 2.6361918, 1.2034788, 6.017394, -5.845469, 6.0173945, -5.845469, 4.9285326, -7.0489473, 4.928532, -6.991639, 3.09466)
 6:9/0 = 0
 7:9/0 = 0
 8:9/0 = 0
@@ -557,7 +557,8 @@ texture = ExtResource("1_2sna0")
 13:15/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_hsimh"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_1/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_mrrxw")
 
 [node name="BossRoom1" type="Node2D" unique_id=1630907804]
@@ -609,3 +610,4 @@ position = Vector2(372, 82)
 
 [node name="PalaMala" parent="." unique_id=1683400480 instance=ExtResource("4_mrrxw")]
 position = Vector2(407, 234)
+collision_mask = 2
