@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://0mhs5ybwr3w1" path="res://assets/backgrounds/Classrooms.png" id="1_2sna0"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="2_81uxj"]
+[ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="3_g66rc"]
+[ext_resource type="PackedScene" uid="uid://f2wvkaw7jxon" path="res://assets/sprites/enemies/pala mala/pala mala.tscn" id="4_mrrxw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81uxj"]
 texture = ExtResource("1_2sna0")
@@ -580,3 +582,30 @@ limit_left = 0
 limit_top = 0
 limit_right = 430
 limit_bottom = 280
+
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1174929468 node_paths=PackedStringArray("puntos_spawn")]
+script = ExtResource("3_g66rc")
+puntos_spawn = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), null, null, null, null, null]
+intervalo_minimo = 3.0
+intervalo_maximo = 10.0
+
+[node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=1554918584]
+position = Vector2(18, 66)
+
+[node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=1496342653]
+position = Vector2(395, 248)
+
+[node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=773389983]
+position = Vector2(34, 250)
+
+[node name="Marker2D2" type="Marker2D" parent="MunicionSpawner" unique_id=1200007202]
+position = Vector2(284, 152)
+
+[node name="Marker2D3" type="Marker2D" parent="MunicionSpawner" unique_id=1919388968]
+position = Vector2(372, 82)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1412098411]
+position = Vector2(372, 82)
+
+[node name="PalaMala" parent="." unique_id=1683400480 instance=ExtResource("4_mrrxw")]
+position = Vector2(407, 234)

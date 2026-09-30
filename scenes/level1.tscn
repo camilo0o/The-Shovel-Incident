@@ -591,30 +591,6 @@ frame_progress = 0.67687964
 position = Vector2(1037, 145)
 shape = SubResource("CapsuleShape2D_y1oqn")
 
-[node name="Palin" parent="." unique_id=1717164484 instance=ExtResource("6_6sh32")]
-position = Vector2(780, 136)
-
-[node name="Palin2" parent="." unique_id=1872823796 instance=ExtResource("6_6sh32")]
-position = Vector2(1049, 33)
-
-[node name="Palin8" parent="." unique_id=818193555 instance=ExtResource("6_6sh32")]
-position = Vector2(1052, 152)
-
-[node name="Palin3" parent="." unique_id=1681141357 instance=ExtResource("6_6sh32")]
-position = Vector2(769, 42)
-
-[node name="Palin4" parent="." unique_id=348574383 instance=ExtResource("6_6sh32")]
-position = Vector2(523, 118)
-
-[node name="Palin5" parent="." unique_id=157141039 instance=ExtResource("6_6sh32")]
-position = Vector2(158, 153)
-
-[node name="Palin6" parent="." unique_id=1630844841 instance=ExtResource("6_6sh32")]
-position = Vector2(316, 41)
-
-[node name="Palin7" parent="." unique_id=1755282248 instance=ExtResource("6_6sh32")]
-position = Vector2(338, 157)
-
 [node name="MunicionSpawner" type="Node2D" parent="." unique_id=1487694904 node_paths=PackedStringArray("puntos_spawn")]
 script = ExtResource("7_ejswk")
 puntos_spawn = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4"), NodePath("Marker2D5"), NodePath("Marker2D6"), NodePath("Marker2D7"), NodePath("Marker2D8")]
@@ -644,5 +620,31 @@ position = Vector2(825, 65)
 
 [node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=90180758]
 position = Vector2(932, 102)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=285355903]
+
+[node name="Palin" parent="Enemies" unique_id=1717164484 instance=ExtResource("6_6sh32")]
+position = Vector2(780, 136)
+
+[node name="Palin2" parent="Enemies" unique_id=1872823796 instance=ExtResource("6_6sh32")]
+position = Vector2(1049, 33)
+
+[node name="Palin8" parent="Enemies" unique_id=818193555 instance=ExtResource("6_6sh32")]
+position = Vector2(1052, 152)
+
+[node name="Palin3" parent="Enemies" unique_id=1681141357 instance=ExtResource("6_6sh32")]
+position = Vector2(769, 42)
+
+[node name="Palin4" parent="Enemies" unique_id=348574383 instance=ExtResource("6_6sh32")]
+position = Vector2(523, 118)
+
+[node name="Palin5" parent="Enemies" unique_id=157141039 instance=ExtResource("6_6sh32")]
+position = Vector2(158, 153)
+
+[node name="Palin6" parent="Enemies" unique_id=1630844841 instance=ExtResource("6_6sh32")]
+position = Vector2(316, 41)
+
+[node name="Palin7" parent="Enemies" unique_id=1755282248 instance=ExtResource("6_6sh32")]
+position = Vector2(338, 157)
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
