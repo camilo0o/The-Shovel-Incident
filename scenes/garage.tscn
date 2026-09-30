@@ -10,7 +10,7 @@
 [ext_resource type="Resource" path="res://resources/armas/bate.tres" id="8_bate"]
 [ext_resource type="Resource" path="res://resources/armas/ak47.tres" id="9_ak47"]
 [ext_resource type="Resource" path="res://resources/armas/pistola_clavos.tres" id="10_pistola"]
-[ext_resource type="PackedScene" uid="uid://byh2eumjl60np" path="res://scenes/armeria.tscn" id="12_w2145"]
+[ext_resource type="PackedScene" uid="uid://bsdc5l0vwhioy" path="res://scenes/armeria.tscn" id="12_w2145"]
 [ext_resource type="Script" uid="uid://cvua77lbiujgx" path="res://scripts/arma_data.gd" id="13_spycl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13b6"]
