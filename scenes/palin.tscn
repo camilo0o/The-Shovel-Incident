@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://co7mm4oam0e4w"]
 
 [ext_resource type="Texture2D" uid="uid://w3agww0xt17j" path="res://assets/sprites/enemies/palin/Sprite-palin3-ataque-izquierda.png" id="1_dg0ha"]
+[ext_resource type="AudioStream" uid="uid://cjjx8is4kinqv" path="res://assets/audio/enemies/sound_palin.mp3" id="2_6jpam"]
 [ext_resource type="Texture2D" uid="uid://dn1wed2oompid" path="res://assets/sprites/enemies/palin/Sprite-palin2-ataque-derecha-Sheet.png" id="2_c6ir5"]
 [ext_resource type="Texture2D" uid="uid://dpfyfmdriyg6v" path="res://assets/sprites/enemies/palin/Sprite-palin1-caminata-Sheet.png" id="3_6jpam"]
 [ext_resource type="Script" uid="uid://by1kdub1eclw0" path="res://scripts/palin.gd" id="4_palin"]
@@ -106,6 +107,7 @@ size = Vector2(10, 26)
 [node name="Palin" type="CharacterBody2D" unique_id=1717164484]
 collision_layer = 4
 script = ExtResource("4_palin")
+sonido_idle = ExtResource("2_6jpam")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2053349691]
 scale = Vector2(0.16, 0.16)

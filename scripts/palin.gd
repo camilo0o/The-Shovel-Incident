@@ -16,9 +16,15 @@ signal murio
 
 enum Estado { LIBRE, ATACANDO, MUERTO }
 
+@export_group("Sonido")
+@export var sonido_idle: AudioStream
+@export var intervalo_sonido_min := 4.0   # segundos de silencio entre sonidos
+@export var intervalo_sonido_max := 9.0
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var colision: CollisionShape2D = $CollisionShape2D
 
+var _audio: AudioStreamPlayer2D
 var vida := 0
 var estado := Estado.LIBRE
 var jugador: Node2D
@@ -34,6 +40,8 @@ func _ready() -> void:
 	vida = vida_maxima
 	_crear_barra_vida()
 	_pose_reposo()
+	_crear_audio()
+	_bucle_sonido()
 
 
 func _physics_process(delta: float) -> void:
@@ -121,6 +129,8 @@ func _morir() -> void:
 	set_physics_process(false)
 	if _barra_vida != null:
 		_barra_vida.visible = false
+	if _audio != null:
+		_audio.stop()
 	sprite.modulate = Color(1, 0.3, 0.3)
 	var tween := create_tween()
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
@@ -131,6 +141,24 @@ func _morir() -> void:
 		var jugador_actual := get_tree().get_first_node_in_group("jugador")
 		if jugador_actual != null and jugador_actual.has_method("mostrar_victoria"):
 			jugador_actual.mostrar_victoria()
+
+func _crear_audio() -> void:
+	if sonido_idle == null:
+		return
+	_audio =  AudioStreamPlayer2D.new()
+	_audio.stream = sonido_idle
+	_audio.max_distance = 300.0
+	add_child(_audio)
+
+func _bucle_sonido() -> void:
+	if _audio == null:
+		return
+	# Primer sonido desfasado para que varios enemigos no suenen a la vez.
+	await get_tree().create_timer(randf_range(0.5, intervalo_sonido_max)).timeout
+	while estado != Estado.MUERTO:
+		_audio.play()
+		await _audio.finished
+		await get_tree().create_timer(randf_range(intervalo_sonido_min, intervalo_sonido_max)).timeout
 
 
 # Animaciones
