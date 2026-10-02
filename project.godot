@@ -18,6 +18,7 @@ config/icon="res://assets/ui/icons/icon.svg"
 [autoload]
 
 GameProgress="*uid://c1jej0op3wscs"
+MusicaFondo="*uid://b1snisc4fo8lp"
 
 [display]
 
