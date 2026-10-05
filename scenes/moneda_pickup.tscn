@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cb1wu2vi6f28e"]
+
+[ext_resource type="Script" uid="uid://dhsha2ba6nuvx" path="res://scripts/moneda_pickup.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b6ffrcumlvgwu" path="res://assets/sprites/items/Sprite-moneda-banana-dorada-efecto.png" id="2_hoja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("2_hoja")
+region = Rect2(0, 0, 347, 347)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("2_hoja")
+region = Rect2(347, 0, 347, 347)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("2_hoja")
+region = Rect2(694, 0, 347, 347)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("2_hoja")
+region = Rect2(1041, 0, 347, 347)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_flotar"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}],
+"loop": 1,
+"name": &"flotar",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+
+[node name="MonedaPickup" type="Area2D" unique_id=1184326883]
+collision_layer = 0
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1661458927]
+scale = Vector2(0.07, 0.07)
+sprite_frames = SubResource("SpriteFrames_flotar")
+animation = &"flotar"
+autoplay = "flotar"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1510458045]
+shape = SubResource("CircleShape2D_1")

@@ -1,7 +1,10 @@
 extends Node
 
 signal arma_cambiada(arma: ArmaData)
+signal monedas_cambiadas(cantidad: int)
 
+var monedas := 0
+var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
 var level_unlocked: Array[bool] = [true, false, false]
 var level_completed: Array[bool] = [false, false, false]
@@ -18,8 +21,28 @@ var level_scenes: Array[String] = [
 var arma_equipada: ArmaData = null
 
 func equipar_arma(arma: ArmaData) -> void:
+	if arma != null and not esta_desbloqueada(arma):
+		return
 	arma_equipada = arma
 	arma_cambiada.emit(arma)
+
+func agregar_monedas(cantidad: int) -> void:
+	monedas += cantidad
+	monedas_cambiadas.emit(monedas)
+
+func esta_desbloqueada(arma: ArmaData) -> bool:
+	return arma.costo <= 0 or arma in armas_desbloqueadas
+
+func puede_comprar(arma: ArmaData) -> bool:
+	return not esta_desbloqueada(arma) and monedas >= arma.costo
+
+func comprar_arma(arma: ArmaData) -> bool:
+	if not puede_comprar(arma):
+		return false
+	monedas -= arma.costo
+	armas_desbloqueadas.append(arma)
+	monedas_cambiadas.emit(monedas)
+	return true
 
 func complete_level(index: int) -> void:
 	level_completed[index] = true

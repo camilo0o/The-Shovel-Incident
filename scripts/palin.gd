@@ -21,6 +21,9 @@ enum Estado { LIBRE, ATACANDO, MUERTO }
 @export var intervalo_sonido_min := 4.0   # segundos de silencio entre sonidos
 @export var intervalo_sonido_max := 9.0
 
+@export_group("Botín")
+@export var monedas_al_morir := 1
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var colision: CollisionShape2D = $CollisionShape2D
 
@@ -33,6 +36,7 @@ var empuje := Vector2.ZERO
 
 var _barra_vida: ProgressBar
 
+const MONEDA_SCENE := preload("res://scenes/moneda_pickup.tscn")
 
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING  # vista cenital, sin "suelo"
@@ -137,10 +141,22 @@ func _morir() -> void:
 	tween.tween_callback(queue_free)
 
 	if es_jefe:
+		GameProgress.agregar_monedas(monedas_al_morir)
 		GameProgress.complete_level(nivel_index)
 		var jugador_actual := get_tree().get_first_node_in_group("jugador")
 		if jugador_actual != null and jugador_actual.has_method("mostrar_victoria"):
 			jugador_actual.mostrar_victoria()
+	else:
+		_soltar_moneda.call_deferred(global_position)
+
+func _soltar_moneda(pos: Vector2) -> void:
+	var escena := get_tree().current_scene
+	if escena == null:
+		return
+	var moneda := MONEDA_SCENE.instantiate()
+	moneda.cantidad = monedas_al_morir
+	escena.add_child(moneda)
+	moneda.global_position = pos
 
 func _crear_audio() -> void:
 	if sonido_idle == null:

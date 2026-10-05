@@ -4,6 +4,7 @@ extends Area2D
 const FUENTE := preload("res://assets/ui/fonts/Ancient Medium.ttf")
 
 @onready var etiqueta: Label = $Etiqueta
+var _lbl_monedas: Label
 
 var _jugador: Node = null
 var _abierto := false
@@ -15,6 +16,7 @@ func _ready() -> void:
 	etiqueta.visible = false
 	_crear_menu()
 	GameProgress.arma_cambiada.connect(func(_a): _refrescar())
+	GameProgress.monedas_cambiadas.connect(func(_c): _refrescar())
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -79,6 +81,10 @@ func _crear_menu() -> void:
 	titulo.add_theme_font_size_override("font_size", 32)
 	titulo.add_theme_color_override("font_color", Color(1, 0.98, 0.13))
 	caja.add_child(titulo)
+	_lbl_monedas = Label.new()
+	_lbl_monedas.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_lbl_monedas.add_theme_font_size_override("font_size", 18)
+	caja.add_child(_lbl_monedas)
 
 	for arma in armas:
 		if arma == null:
@@ -103,11 +109,17 @@ func _crear_menu() -> void:
 
 
 func _refrescar() -> void:
+	if _lbl_monedas != null:
+		_lbl_monedas.text = "Bananas doradas: %d" % GameProgress.monedas
 	for arma in _botones:
 		var boton: Button = _botones[arma]
-		var marca := "   (equipada)" if GameProgress.arma_equipada == arma else ""
-		boton.text = "%s%s\n%s" % [arma.nombre, marca, arma.descripcion]
-
+		if GameProgress.esta_desbloqueada(arma):
+			var marca := "   (equipada)" if GameProgress.arma_equipada == arma else ""
+			boton.text = "%s%s\n%s" % [arma.nombre, marca, arma.descripcion]
+			boton.disabled = false
+		else:
+			boton.text = "%s (bloqueada)  -  %d bananas\n%s" % [arma.nombre, arma.costo, arma.descripcion]
+			boton.disabled = not GameProgress.puede_comprar(arma)
 
 func _abrir() -> void:
 	_abierto = true
@@ -118,8 +130,11 @@ func _abrir() -> void:
 
 	# Foco en el arma equipada (o en la primera) para poder usar teclado
 	var foco: Button = _botones.get(GameProgress.arma_equipada)
-	if foco == null and not _botones.is_empty():
-		foco = _botones.values()[0]
+	if foco == null:
+		for b in _botones.values():
+			if not b.disabled:
+				foco = b
+				break
 	if foco != null:
 		foco.grab_focus()
 
@@ -138,5 +153,9 @@ func _cerrar() -> void:
 
 
 func _seleccionar(arma: ArmaData) -> void:
+	if not GameProgress.esta_desbloqueada(arma):
+		if GameProgress.comprar_arma(arma):
+			_refrescar()
+		return
 	GameProgress.equipar_arma(arma)
 	_cerrar()

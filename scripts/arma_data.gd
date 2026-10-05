@@ -23,3 +23,6 @@ enum Tipo { CUERPO_A_CUERPO, DISTANCIA }
 @export var consume_municion := true      # descuenta de player.municion
 @export var automatica := false          # true = mantener apretado dispara en ráfaga
 @export var distancia_boca := 12.0        # a que distancia del jugador aparece la bala
+
+@export_group("Tienda")
+@export var costo := 0

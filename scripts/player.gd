@@ -40,6 +40,7 @@ var invulnerable := false
 var _hud_layer: CanvasLayer
 var _hud_barra: ProgressBar
 var _hud_municion: Label
+var _hud_monedas: Label
 
 # Pantallas de pausa / victoria / derrota
 var _panel_pausa: Control
@@ -316,6 +317,24 @@ func _crear_hud_vida() -> void:
 	_hud_municion.visible = false # se muestra solo si corresponde
 
 	municion_cambiada.connect(_actualizar_hud_municion)
+	# contador de bananas doradas, arriba de la barra de vida
+	_hud_monedas = Label.new()
+	_hud_monedas.text = "Bananas: %d" % GameProgress.monedas
+	_hud_monedas.add_theme_font_size_override("font_size", 16)
+	_hud_monedas.add_theme_color_override("font_color", Color(1, 0.85, 0.2))
+	_hud_monedas.add_theme_color_override("font_outline_color", Color.BLACK)
+	_hud_monedas.add_theme_constant_override("outline_size", 4)
+	
+	_hud_monedas.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_hud_monedas.offset_left = 16
+	_hud_monedas.offset_right = 16 + 160
+	_hud_monedas.offset_top = -56
+	_hud_monedas.offset_bottom = -40
+	_hud_monedas.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
+	_hud_layer.add_child(_hud_monedas)
+	
+	GameProgress.monedas_cambiadas.connect(_actualizar_hud_monedas)
 
 
 func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
@@ -329,6 +348,11 @@ func _actualizar_hud_municion(cantidad: int) -> void:
 	if _hud_municion == null:
 		return
 	_hud_municion.text = "Munición: %d" % cantidad
+
+func _actualizar_hud_monedas(cantidad: int) -> void:
+	if _hud_monedas == null:
+		return
+	_hud_monedas.text = "Bananas: %d" % cantidad
 
 func _actualizar_visibilidad_municion() -> void:
 	if _hud_municion == null:
