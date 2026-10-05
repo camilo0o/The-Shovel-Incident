@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dy6lw0qdw5nrq" path="res://assets/sprites/structures/Dimensional_Portal.png" id="5_conm7"]
 [ext_resource type="PackedScene" uid="uid://co7mm4oam0e4w" path="res://scenes/palin.tscn" id="6_6sh32"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="7_ejswk"]
+[ext_resource type="AudioStream" uid="uid://cv7m1xp0kv14p" path="res://assets/audio/music/fondo_level1_music.mp3" id="8_bbk5w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -646,5 +647,10 @@ position = Vector2(316, 41)
 
 [node name="Palin7" parent="Enemies" unique_id=1755282248 instance=ExtResource("6_6sh32")]
 position = Vector2(338, 157)
+
+[node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=431786885]
+stream = ExtResource("8_bbk5w")
+volume_db = -22.545
+autoplay = true
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
