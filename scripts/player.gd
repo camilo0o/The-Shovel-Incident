@@ -32,6 +32,7 @@ var municion := 0
 
 var speed = 100.0
 var last_direction = "front"
+var mira_vector := Vector2.DOWN
 
 var vida := 0
 var invulnerable := false
@@ -120,6 +121,7 @@ func get_input():
 			last_direction = "back"
 	update_animation("run")
 	velocity = input_direction * speed
+	mira_vector = input_direction.normalized()
 
 func update_animation(state):
 	animated_sprite.play(state + "_" + last_direction)
@@ -232,7 +234,7 @@ func _disparar() -> void:
 		GameProgress.municion = municion
 		municion_cambiada.emit(municion)
 
-	var dir := _direccion_vector()
+	var dir := mira_vector
 	var bala := bala_scene.instantiate()
 	bala.direccion = dir
 	bala.dano = arma.dano
@@ -513,7 +515,7 @@ func _posicion_mano() -> Vector2:
 
 func _rotacion_reposo() -> float:
 	if arma.tipo == ArmaData.Tipo.DISTANCIA:
-		return _direccion_vector().angle() + PI / 2.0   # apunta hacia donde mira
+		return mira_vector.angle() + PI / 2.0   # apunta hacia donde mira
 	var inclinacion := deg_to_rad(20.0)
 	return -inclinacion if (last_direction == "left" or last_direction == "back") else inclinacion
 
