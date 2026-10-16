@@ -81,7 +81,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel") and not _juego_terminado and not controles_bloqueados:
+	if Input.is_action_just_pressed("pausa") and not _juego_terminado and not controles_bloqueados:
 		_alternar_pausa()
 	if get_tree().paused:
 		return

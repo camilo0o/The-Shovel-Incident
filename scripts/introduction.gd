@@ -9,7 +9,7 @@ func _ready() -> void:
 	video.play()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_select"):
 		video.stop()
 		_go_to_main_menu()
 
