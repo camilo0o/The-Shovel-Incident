@@ -42,6 +42,9 @@ var _hud_layer: CanvasLayer
 var _hud_barra: ProgressBar
 var _hud_municion: Label
 var _hud_monedas: Label
+var _hud_carpinchos: Label
+
+var _frames_originales: SpriteFrames   # animaciones del personaje sin skin
 
 # Pantallas de pausa / victoria / derrota
 var _panel_pausa: Control
@@ -78,6 +81,10 @@ func _ready() -> void:
 	_crear_paneles_de_estado()
 	GameProgress.arma_cambiada.connect(_on_arma_cambiada)
 	_on_arma_cambiada(GameProgress.arma_equipada)
+
+	_frames_originales = animated_sprite.sprite_frames
+	GameProgress.skin_cambiada.connect(aplicar_skin)
+	aplicar_skin(GameProgress.skin_equipada)
 
 
 func _physics_process(_delta: float) -> void:
@@ -122,6 +129,15 @@ func get_input():
 	update_animation("run")
 	velocity = input_direction * speed
 	mira_vector = input_direction.normalized()
+
+# Cambia la skin del jugador (null = personaje original).
+# Mantiene los mismos nombres de animación, así el resto del script no cambia.
+func aplicar_skin(skin: SkinData) -> void:
+	if skin == null:
+		animated_sprite.sprite_frames = _frames_originales
+	else:
+		animated_sprite.sprite_frames = skin.construir_frames()
+	animated_sprite.play(animated_sprite.animation)
 
 func update_animation(state):
 	animated_sprite.play(state + "_" + last_direction)
@@ -338,6 +354,23 @@ func _crear_hud_vida() -> void:
 	
 	GameProgress.monedas_cambiadas.connect(_actualizar_hud_monedas)
 
+	# contador de carpinchos (moneda de las skins), arriba de las bananas
+	_hud_carpinchos = Label.new()
+	_hud_carpinchos.text = "Carpinchos: %d" % GameProgress.carpinchos
+	_hud_carpinchos.add_theme_font_size_override("font_size", 16)
+	_hud_carpinchos.add_theme_color_override("font_color", Color(1, 0.55, 0.1))
+	_hud_carpinchos.add_theme_color_override("font_outline_color", Color.BLACK)
+	_hud_carpinchos.add_theme_constant_override("outline_size", 4)
+	_hud_carpinchos.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_hud_carpinchos.offset_left = 16
+	_hud_carpinchos.offset_right = 16 + 160
+	_hud_carpinchos.offset_top = -80
+	_hud_carpinchos.offset_bottom = -64
+	_hud_carpinchos.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_hud_layer.add_child(_hud_carpinchos)
+
+	GameProgress.carpinchos_cambiados.connect(_actualizar_hud_carpinchos)
+
 
 func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
 	if _hud_barra == null:
@@ -355,6 +388,11 @@ func _actualizar_hud_monedas(cantidad: int) -> void:
 	if _hud_monedas == null:
 		return
 	_hud_monedas.text = "Bananas: %d" % cantidad
+
+func _actualizar_hud_carpinchos(cantidad: int) -> void:
+	if _hud_carpinchos == null:
+		return
+	_hud_carpinchos.text = "Carpinchos: %d" % cantidad
 
 func _actualizar_visibilidad_municion() -> void:
 	if _hud_municion == null:

@@ -2,8 +2,13 @@ extends Node
 
 signal arma_cambiada(arma: ArmaData)
 signal monedas_cambiadas(cantidad: int)
+signal carpinchos_cambiados(cantidad: int)
+signal skin_cambiada(skin: SkinData)
 
 var monedas := 0
+var carpinchos := 0                                  # moneda carpincho naranja (skins)
+var skins_desbloqueadas: Array[SkinData] = []
+var skin_equipada: SkinData = null                   # null = personaje original
 var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
 var level_unlocked: Array[bool] = [true, false, false]
@@ -43,6 +48,32 @@ func comprar_arma(arma: ArmaData) -> bool:
 	armas_desbloqueadas.append(arma)
 	monedas_cambiadas.emit(monedas)
 	return true
+
+# --- Skins del jugador (se compran en el probador del garage) ---
+
+func agregar_carpinchos(cantidad: int) -> void:
+	carpinchos += cantidad
+	carpinchos_cambiados.emit(carpinchos)
+
+func skin_desbloqueada(skin: SkinData) -> bool:
+	return skin == null or skin.costo <= 0 or skin in skins_desbloqueadas
+
+func puede_comprar_skin(skin: SkinData) -> bool:
+	return skin != null and not skin_desbloqueada(skin) and carpinchos >= skin.costo
+
+func comprar_skin(skin: SkinData) -> bool:
+	if not puede_comprar_skin(skin):
+		return false
+	carpinchos -= skin.costo
+	skins_desbloqueadas.append(skin)
+	carpinchos_cambiados.emit(carpinchos)
+	return true
+
+func equipar_skin(skin: SkinData) -> void:
+	if not skin_desbloqueada(skin):
+		return
+	skin_equipada = skin
+	skin_cambiada.emit(skin)
 
 func complete_level(index: int) -> void:
 	level_completed[index] = true

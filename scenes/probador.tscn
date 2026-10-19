@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/probador.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/PostApoc_Workshop.png" id="2_tex"]
+[ext_resource type="Script" path="res://scripts/skin_data.gd" id="3_skindata"]
+[ext_resource type="Resource" path="res://resources/skins/oso.tres" id="4_oso"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zona"]
+size = Vector2(64, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cuerpo"]
+size = Vector2(28, 14)
+
+[node name="Probador" type="Area2D"]
+script = ExtResource("1_script")
+skins = Array[ExtResource("3_skindata")]([ExtResource("4_oso")])
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -27)
+texture = ExtResource("2_tex")
+region_enabled = true
+region_rect = Rect2(449, 199, 32, 55)
+
+[node name="Cuerpo" type="StaticBody2D" parent="."]
+
+[node name="Colision" type="CollisionShape2D" parent="Cuerpo"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_cuerpo")
+
+[node name="Zona" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_zona")

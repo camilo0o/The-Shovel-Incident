@@ -9,7 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://bmxhre35vl24r" path="res://assets/audio/music/horror_bossroom1.mp3" id="5_3fejc"]
 [ext_resource type="Texture2D" uid="uid://brtyleq1j3blc" path="res://assets/backgrounds/tilesStuff.png" id="5_l7opf"]
 [ext_resource type="Texture2D" uid="uid://cq0v5c7sqf17l" path="res://assets/backgrounds/PostApoc_Workshop.png" id="6_1jec6"]
-[ext_resource type="PackedScene" uid="uid://cj1postw81lk0" path="res://scenes/carpi.tscn" id="10_r4j7v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgfhg"]
 texture = ExtResource("2_l1hor")
@@ -4302,7 +4301,7 @@ tile_map_data = PackedByteArray("AAAuACAAAAARAAAAAAAuACEAAAARAAEAAAAjAB8AAAAOAAA
 tile_set = SubResource("TileSet_fbdut")
 
 [node name="Player" parent="." unique_id=194799799 instance=ExtResource("2_ktk81")]
-position = Vector2(17, 84)
+position = Vector2(14, 88)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1708452040]
 position = Vector2(-92, -44)
@@ -4349,8 +4348,3 @@ position = Vector2(619, 269)
 stream = ExtResource("5_3fejc")
 volume_db = -22.961
 autoplay = true
-
-[node name="Carpi" parent="." unique_id=1892055933 instance=ExtResource("10_r4j7v")]
-position = Vector2(67, 93)
-scale = Vector2(0.3, 0.3)
-metadata/_edit_group_ = true

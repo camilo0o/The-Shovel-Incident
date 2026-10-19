@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SkinData" format=3]
+
+[ext_resource type="Script" path="res://scripts/skin_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_idle_back.png" id="2_ib"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_idle_front.png" id="3_if"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_idle_left.png" id="4_il"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_idle_right.png" id="5_ir"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_run_back.png" id="6_rb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_run_front.png" id="7_rf"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_run_left.png" id="8_rl"]
+[ext_resource type="Texture2D" path="res://assets/sprites/personaje_oso/oso_run_right.png" id="9_rr"]
+
+[resource]
+script = ExtResource("1_script")
+nombre = "Oso"
+descripcion = "Un disfraz de oso. Solo estético."
+costo = 10
+idle_back = ExtResource("2_ib")
+idle_front = ExtResource("3_if")
+idle_left = ExtResource("4_il")
+idle_right = ExtResource("5_ir")
+run_back = ExtResource("6_rb")
+run_front = ExtResource("7_rf")
+run_left = ExtResource("8_rl")
+run_right = ExtResource("9_rr")

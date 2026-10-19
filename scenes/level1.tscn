@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://co7mm4oam0e4w" path="res://scenes/palin.tscn" id="6_6sh32"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="7_ejswk"]
 [ext_resource type="AudioStream" uid="uid://cv7m1xp0kv14p" path="res://assets/audio/music/fondo_level1_music.mp3" id="8_bbk5w"]
+[ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_conm7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -592,9 +593,8 @@ frame_progress = 0.67687964
 position = Vector2(1037, 145)
 shape = SubResource("CapsuleShape2D_y1oqn")
 
-[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1487694904 node_paths=PackedStringArray("puntos_spawn")]
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1487694904]
 script = ExtResource("7_ejswk")
-puntos_spawn = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4"), NodePath("Marker2D5"), NodePath("Marker2D6"), NodePath("Marker2D7"), NodePath("Marker2D8")]
 intervalo_minimo = 3.0
 intervalo_maximo = 10.0
 
@@ -652,5 +652,35 @@ position = Vector2(338, 157)
 stream = ExtResource("8_bbk5w")
 volume_db = -22.545
 autoplay = true
+
+[node name="CarpinchoPickup2" parent="." unique_id=989019183 instance=ExtResource("9_conm7")]
+position = Vector2(70, 62)
+
+[node name="CarpinchoPickup3" parent="." unique_id=1965803585 instance=ExtResource("9_conm7")]
+position = Vector2(83, 82)
+
+[node name="CarpinchoPickup" parent="." unique_id=1629271323 instance=ExtResource("9_conm7")]
+position = Vector2(59, 78)
+
+[node name="CarpinchoPickup4" parent="." unique_id=1173208780 instance=ExtResource("9_conm7")]
+position = Vector2(43, 63)
+
+[node name="CarpinchoPickup5" parent="." unique_id=250722533 instance=ExtResource("9_conm7")]
+position = Vector2(39, 85)
+
+[node name="CarpinchoPickup6" parent="." unique_id=1615986374 instance=ExtResource("9_conm7")]
+position = Vector2(49, 99)
+
+[node name="CarpinchoPickup7" parent="." unique_id=1311076080 instance=ExtResource("9_conm7")]
+position = Vector2(65, 97)
+
+[node name="CarpinchoPickup8" parent="." unique_id=1105863438 instance=ExtResource("9_conm7")]
+position = Vector2(33, 103)
+
+[node name="CarpinchoPickup9" parent="." unique_id=888196210 instance=ExtResource("9_conm7")]
+position = Vector2(47, 113)
+
+[node name="CarpinchoPickup10" parent="." unique_id=1850682441 instance=ExtResource("9_conm7")]
+position = Vector2(68, 109)
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]

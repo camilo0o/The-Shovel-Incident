@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rm8oei8fvm2e"
-path="res://.godot/imported/Captura de pantalla 2026-10-15 215554.png-fe9799944e5fb52ab1c18b1d81f5468c.ctex"
+uid="uid://dg4yqsaui1xun"
+path="res://.godot/imported/oso_punch_front.png-5f3394678dbb6fadb6f478f4e06b98f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Captura de pantalla 2026-10-15 215554.png"
-dest_files=["res://.godot/imported/Captura de pantalla 2026-10-15 215554.png-fe9799944e5fb52ab1c18b1d81f5468c.ctex"]
+source_file="res://assets/sprites/personaje_oso/oso_punch_front.png"
+dest_files=["res://.godot/imported/oso_punch_front.png-5f3394678dbb6fadb6f478f4e06b98f0.ctex"]
 
 [params]
 

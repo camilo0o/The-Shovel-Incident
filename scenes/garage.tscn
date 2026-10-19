@@ -8,10 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://638c5asf0sv0" path="res://assets/backgrounds/door.png" id="5_d8qye"]
 [ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="6_18b1i"]
 [ext_resource type="Resource" path="res://resources/armas/bate.tres" id="8_bate"]
-[ext_resource type="Resource" path="res://resources/armas/ak47.tres" id="9_ak47"]
-[ext_resource type="Resource" path="res://resources/armas/pistola_clavos.tres" id="10_pistola"]
+[ext_resource type="Resource" uid="uid://c8rh0ju82458j" path="res://resources/armas/ak47.tres" id="9_ak47"]
+[ext_resource type="Resource" uid="uid://bc5k8ppdqtcm2" path="res://resources/armas/pistola_clavos.tres" id="10_pistola"]
 [ext_resource type="PackedScene" uid="uid://bsdc5l0vwhioy" path="res://scenes/armeria.tscn" id="12_w2145"]
 [ext_resource type="Script" uid="uid://cvua77lbiujgx" path="res://scripts/arma_data.gd" id="13_spycl"]
+[ext_resource type="PackedScene" path="res://scenes/probador.tscn" id="13_w2145"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13b6"]
 texture = ExtResource("1_rao6x")
@@ -1289,3 +1290,7 @@ vertical_alignment = 1
 [node name="Armeria" parent="." unique_id=649266456 instance=ExtResource("12_w2145")]
 position = Vector2(195, 129)
 armas = Array[ExtResource("13_spycl")]([ExtResource("9_ak47"), ExtResource("8_bate"), ExtResource("10_pistola")])
+
+[node name="Probador" parent="." unique_id=832756610 instance=ExtResource("13_w2145")]
+position = Vector2(54, 119)
+
