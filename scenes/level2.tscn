@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://5qqk5fuh0y6" path="res://assets/backgrounds/professional_kitchen.png" id="6_hrcei"]
 [ext_resource type="Texture2D" uid="uid://c4ku18o4406oh" path="res://assets/backgrounds/icerocks_pixel.png" id="6_yqkch"]
 [ext_resource type="Texture2D" uid="uid://dmadsyfapkrwr" path="res://assets/backgrounds/carnes_congeladas_16x16.png" id="8_xa7n4"]
+[ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_xa7n4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hrcei"]
 texture = ExtResource("1_2k3dv")
@@ -1821,3 +1822,18 @@ limit_left = 0
 limit_top = 0
 limit_right = 1080
 limit_bottom = 200
+
+[node name="CarpinchoPickup" parent="." unique_id=897076193 instance=ExtResource("9_xa7n4")]
+position = Vector2(198, 159)
+
+[node name="CarpinchoPickup2" parent="." unique_id=790186600 instance=ExtResource("9_xa7n4")]
+position = Vector2(487, 86)
+
+[node name="CarpinchoPickup3" parent="." unique_id=928459489 instance=ExtResource("9_xa7n4")]
+position = Vector2(639, 180)
+
+[node name="CarpinchoPickup4" parent="." unique_id=1799548981 instance=ExtResource("9_xa7n4")]
+position = Vector2(1042, 87)
+
+[node name="CarpinchoPickup5" parent="." unique_id=1727636446 instance=ExtResource("9_xa7n4")]
+position = Vector2(852, 178)

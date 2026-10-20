@@ -21,6 +21,10 @@ var _activos := 0
 
 
 func _ready() -> void:
+	if puntos_spawn.is_empty():
+		for hijo in get_children():
+			if hijo is Marker2D:
+				puntos_spawn.append(hijo)
 	_programar_siguiente()
 
 
