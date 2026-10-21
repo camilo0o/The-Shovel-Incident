@@ -453,6 +453,7 @@ func _mostrar_derrota() -> void:
 	get_tree().paused = true
 	_panel_derrota.visible = true
 	await get_tree().create_timer(2.0).timeout
+	GameProgress.vida_jugador = -1
 	get_tree().paused = false
 	get_tree().call_deferred("reload_current_scene")
 
