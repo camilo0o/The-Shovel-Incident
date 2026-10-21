@@ -14,6 +14,7 @@ var armas_desbloqueadas: Array[ArmaData] = []
 var level_unlocked: Array[bool] = [true, false, false]
 var level_completed: Array[bool] = [false, false, false]
 var municion := 60
+var vida_jugador := -1
 
 var level_scenes: Array[String] = [
 	"res://scenes/level1.tscn",

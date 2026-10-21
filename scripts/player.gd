@@ -5,11 +5,8 @@ signal vida_cambiada(vida_actual: int, vida_maxima: int)
 signal municion_cambiada(cantidad: int)
 signal murio
 
-const MASK_ENEMIGOS := 1 << 2   # capa de colisión 3 = enemigos
+const MASK_ENEMIGOS := 1 << 2
 
-# Controles: clic izq / J = piñazo (siempre disponible)
-#            clic der / K = arma elegida en la armería
-# Para invertirlos alcanza con intercambiar estas dos constantes.
 const ACCION_PUNO := "ataque_corto"
 const ACCION_ARMA := "ataque_largo"
 
@@ -28,7 +25,7 @@ var municion := 0
 @export var bala_scene: PackedScene = preload("res://scenes/bala.tscn")
 
 @export_group("Debug")
-@export var debug_hitbox := false   # dibuja la caja del golpe
+@export var debug_hitbox := false
 
 var speed = 100.0
 var last_direction = "front"
@@ -37,27 +34,25 @@ var mira_vector := Vector2.DOWN
 var vida := 0
 var invulnerable := false
 
-# HUD de vida (esquina inferior izquierda)
 var _hud_layer: CanvasLayer
 var _hud_barra: ProgressBar
 var _hud_municion: Label
 var _hud_monedas: Label
 var _hud_carpinchos: Label
 
-var _frames_originales: SpriteFrames   # animaciones del personaje sin skin
+var _frames_originales: SpriteFrames
 
-# Pantallas de pausa / victoria / derrota
 var _panel_pausa: Control
 var _panel_derrota: Control
 var _panel_victoria: Control
-var _juego_terminado := false   # evita reaccionar dos veces (ya ganó o ya perdió)
+var _juego_terminado := false
 
-var arma: ArmaData = null            # se sincroniza con GameProgress.arma_equipada
-var controles_bloqueados := false     # lo usa la armería mientras el menú está abierto
+var arma: ArmaData = null
+var controles_bloqueados := false
 var puede_pegar_puno := true
 var puede_usar_arma := true
 
-var _arma_pivote: Node2D             # queda en la mano; el arma gira alrededor de este punto
+var _arma_pivote: Node2D
 var _arma_sprite: Sprite2D
 var _puno_sprite: Sprite2D
 var _animando_arma := false
@@ -72,7 +67,10 @@ func _ready() -> void:
 	animated_sprite.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 	add_to_group("jugador")
-	vida = vida_maxima
+	if GameProgress.vida_jugador > 0:
+		vida = GameProgress.vida_jugador
+	else:
+		vida = vida_maxima
 	
 	municion = GameProgress.municion
 	
@@ -114,9 +112,7 @@ func get_input():
 		velocity = Vector2.ZERO
 		update_animation("idle")
 		return
-	#Detectar en que eje nos movemos
 	if abs(input_direction.x) > abs(input_direction.y):
-		#Movimiento horizontal
 		if input_direction.x > 0:
 			last_direction = "right"
 		else:
@@ -130,8 +126,6 @@ func get_input():
 	velocity = input_direction * speed
 	mira_vector = input_direction.normalized()
 
-# Cambia la skin del jugador (null = personaje original).
-# Mantiene los mismos nombres de animación, así el resto del script no cambia.
 func aplicar_skin(skin: SkinData) -> void:
 	if skin == null:
 		animated_sprite.sprite_frames = _frames_originales
@@ -141,9 +135,6 @@ func aplicar_skin(skin: SkinData) -> void:
 
 func update_animation(state):
 	animated_sprite.play(state + "_" + last_direction)
-
-
-# Dirección a la que mira el jugador
 
 func _direccion_vector() -> Vector2:
 	match last_direction:
@@ -156,9 +147,6 @@ func _direccion_vector() -> Vector2:
 		_:
 			return Vector2.DOWN
 
-
-# Golpe genérico: daña a todo enemigo dentro de una caja delante del jugador.
-# Lo usan el piñazo y las armas cuerpo a cuerpo. Devuelve cuántos golpeó.
 
 func _golpear(dano: int, alcance: float, tamano: Vector2) -> int:
 	var centro_local := _direccion_vector() * alcance
@@ -184,9 +172,6 @@ func _golpear(dano: int, alcance: float, tamano: Vector2) -> int:
 		_mostrar_golpe(Rect2(centro_local - tamano / 2.0, tamano))
 	return golpeados.size()
 
-
-# Ñapi: siempre disponible, con o sin arma
-
 func atacar_con_puno() -> void:
 	if not puede_pegar_puno:
 		return
@@ -208,9 +193,6 @@ func _animar_puno() -> void:
 	tween.tween_interval(0.05)
 	tween.tween_callback(func(): _puno_sprite.visible = false)
 
-
-# Arma equipada: solo se puede usar la que se eligió en la armería
-
 func atacar_con_arma() -> void:
 	if arma == null or not puede_usar_arma:
 		return
@@ -229,15 +211,15 @@ func atacar_con_arma() -> void:
 
 func _giro_de_arma() -> void:
 	_animando_arma = true
-	var base := _direccion_vector().angle() + PI / 2.0     # el arma mira hacia arriba con rotación 0
+	var base := _direccion_vector().angle() + PI / 2.0
 	var signo := -1.0 if last_direction == "left" else 1.0
 	var inicio := base - signo * deg_to_rad(70.0)
-	inicio = _arma_pivote.rotation + angle_difference(_arma_pivote.rotation, inicio)   # evita dar vueltas de más
+	inicio = _arma_pivote.rotation + angle_difference(_arma_pivote.rotation, inicio)
 
 	var tween := create_tween()
-	tween.tween_property(_arma_pivote, "rotation", inicio, 0.05)          # preparación
-	tween.tween_callback(_impactar_arma)                                  # el golpe cae acá
-	tween.tween_property(_arma_pivote, "rotation", inicio + signo * deg_to_rad(140.0), 0.09)   # tajo
+	tween.tween_property(_arma_pivote, "rotation", inicio, 0.05)
+	tween.tween_callback(_impactar_arma)
+	tween.tween_property(_arma_pivote, "rotation", inicio + signo * deg_to_rad(140.0), 0.09)
 	await tween.finished
 	_animando_arma = false
 
@@ -261,7 +243,6 @@ func _disparar() -> void:
 	get_tree().current_scene.add_child(bala)
 	bala.global_position = global_position + dir * arma.distancia_boca
 
-	# retroceso visual del arma
 	_animando_arma = true
 	var pos0 := _arma_pivote.position
 	var tween := create_tween()
@@ -275,10 +256,6 @@ func agregar_municion(cantidad: int) -> void:
 	GameProgress.municion = municion
 	municion_cambiada.emit(municion)
 
-
-# HUD de vida: barra fija en la esquina inferior izquierda de la pantalla.
-# Va en un CanvasLayer para no verse afectada por la cámara ni el zoom.
-
 func _crear_hud_vida() -> void:
 	_hud_layer = CanvasLayer.new()
 	_hud_layer.layer = 10
@@ -291,8 +268,6 @@ func _crear_hud_vida() -> void:
 	_hud_barra.show_percentage = false
 	_hud_barra.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# Ancla inferior izquierda + offsets = posición fija en esa esquina
-	# sin importar la resolución de la ventana.
 	_hud_barra.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
 	_hud_barra.offset_left = 16
 	_hud_barra.offset_right = 16 + 120
@@ -316,7 +291,6 @@ func _crear_hud_vida() -> void:
 
 	vida_cambiada.connect(_actualizar_hud_vida)
 
-	# Contador de munición, pegado a la derecha de la barra de vida.
 	_hud_municion = Label.new()
 	_hud_municion.text = "Munición: %d" % municion
 	_hud_municion.add_theme_font_size_override("font_size", 16)
@@ -325,17 +299,17 @@ func _crear_hud_vida() -> void:
 	_hud_municion.add_theme_constant_override("outline_size", 4)
 
 	_hud_municion.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	_hud_municion.offset_left = 16 + 120 + 12   # a la derecha de la barra, con separación
+	_hud_municion.offset_left = 16 + 120 + 12
 	_hud_municion.offset_right = 16 + 120 + 12 + 100
 	_hud_municion.offset_top = -32
 	_hud_municion.offset_bottom = -16
 	_hud_municion.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 	_hud_layer.add_child(_hud_municion)
-	_hud_municion.visible = false # se muestra solo si corresponde
+	_hud_municion.visible = false
 
 	municion_cambiada.connect(_actualizar_hud_municion)
-	# contador de bananas doradas, arriba de la barra de vida
+
 	_hud_monedas = Label.new()
 	_hud_monedas.text = "Bananas: %d" % GameProgress.monedas
 	_hud_monedas.add_theme_font_size_override("font_size", 16)
@@ -354,7 +328,6 @@ func _crear_hud_vida() -> void:
 	
 	GameProgress.monedas_cambiadas.connect(_actualizar_hud_monedas)
 
-	# contador de carpinchos (moneda de las skins), arriba de las bananas
 	_hud_carpinchos = Label.new()
 	_hud_carpinchos.text = "Carpinchos: %d" % GameProgress.carpinchos
 	_hud_carpinchos.add_theme_font_size_override("font_size", 16)
@@ -371,13 +344,11 @@ func _crear_hud_vida() -> void:
 
 	GameProgress.carpinchos_cambiados.connect(_actualizar_hud_carpinchos)
 
-
 func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
 	if _hud_barra == null:
 		return
 	_hud_barra.max_value = vida_max
 	_hud_barra.value = vida_actual
-
 
 func _actualizar_hud_municion(cantidad: int) -> void:
 	if _hud_municion == null:
@@ -399,9 +370,6 @@ func _actualizar_visibilidad_municion() -> void:
 		return
 	_hud_municion.visible = arma != null and arma.tipo == ArmaData.Tipo.DISTANCIA
 
-# Pantallas de pausa, victoria y derrota
-# Las tres son overlays de pantalla completa dentro del mismo CanvasLayer del HUD.
-
 func _crear_paneles_de_estado() -> void:
 	_panel_pausa = _crear_overlay("Pausa")
 	_agregar_boton(_panel_pausa, "Continuar", _alternar_pausa)
@@ -416,11 +384,10 @@ func _crear_paneles_de_estado() -> void:
 	_hud_layer.add_child(_panel_victoria)
 
 
-# Fondo oscuro + mensaje centrado. Se agregan botones aparte con _agregar_boton.
 func _crear_overlay(mensaje: String) -> Panel:
 	var fondo := Panel.new()
 	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
-	fondo.mouse_filter = Control.MOUSE_FILTER_STOP   # bloquea clics hacia el juego
+	fondo.mouse_filter = Control.MOUSE_FILTER_STOP
 	fondo.visible = false
 
 	var estilo := StyleBoxFlat.new()
@@ -464,27 +431,20 @@ func _alternar_pausa() -> void:
 	get_tree().paused = not get_tree().paused
 	_panel_pausa.visible = get_tree().paused
 
-
-# Botón "Volver" del menú de pausa: regresa a la escena en la que estabas antes
-# de la actual (el historial lo lleva GameProgress).
 func _volver() -> void:
 	get_tree().paused = false
 	GameProgress.volver()
-
 
 func _ir_a_seleccion_de_niveles() -> void:
 	get_tree().paused = false
 	Fade.cambiar_escena("res://scenes/level_select.tscn")
 
-
-# Llamado por el jefe (palin.gd) al morir, si tiene es_jefe = true
 func mostrar_victoria() -> void:
 	if _juego_terminado:
 		return
 	_juego_terminado = true
 	get_tree().paused = true
 	_panel_victoria.visible = true
-
 
 func _mostrar_derrota() -> void:
 	if _juego_terminado:
@@ -496,16 +456,13 @@ func _mostrar_derrota() -> void:
 	get_tree().paused = false
 	get_tree().call_deferred("reload_current_scene")
 
-
-# Arma en la mano
-
 func _crear_visuales_de_ataque() -> void:
 	_arma_pivote = Node2D.new()
 	_arma_pivote.visible = false
 	add_child(_arma_pivote)
 
 	_arma_sprite = Sprite2D.new()
-	_arma_sprite.offset = Vector2(0, -8)   # el pivote queda en el mango, el arma "crece" hacia arriba
+	_arma_sprite.offset = Vector2(0, -8)
 	_arma_pivote.add_child(_arma_sprite)
 
 	_puno_sprite = Sprite2D.new()
@@ -521,7 +478,6 @@ func _on_arma_cambiada(nueva: ArmaData) -> void:
 	if arma != null:
 		_arma_sprite.texture = arma.icono
 		if arma.icono != null:
-			# el pivote queda en la base del arma sin importar su alto
 			_arma_sprite.offset = Vector2(0, -arma.icono.get_height() / 2.0)
 	_actualizar_arma_visual()
 	_actualizar_visibilidad_municion()
@@ -534,7 +490,6 @@ func _actualizar_arma_visual() -> void:
 
 	if _direccion_dibujada != last_direction:
 		_direccion_dibujada = last_direction
-		# de espaldas el arma queda detrás del cuerpo; en el resto, delante
 		if last_direction == "back":
 			move_child(_arma_pivote, animated_sprite.get_index())
 		else:
@@ -553,12 +508,10 @@ func _posicion_mano() -> Vector2:
 
 func _rotacion_reposo() -> float:
 	if arma.tipo == ArmaData.Tipo.DISTANCIA:
-		return mira_vector.angle() + PI / 2.0   # apunta hacia donde mira
+		return mira_vector.angle() + PI / 2.0
 	var inclinacion := deg_to_rad(20.0)
 	return -inclinacion if (last_direction == "left" or last_direction == "back") else inclinacion
 
-
-# Feedback visual opcional de la caja del golpe (Debug > debug_hitbox)
 func _mostrar_golpe(rect: Rect2) -> void:
 	_golpe_rect = rect
 	_golpe_visible = true
@@ -571,14 +524,12 @@ func _draw() -> void:
 	if _golpe_visible:
 		draw_rect(_golpe_rect, Color(1, 1, 1, 0.35))
 
-
-# Recibir daño
-
 func recibir_dano(cantidad: int, _origen: Vector2 = Vector2.ZERO) -> void:
 	if invulnerable or vida <= 0:
 		return
 	vida -= cantidad
-	print("Vida jugador: ", vida)   # debug, se puede borrar
+	GameProgress.vida_jugador = vida
+	print("Vida jugador: ", vida)
 	vida_cambiada.emit(vida, vida_maxima)
 
 	if vida <= 0:

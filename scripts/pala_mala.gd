@@ -1,6 +1,5 @@
 extends "res://scripts/palin.gd"
 
-# Usa el combate de Palín y las cuatro caminatas disponibles de la Pala Mala.
 @export var duracion_ataque := 0.8
 
 var _ultima_animacion: StringName = &"pala mala abajo"
