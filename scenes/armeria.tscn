@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bsdc5l0vwhioy"]
 
-[ext_resource type="Script" uid="uid://b3qa3fgtsm8t8" path="res://scenes/armeria.gd" id="1_mb66k"]
+[ext_resource type="Script" uid="uid://pqglmlesik5o" path="res://scripts/armeria.gd" id="1_mb66k"]
 [ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="2_font"]
 [ext_resource type="Texture2D" uid="uid://cq0v5c7sqf17l" path="res://assets/backgrounds/PostApoc_Workshop.png" id="2_mb66k"]
 [ext_resource type="Texture2D" uid="uid://c8e2mlvw5oohk" path="res://assets/sprites/armas/ak47.png" id="4_lxd52"]

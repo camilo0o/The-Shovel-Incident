@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://0mhs5ybwr3w1" path="res://assets/backgrounds/Classrooms.png" id="1_2sna0"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="2_81uxj"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="3_g66rc"]
-[ext_resource type="PackedScene" uid="uid://f2wvkaw7jxon" path="res://assets/sprites/enemies/pala mala/pala mala.tscn" id="4_mrrxw"]
+[ext_resource type="PackedScene" uid="uid://f2wvkaw7jxon" path="res://scenes/pala mala.tscn" id="4_mrrxw"]
 [ext_resource type="AudioStream" uid="uid://bmxhre35vl24r" path="res://assets/audio/music/horror_bossroom1.mp3" id="5_hsimh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81uxj"]

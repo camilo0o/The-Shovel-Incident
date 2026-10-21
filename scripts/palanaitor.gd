@@ -412,7 +412,7 @@ func _volver() -> void:
 
 func _ir_a_seleccion_de_niveles() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/level_select.tscn")
+	Fade.cambiar_escena("res://scenes/level_select.tscn")
 
 
 # Llamado por el jefe (palin.gd) al morir, si tiene es_jefe = true

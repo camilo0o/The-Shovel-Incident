@@ -654,7 +654,6 @@ stream = ExtResource("8_bbk5w")
 volume_db = -22.545
 autoplay = true
 
-<<<<<<< Updated upstream
 [node name="CarpinchoPickup2" parent="." unique_id=989019183 instance=ExtResource("9_conm7")]
 position = Vector2(292, 90)
 
@@ -669,9 +668,8 @@ position = Vector2(935, 151)
 
 [node name="CarpinchoPickup5" parent="." unique_id=250722533 instance=ExtResource("9_conm7")]
 position = Vector2(932, 40)
-=======
-[node name="Fade" parent="." unique_id=633638684 instance=ExtResource("9_conm7")]
->>>>>>> Stashed changes
+
+[node name="Fade" parent="." unique_id=633638684 instance=ExtResource("10_fade")]
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
 [connection signal="ready" from="Fade" to="." method="_on_fade_ready"]

@@ -6,9 +6,9 @@ signal carpinchos_cambiados(cantidad: int)
 signal skin_cambiada(skin: SkinData)
 
 var monedas := 0
-var carpinchos := 0                                  # moneda carpincho naranja (skins)
+var carpinchos := 0
 var skins_desbloqueadas: Array[SkinData] = []
-var skin_equipada: SkinData = null                   # null = personaje original
+var skin_equipada: SkinData = null
 var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
 var level_unlocked: Array[bool] = [true, false, false]
@@ -21,8 +21,6 @@ var level_scenes: Array[String] = [
 	"res://scenes/level3.tscn"
 ]
 
-# Arma elegida en la armería del garage (null = solo puños).
-# Vive acá porque este autoload sobrevive a los cambios de escena.
 var arma_equipada: ArmaData = null
 
 func equipar_arma(arma: ArmaData) -> void:
@@ -49,7 +47,6 @@ func comprar_arma(arma: ArmaData) -> bool:
 	monedas_cambiadas.emit(monedas)
 	return true
 
-# --- Skins del jugador (se compran en el probador del garage) ---
 
 func agregar_carpinchos(cantidad: int) -> void:
 	carpinchos += cantidad
@@ -86,13 +83,10 @@ func is_unlocked(index: int) -> bool:
 
 func go_to_level(index: int) -> void:
 	if is_unlocked(index):
-		get_tree().change_scene_to_file(level_scenes[index])
+		Fade.cambiar_escena(level_scenes[index])
 
 
-# Historial de escenas para el botón "Volver" del menú de pausa.
-# Se arma solo: cada frame mira cuál es la escena actual y, cuando cambia,
-# guarda la anterior. Así no hay que tocar a quienes llaman a
-# change_scene_to_file.
+
 const ESCENA_POR_DEFECTO := "res://scenes/main_menu.tscn"
 
 var _historial: Array[String] = []
@@ -102,27 +96,32 @@ var _volviendo := false
 func _process(_delta: float) -> void:
 	var escena := get_tree().current_scene
 	if escena == null:
-		return   # justo en medio de un cambio de escena
+		return
 	var ruta := escena.scene_file_path
 	if ruta == _escena_actual:
-		return   # misma escena (p. ej. reinicio al morir): no cuenta como avance
+		return
 
 	if _volviendo:
-		_volviendo = false   # el destino ya se sacó del historial en volver()
+		_volviendo = false
 	else:
 		var previa := _historial.find(ruta)
 		if previa != -1:
-			# Se llegó a una escena ya visitada por otro camino (p. ej. el
-			# botón Volver del selector de niveles): se descarta lo posterior.
 			_historial.resize(previa)
 		elif _escena_actual != "":
 			_historial.append(_escena_actual)
 	_escena_actual = ruta
 
-# Vuelve a la escena anterior. Sin historial, cae al menú principal.
+var _cambiando := false
+
 func volver() -> void:
+	if _cambiando:
+		return
+	_cambiando = true
+
 	var destino := ESCENA_POR_DEFECTO
 	if not _historial.is_empty():
 		destino = _historial.pop_back()
 	_volviendo = true
-	get_tree().change_scene_to_file(destino)
+
+	await Fade.cambiar_escena(destino)
+	_cambiando = false

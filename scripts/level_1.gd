@@ -1,12 +1,8 @@
 extends Node2D
 
-@onready var fade: CanvasLayer = $Fade
-
-
-
 func _on_portal_body_entered(body):
 	if body.name == "Player":
 		call_deferred("_cambiar_escena")
 
 func _cambiar_escena():
-	get_tree().change_scene_to_file("res://scenes/boss_room_1.tscn")
+	Fade.cambiar_escena("res://scenes/boss_room_1.tscn")

@@ -19,6 +19,7 @@ config/icon="res://assets/ui/icons/icon.svg"
 
 GameProgress="*uid://c1jej0op3wscs"
 MusicaFondo="*uid://b1snisc4fo8lp"
+Fade="*uid://c685fbknp1c1u"
 
 [display]
 
