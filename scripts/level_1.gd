@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var fade: CanvasLayer = $Fade
+
+
+
 func _on_portal_body_entered(body):
 	if body.name == "Player":
 		call_deferred("_cambiar_escena")

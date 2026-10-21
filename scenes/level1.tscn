@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="7_ejswk"]
 [ext_resource type="AudioStream" uid="uid://cv7m1xp0kv14p" path="res://assets/audio/music/fondo_level1_music.mp3" id="8_bbk5w"]
 [ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_conm7"]
+[ext_resource type="PackedScene" uid="uid://c685fbknp1c1u" path="res://scenes/fade.tscn" id="10_fade"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -653,6 +654,7 @@ stream = ExtResource("8_bbk5w")
 volume_db = -22.545
 autoplay = true
 
+<<<<<<< Updated upstream
 [node name="CarpinchoPickup2" parent="." unique_id=989019183 instance=ExtResource("9_conm7")]
 position = Vector2(292, 90)
 
@@ -667,5 +669,9 @@ position = Vector2(935, 151)
 
 [node name="CarpinchoPickup5" parent="." unique_id=250722533 instance=ExtResource("9_conm7")]
 position = Vector2(932, 40)
+=======
+[node name="Fade" parent="." unique_id=633638684 instance=ExtResource("9_conm7")]
+>>>>>>> Stashed changes
 
 [connection signal="body_entered" from="Portal" to="." method="_on_portal_body_entered"]
+[connection signal="ready" from="Fade" to="." method="_on_fade_ready"]
