@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="3_g66rc"]
 [ext_resource type="PackedScene" uid="uid://f2wvkaw7jxon" path="res://scenes/pala mala.tscn" id="4_mrrxw"]
 [ext_resource type="AudioStream" uid="uid://bmxhre35vl24r" path="res://assets/audio/music/horror_bossroom1.mp3" id="5_hsimh"]
+[ext_resource type="PackedScene" path="res://scenes/vida_pickup.tscn" id="6_12c1s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81uxj"]
 texture = ExtResource("1_2sna0")
@@ -617,3 +618,15 @@ collision_mask = 2
 stream = ExtResource("5_hsimh")
 volume_db = -22.961
 autoplay = true
+
+[node name="VidaPickup" parent="." unique_id=1915583679 instance=ExtResource("6_12c1s")]
+position = Vector2(187, 77)
+
+[node name="VidaPickup2" parent="." unique_id=2041267912 instance=ExtResource("6_12c1s")]
+position = Vector2(149, 147)
+
+[node name="VidaPickup3" parent="." unique_id=1998931966 instance=ExtResource("6_12c1s")]
+position = Vector2(159, 253)
+
+[node name="VidaPickup4" parent="." unique_id=855434433 instance=ExtResource("6_12c1s")]
+position = Vector2(333, 119)

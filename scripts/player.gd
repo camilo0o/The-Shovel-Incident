@@ -256,6 +256,13 @@ func agregar_municion(cantidad: int) -> void:
 	GameProgress.municion = municion
 	municion_cambiada.emit(municion)
 
+func curar(cantidad: int) -> void:
+	if vida <= 0:
+		return
+	vida = min(vida + cantidad, vida_maxima)
+	GameProgress.vida_jugador = vida
+	vida_cambiada.emit(vida, vida_maxima)
+
 func _crear_hud_vida() -> void:
 	_hud_layer = CanvasLayer.new()
 	_hud_layer.layer = 10

@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://cv7m1xp0kv14p" path="res://assets/audio/music/fondo_level1_music.mp3" id="8_bbk5w"]
 [ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_conm7"]
 [ext_resource type="PackedScene" uid="uid://c685fbknp1c1u" path="res://scenes/fade.tscn" id="10_fade"]
+[ext_resource type="PackedScene" path="res://scenes/vida_pickup.tscn" id="10_u3awl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -668,6 +669,15 @@ position = Vector2(935, 151)
 
 [node name="CarpinchoPickup5" parent="." unique_id=250722533 instance=ExtResource("9_conm7")]
 position = Vector2(932, 40)
+
+[node name="VidaPickup2" parent="." unique_id=2122426806 instance=ExtResource("10_u3awl")]
+position = Vector2(570, 157)
+
+[node name="VidaPickup3" parent="." unique_id=2076190618 instance=ExtResource("10_u3awl")]
+position = Vector2(863, 154)
+
+[node name="VidaPickup" parent="." unique_id=1557935519 instance=ExtResource("10_u3awl")]
+position = Vector2(224, 119)
 
 [node name="Fade" parent="." unique_id=633638684 instance=ExtResource("10_fade")]
 
