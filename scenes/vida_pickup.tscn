@@ -1,31 +1,31 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://3130lnf3aavr"]
 
-[ext_resource type="Script" path="res://scripts/vida_pickup.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/sprites/items/Sprite-vida-efecto.png" id="2_hoja"]
+[ext_resource type="Script" uid="uid://m5soyriyfbpq" path="res://scripts/vida_pickup.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://8457bu8wefks" path="res://assets/sprites/items/Sprite-vida-efecto.png" id="2_hoja"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
 atlas = ExtResource("2_hoja")
-region = Rect2(0, 0, 200, 200)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
 atlas = ExtResource("2_hoja")
-region = Rect2(200, 0, 200, 200)
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
 atlas = ExtResource("2_hoja")
-region = Rect2(400, 0, 200, 200)
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
 atlas = ExtResource("2_hoja")
-region = Rect2(600, 0, 200, 200)
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
 atlas = ExtResource("2_hoja")
-region = Rect2(800, 0, 200, 200)
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
 atlas = ExtResource("2_hoja")
-region = Rect2(1000, 0, 200, 200)
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_flotar"]
 animations = [{
@@ -48,23 +48,25 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"flotar",
-"speed": 8.0
+"speed": 6.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 6.0
 
-[node name="VidaPickup" type="Area2D"]
+[node name="VidaPickup" type="Area2D" unique_id=209825015]
 collision_layer = 0
-collision_mask = 1
 script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=361769701]
+texture_filter = 1
+position = Vector2(1.7881393e-07, 1.0000001)
+scale = Vector2(0.5625, 0.5)
 sprite_frames = SubResource("SpriteFrames_flotar")
 animation = &"flotar"
 autoplay = "flotar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355461486]
 shape = SubResource("CircleShape2D_1")
