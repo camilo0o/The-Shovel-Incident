@@ -4352,5 +4352,4 @@ volume_db = -22.961
 autoplay = true
 
 [node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("10_r4j7v")]
-position = Vector2(2.9999998, 96)
-scale = Vector2(0.6, 0.6)
+position = Vector2(11, 117)

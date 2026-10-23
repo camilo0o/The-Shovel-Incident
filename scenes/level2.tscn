@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://5qqk5fuh0y6" path="res://assets/backgrounds/professional_kitchen.png" id="6_hrcei"]
 [ext_resource type="Texture2D" uid="uid://c4ku18o4406oh" path="res://assets/backgrounds/icerocks_pixel.png" id="6_yqkch"]
 [ext_resource type="Texture2D" uid="uid://dmadsyfapkrwr" path="res://assets/backgrounds/carnes_congeladas_16x16.png" id="8_xa7n4"]
-[ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_xa7n4"]
+[ext_resource type="PackedScene" uid="uid://bw2xtxmu6dxdn" path="res://scenes/carpincho_pickup.tscn" id="9_xa7n4"]
+[ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="10_bo4dx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hrcei"]
 texture = ExtResource("1_2k3dv")
@@ -1837,3 +1838,6 @@ position = Vector2(1042, 87)
 
 [node name="CarpinchoPickup5" parent="." unique_id=1727636446 instance=ExtResource("9_xa7n4")]
 position = Vector2(852, 178)
+
+[node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("10_bo4dx")]
+position = Vector2(33, 100)

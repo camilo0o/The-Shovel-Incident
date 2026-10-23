@@ -8,9 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://co7mm4oam0e4w" path="res://scenes/palin.tscn" id="6_6sh32"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="7_ejswk"]
 [ext_resource type="AudioStream" uid="uid://cv7m1xp0kv14p" path="res://assets/audio/music/fondo_level1_music.mp3" id="8_bbk5w"]
-[ext_resource type="PackedScene" path="res://scenes/carpincho_pickup.tscn" id="9_conm7"]
+[ext_resource type="PackedScene" uid="uid://bw2xtxmu6dxdn" path="res://scenes/carpincho_pickup.tscn" id="9_conm7"]
 [ext_resource type="PackedScene" uid="uid://c685fbknp1c1u" path="res://scenes/fade.tscn" id="10_fade"]
-[ext_resource type="PackedScene" path="res://scenes/vida_pickup.tscn" id="10_u3awl"]
+[ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="10_u3awl"]
+[ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="11_2ku1j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oirhb"]
 texture = ExtResource("2_6sh32")
@@ -678,6 +679,9 @@ position = Vector2(863, 154)
 
 [node name="VidaPickup" parent="." unique_id=1557935519 instance=ExtResource("10_u3awl")]
 position = Vector2(224, 119)
+
+[node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("11_2ku1j")]
+position = Vector2(35, 64)
 
 [node name="Fade" parent="." unique_id=633638684 instance=ExtResource("10_fade")]
 

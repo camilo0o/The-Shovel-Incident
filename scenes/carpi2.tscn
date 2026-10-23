@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjb2a0t5eydn3"]
 
 [ext_resource type="Texture2D" uid="uid://dyisfk0w8662x" path="res://assets/sprites/carpi2/carpincho_caminar_frente_sheet.png" id="1_8mxh7"]
+[ext_resource type="Script" uid="uid://dbldbrgvtq7un" path="res://scripts/carpi_seguidor.gd" id="1_hvrt8"]
 [ext_resource type="Texture2D" uid="uid://cqtjuagdueiim" path="res://assets/sprites/carpi2/carpincho_caminar_espalda_sheet.png" id="2_hvrt8"]
 [ext_resource type="Texture2D" uid="uid://cl6mdjhdltt85" path="res://assets/sprites/carpi2/carpincho_caminar_derecha_nuevo.png" id="3_ymwqn"]
 [ext_resource type="Texture2D" uid="uid://dy8vrc373b8yc" path="res://assets/sprites/carpi2/carpincho_caminar_izquierda.png" id="4_xtnsb"]
@@ -155,7 +156,10 @@ animations = [{
 }]
 
 [node name="Carpi2" type="Node2D" unique_id=114980856]
+script = ExtResource("1_hvrt8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=629622412]
+position = Vector2(0.49999875, -2.9999998)
+scale = Vector2(0.7187499, 0.68750006)
 sprite_frames = SubResource("SpriteFrames_8lruo")
-animation = &"abajo"
+animation = &"derecha"
