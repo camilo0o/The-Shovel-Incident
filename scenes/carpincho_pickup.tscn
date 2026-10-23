@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bw2xtxmu6dxdn"]
 
-[ext_resource type="Script" path="res://scripts/carpincho_pickup.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/sprites/items/Sprite-moneda-carpincho-naranja-efecto.png" id="2_hoja"]
+[ext_resource type="Script" uid="uid://c3h38v5a8d5hs" path="res://scripts/carpincho_pickup.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dwb5vw1fh7fbe" path="res://assets/sprites/items/Sprite-moneda-carpincho-naranja-efecto.png" id="2_hoja"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
 atlas = ExtResource("2_hoja")
@@ -41,22 +41,24 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"flotar",
 "speed": 6.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 8.0
 
-[node name="CarpinchoPickup" type="Area2D"]
+[node name="CarpinchoPickup" type="Area2D" unique_id=1710316985]
 collision_layer = 0
 script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1912460115]
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_flotar")
 animation = &"flotar"
 autoplay = "flotar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1987778206]
+position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_1")
