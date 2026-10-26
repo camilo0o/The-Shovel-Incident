@@ -6,35 +6,13 @@
 [ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="3_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://baisa8xh4h3om" path="res://assets/textures/shape_a.png" id="4_rtw2f"]
 [ext_resource type="Script" uid="uid://doe74yc4ytrhe" path="res://scripts/antorcha_flicker.gd" id="5_rtw2f"]
+[ext_resource type="Script" uid="uid://bx3tteuv4gnkh" path="res://scripts/fuego_cpu.gd" id="6_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://b86elsn3udqnm" path="res://assets/elements/telaraña.png" id="6_oa1go"]
 [ext_resource type="Texture2D" uid="uid://bbs5aikygmt4q" path="res://assets/elements/herramientas.png" id="6_tbmy8"]
+[ext_resource type="Script" uid="uid://bvotgtnshtx8o" path="res://scripts/polvo_cpu.gd" id="8_jk1qb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1oqn"]
 texture = ExtResource("2_bqqt6")
-
-[sub_resource type="Curve" id="Curve_rtw2f"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_jk1qb"]
-curve = SubResource("Curve_rtw2f")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oa1go"]
-lifetime_randomness = 0.4
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 3.0
-velocity_pivot = Vector3(0, -1, 0)
-spread = 23.824
-initial_velocity_min = 10.0
-initial_velocity_max = 30.0
-gravity = Vector3(0, -15, 0)
-damping_max = 2.0
-scale_min = 0.5
-scale_max = 1.1999999
-scale_curve = SubResource("CurveTexture_jk1qb")
-turbulence_enabled = true
-turbulence_noise_strength = 0.56
 
 [sub_resource type="Gradient" id="Gradient_tbmy8"]
 offsets = PackedFloat32Array(0.6385542, 1)
@@ -47,43 +25,6 @@ fill = 1
 fill_from = Vector2(0.47391304, 0.5)
 fill_to = Vector2(0, 0)
 repeat = 1
-
-[sub_resource type="Gradient" id="Gradient_jk1qb"]
-offsets = PackedFloat32Array(0.14788732, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_hstxw"]
-gradient = SubResource("Gradient_jk1qb")
-width = 114
-
-[sub_resource type="Gradient" id="Gradient_5dd4i"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5pajh"]
-gradient = SubResource("Gradient_5dd4i")
-width = 3
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbmy8"]
-lifetime_randomness = 0.51
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(350, 250, 1)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-angle_min = -580.2
-angle_max = 412.40002
-direction = Vector3(0, -1, 0)
-spread = 180.0
-orbit_velocity_min = 0.020000096
-orbit_velocity_max = 0.050000098
-gravity = Vector3(0, 1, 0)
-scale_min = 0.29999998
-scale_max = 0.7
-color = Color(0.06666667, 0.06666667, 0.06666667, 1)
-color_ramp = SubResource("GradientTexture1D_5pajh")
-color_initial_ramp = SubResource("GradientTexture1D_hstxw")
-anim_speed_min = 2.02
-anim_speed_max = 9.559999
-turbulence_enabled = true
-turbulence_noise_strength = 0.78
-turbulence_noise_scale = 5.044
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1oqn"]
 bg_color = Color(1, 0.9882353, 1, 1)
@@ -156,9 +97,9 @@ color = Color(0.746448, 0.3968752, 0, 1)
 texture = ExtResource("4_rtw2f")
 script = ExtResource("5_rtw2f")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Decoraciones/Antorcha1" unique_id=1373933459]
-position = Vector2(1.7297287, 9.03125)
-process_material = SubResource("ParticleProcessMaterial_oa1go")
+[node name="FuegoCPU" type="Node2D" parent="Decoraciones/Antorcha1" unique_id=117224144]
+position = Vector2(1.73, 9.031)
+script = ExtResource("6_5dd4i")
 
 [node name="Herramientas" type="Sprite2D" parent="Decoraciones" unique_id=1232571253]
 position = Vector2(898, 478.00003)
@@ -170,13 +111,11 @@ position = Vector2(998, 189.5)
 scale = Vector2(0.14328961, 0.11867525)
 texture = ExtResource("6_oa1go")
 
-[node name="PolvoAmbiente" type="GPUParticles2D" parent="Decoraciones" unique_id=610002867]
+[node name="PolvoCPU" type="Node2D" parent="Decoraciones" unique_id=878578353]
 position = Vector2(541, 348)
-amount = 30
-texture = SubResource("GradientTexture2D_tbmy8")
-lifetime = 13.66
-collision_base_size = 0.0
-process_material = SubResource("ParticleProcessMaterial_tbmy8")
+script = ExtResource("8_jk1qb")
+velocidad = 10.0
+textura = SubResource("GradientTexture2D_tbmy8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1753013631]
 layout_mode = 1
