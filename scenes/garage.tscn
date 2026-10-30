@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bsdc5l0vwhioy" path="res://scenes/armeria.tscn" id="12_w2145"]
 [ext_resource type="Script" uid="uid://cvua77lbiujgx" path="res://scripts/arma_data.gd" id="13_spycl"]
 [ext_resource type="PackedScene" path="res://scenes/probador.tscn" id="13_w2145"]
+[ext_resource type="PackedScene" uid="uid://c1ac45d2ww4un" path="res://scenes/carpi_bailarin.tscn" id="14_spycl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r13b6"]
 texture = ExtResource("1_rao6x")
@@ -1294,3 +1295,5 @@ armas = Array[ExtResource("13_spycl")]([ExtResource("9_ak47"), ExtResource("8_ba
 [node name="Probador" parent="." unique_id=832756610 instance=ExtResource("13_w2145")]
 position = Vector2(54, 119)
 
+[node name="CarpiBailarin" parent="." unique_id=2095027170 instance=ExtResource("14_spycl")]
+position = Vector2(40, 208)
