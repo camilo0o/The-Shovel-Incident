@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SkinData" format=3 uid="uid://ci5kp58xlu28d"]
+
+[ext_resource type="Script" uid="uid://mk201tr13m0j" path="res://scripts/skin_data.gd" id="1_skin"]
+[ext_resource type="Texture2D" uid="uid://cxbfbo5phr4i4" path="res://assets/sprites/skin_basica/ropa_basica_idle_back.png" id="2_idle_back"]
+[ext_resource type="Texture2D" uid="uid://bvg4ki17wpveo" path="res://assets/sprites/skin_basica/ropa_basica_idle_front.png" id="3_idle_front"]
+[ext_resource type="Texture2D" uid="uid://cqrcapudtdl1p" path="res://assets/sprites/skin_basica/ropa_basica_idle_left.png" id="4_idle_left"]
+[ext_resource type="Texture2D" uid="uid://72hh655gp6ha" path="res://assets/sprites/skin_basica/ropa_basica_idle_right.png" id="5_idle_right"]
+[ext_resource type="Texture2D" uid="uid://dkdabqwq4lj8f" path="res://assets/sprites/skin_basica/ropa_basica_run_back.png" id="6_run_back"]
+[ext_resource type="Texture2D" uid="uid://b7kfplamenmm3" path="res://assets/sprites/skin_basica/ropa_basica_run_front.png" id="7_run_front"]
+[ext_resource type="Texture2D" uid="uid://6nysgoeo462g" path="res://assets/sprites/skin_basica/ropa_basica_run_left.png" id="8_run_left"]
+[ext_resource type="Texture2D" uid="uid://bg73immfjj3ic" path="res://assets/sprites/skin_basica/ropa_basica_run_right.png" id="9_run_right"]
+
+[resource]
+script = ExtResource("1_skin")
+nombre = "Ropa básica"
+descripcion = "Remera, pantalón y zapatos. Gratis."
+idle_back = ExtResource("2_idle_back")
+idle_front = ExtResource("3_idle_front")
+idle_left = ExtResource("4_idle_left")
+idle_right = ExtResource("5_idle_right")
+run_back = ExtResource("6_run_back")
+run_front = ExtResource("7_run_front")
+run_left = ExtResource("8_run_left")
+run_right = ExtResource("9_run_right")

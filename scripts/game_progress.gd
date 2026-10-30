@@ -8,7 +8,7 @@ signal skin_cambiada(skin: SkinData)
 var monedas := 0
 var carpinchos := 0
 var skins_desbloqueadas: Array[SkinData] = []
-var skin_equipada: SkinData = null
+var skin_equipada: SkinData = preload("res://resources/skins/ropa_basica.tres")
 var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
 var level_unlocked: Array[bool] = [true, false, false]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/backgrounds/PostApoc_Workshop.png" id="2_tex"]
 [ext_resource type="Script" path="res://scripts/skin_data.gd" id="3_skindata"]
 [ext_resource type="Resource" path="res://resources/skins/oso.tres" id="4_oso"]
+[ext_resource type="Resource" path="res://resources/skins/ropa_basica.tres" id="5_ropa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_zona"]
 size = Vector2(64, 56)
@@ -13,7 +14,7 @@ size = Vector2(28, 14)
 
 [node name="Probador" type="Area2D"]
 script = ExtResource("1_script")
-skins = Array[ExtResource("3_skindata")]([ExtResource("4_oso")])
+skins = Array[ExtResource("3_skindata")]([ExtResource("5_ropa"), ExtResource("4_oso")])
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, -27)
