@@ -177,7 +177,8 @@ func atacar_con_puno() -> void:
 		return
 	puede_pegar_puno = false
 
-	_golpear(dano_puno, alcance_puno, tamano_puno)
+	if _golpear(dano_puno, alcance_puno, tamano_puno) == 0:
+		GameProgress.carpi_evento.emit(&"fallo")
 	_animar_puno()
 
 	await get_tree().create_timer(cooldown_puno).timeout
@@ -224,7 +225,8 @@ func _giro_de_arma() -> void:
 	_animando_arma = false
 
 func _impactar_arma() -> void:
-	_golpear(arma.dano, arma.alcance, arma.tamano_golpe)
+	if _golpear(arma.dano, arma.alcance, arma.tamano_golpe) == 0:
+		GameProgress.carpi_evento.emit(&"fallo")
 
 func _disparar() -> void:
 	if arma.consume_municion:
@@ -232,6 +234,7 @@ func _disparar() -> void:
 		GameProgress.municion = municion
 		municion_cambiada.emit(municion)
 
+	GameProgress.carpi_evento.emit(&"fallo")
 	var dir := mira_vector
 	var bala := bala_scene.instantiate()
 	bala.direccion = dir
@@ -451,6 +454,15 @@ func mostrar_victoria() -> void:
 		return
 	_juego_terminado = true
 	get_tree().paused = true
+	# Frase de Carpi en el menú de victoria
+	var comentario := Label.new()
+	comentario.text = "Carpi: «%s»" % CarpiSeguidor.frase(&"jefe")
+	comentario.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	comentario.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	comentario.add_theme_color_override("font_color", Color(0.75, 0.9, 1.0))
+	var caja: VBoxContainer = _panel_victoria.get_meta("caja")
+	caja.add_child(comentario)
+	caja.move_child(comentario, 1)
 	_panel_victoria.visible = true
 
 func _mostrar_derrota() -> void:

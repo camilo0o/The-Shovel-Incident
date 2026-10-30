@@ -4,6 +4,7 @@ signal arma_cambiada(arma: ArmaData)
 signal monedas_cambiadas(cantidad: int)
 signal carpinchos_cambiados(cantidad: int)
 signal skin_cambiada(skin: SkinData)
+signal carpi_evento(evento: StringName)   # Carpi reacciona: &"kill", &"fallo"
 
 var monedas := 0
 var carpinchos := 0
