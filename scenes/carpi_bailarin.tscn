@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c1ac45d2ww4un"]
+
+[ext_resource type="Script" uid="uid://bsr4072j11p77" path="res://scripts/carpi_bailarin.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zona"]
+radius = 35.0
+
+[node name="CarpiBailarin" type="Node2D" unique_id=1021732536]
+script = ExtResource("1_script")
+
+[node name="Zona" type="Area2D" parent="." unique_id=12791711]
+
+[node name="Colision" type="CollisionShape2D" parent="Zona" unique_id=915484209]
+shape = SubResource("CircleShape2D_zona")

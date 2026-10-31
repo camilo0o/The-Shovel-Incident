@@ -147,6 +147,7 @@ func _morir() -> void:
 		if jugador_actual != null and jugador_actual.has_method("mostrar_victoria"):
 			jugador_actual.mostrar_victoria()
 	else:
+		GameProgress.carpi_evento.emit(&"kill")
 		_soltar_moneda.call_deferred(global_position)
 
 func _soltar_moneda(pos: Vector2) -> void:
@@ -189,10 +190,6 @@ func _pose_reposo() -> void:
 		sprite.animation = &"movement"
 		sprite.stop()
 		sprite.frame = 0
-
-
-# Barra de vida flotante sobre la cabeza del enemigo.
-# Es hija directa del enemigo (Node2D), así que se mueve con él automáticamente.
 
 func _crear_barra_vida() -> void:
 	_barra_vida = ProgressBar.new()
