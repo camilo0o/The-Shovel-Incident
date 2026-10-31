@@ -250,15 +250,16 @@ animations = [{
 size = Vector2(75, 37)
 
 [node name="palanaitor" type="CharacterBody2D" unique_id=25987825]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_mjtti")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=55971436]
-position = Vector2(-34.5, 35.5)
+position = Vector2(0.5, -40.5)
 scale = Vector2(0.645, 0.645)
 sprite_frames = SubResource("SpriteFrames_endoq")
 animation = &"caminar_abajo"
 frame_progress = 0.280677
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1527567651]
-position = Vector2(-35, 76)
 shape = SubResource("RectangleShape2D_la3er")

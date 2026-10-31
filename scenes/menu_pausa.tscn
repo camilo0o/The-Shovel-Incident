@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ciojki34vxmpr"]
+
+[ext_resource type="Script" uid="uid://dbajdolmiu6k3" path="res://scripts/menu_pausa.gd" id="1_script"]
+
+[node name="MenuPausa" type="CanvasLayer" unique_id=208668545]
+process_mode = 3
+layer = 20
+script = ExtResource("1_script")

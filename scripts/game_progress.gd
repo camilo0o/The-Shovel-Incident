@@ -1,5 +1,6 @@
 extends Node
 
+signal nivel_completado(index: int)
 signal arma_cambiada(arma: ArmaData)
 signal monedas_cambiadas(cantidad: int)
 signal carpinchos_cambiados(cantidad: int)
@@ -79,6 +80,7 @@ func complete_level(index: int) -> void:
 	var next = index + 1
 	if next < level_unlocked.size():
 		level_unlocked[next] = true
+	nivel_completado.emit(index)
 		
 func is_unlocked(index: int) -> bool:
 	return level_unlocked[index]

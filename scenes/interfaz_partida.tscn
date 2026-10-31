@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/interfaz_partida.gd" id="1_interfaz"]
+[ext_resource type="PackedScene" path="res://scenes/menu_pausa.tscn" id="2_pausa"]
+[ext_resource type="PackedScene" path="res://scenes/resultado_partida.tscn" id="3_resultado"]
+
+[node name="InterfazPartida" type="Node"]
+script = ExtResource("1_interfaz")
+
+[node name="MenuPausa" parent="." instance=ExtResource("2_pausa")]
+ruta_jugador = NodePath("../..")
+
+[node name="ResultadoPartida" parent="." instance=ExtResource("3_resultado")]

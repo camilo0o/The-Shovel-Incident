@@ -42,11 +42,6 @@ var _hud_carpinchos: Label
 
 var _frames_originales: SpriteFrames
 
-var _panel_pausa: Control
-var _panel_derrota: Control
-var _panel_victoria: Control
-var _juego_terminado := false
-
 var arma: ArmaData = null
 var controles_bloqueados := false
 var puede_pegar_puno := true
@@ -63,7 +58,7 @@ var _golpe_rect := Rect2()
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	animated_sprite.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 	add_to_group("jugador")
@@ -76,7 +71,6 @@ func _ready() -> void:
 	
 	_crear_visuales_de_ataque()
 	_crear_hud_vida()
-	_crear_paneles_de_estado()
 	GameProgress.arma_cambiada.connect(_on_arma_cambiada)
 	_on_arma_cambiada(GameProgress.arma_equipada)
 
@@ -86,11 +80,6 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pausa") and not _juego_terminado and not controles_bloqueados:
-		_alternar_pausa()
-	if get_tree().paused:
-		return
-
 	if controles_bloqueados:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -181,7 +170,7 @@ func atacar_con_puno() -> void:
 		GameProgress.carpi_evento.emit(&"fallo")
 	_animar_puno()
 
-	await get_tree().create_timer(cooldown_puno).timeout
+	await get_tree().create_timer(cooldown_puno, false).timeout
 	puede_pegar_puno = true
 
 func _animar_puno() -> void:
@@ -207,7 +196,7 @@ func atacar_con_arma() -> void:
 		ArmaData.Tipo.DISTANCIA:
 			_disparar()
 
-	await get_tree().create_timer(arma.cooldown).timeout
+	await get_tree().create_timer(arma.cooldown, false).timeout
 	puede_usar_arma = true
 
 func _giro_de_arma() -> void:
@@ -380,102 +369,6 @@ func _actualizar_visibilidad_municion() -> void:
 		return
 	_hud_municion.visible = arma != null and arma.tipo == ArmaData.Tipo.DISTANCIA
 
-func _crear_paneles_de_estado() -> void:
-	_panel_pausa = _crear_overlay("Pausa")
-	_agregar_boton(_panel_pausa, "Continuar", _alternar_pausa)
-	_agregar_boton(_panel_pausa, "Volver", _volver)
-	_hud_layer.add_child(_panel_pausa)
-
-	_panel_derrota = _crear_overlay("Se acabó el juego, tu pierdes...")
-	_hud_layer.add_child(_panel_derrota)
-
-	_panel_victoria = _crear_overlay("¡Nivel superado!")
-	_agregar_boton(_panel_victoria, "Volver a selección de niveles", _ir_a_seleccion_de_niveles)
-	_hud_layer.add_child(_panel_victoria)
-
-
-func _crear_overlay(mensaje: String) -> Panel:
-	var fondo := Panel.new()
-	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
-	fondo.mouse_filter = Control.MOUSE_FILTER_STOP
-	fondo.visible = false
-
-	var estilo := StyleBoxFlat.new()
-	estilo.bg_color = Color(0, 0, 0, 0.75)
-	fondo.add_theme_stylebox_override("panel", estilo)
-
-	var caja := VBoxContainer.new()
-	var ancho := 260.0
-	var alto := 160.0
-	caja.set_anchors_preset(Control.PRESET_CENTER)
-	caja.offset_left = -ancho / 2.0
-	caja.offset_right = ancho / 2.0
-	caja.offset_top = -alto / 2.0
-	caja.offset_bottom = alto / 2.0
-	caja.alignment = BoxContainer.ALIGNMENT_CENTER
-	caja.add_theme_constant_override("separation", 12)
-	fondo.add_child(caja)
-
-	var titulo := Label.new()
-	titulo.text = mensaje
-	titulo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	titulo.autowrap_mode = TextServer.AUTOWRAP_WORD
-	titulo.add_theme_font_size_override("font_size", 22)
-	caja.add_child(titulo)
-
-	fondo.set_meta("caja", caja)
-	return fondo
-
-
-func _agregar_boton(overlay: Panel, texto: String, al_presionar: Callable) -> void:
-	var caja: VBoxContainer = overlay.get_meta("caja")
-	var boton := Button.new()
-	boton.text = texto
-	boton.pressed.connect(al_presionar)
-	caja.add_child(boton)
-
-
-func _alternar_pausa() -> void:
-	if _juego_terminado:
-		return
-	get_tree().paused = not get_tree().paused
-	_panel_pausa.visible = get_tree().paused
-
-func _volver() -> void:
-	get_tree().paused = false
-	GameProgress.volver()
-
-func _ir_a_seleccion_de_niveles() -> void:
-	get_tree().paused = false
-	Fade.cambiar_escena("res://scenes/level_select.tscn")
-
-func mostrar_victoria() -> void:
-	if _juego_terminado:
-		return
-	_juego_terminado = true
-	get_tree().paused = true
-	# Frase de Carpi en el menú de victoria
-	var comentario := Label.new()
-	comentario.text = "Carpi: «%s»" % CarpiSeguidor.frase(&"jefe")
-	comentario.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	comentario.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	comentario.add_theme_color_override("font_color", Color(0.75, 0.9, 1.0))
-	var caja: VBoxContainer = _panel_victoria.get_meta("caja")
-	caja.add_child(comentario)
-	caja.move_child(comentario, 1)
-	_panel_victoria.visible = true
-
-func _mostrar_derrota() -> void:
-	if _juego_terminado:
-		return
-	_juego_terminado = true
-	get_tree().paused = true
-	_panel_derrota.visible = true
-	await get_tree().create_timer(2.0).timeout
-	GameProgress.vida_jugador = -1
-	get_tree().paused = false
-	get_tree().call_deferred("reload_current_scene")
-
 func _crear_visuales_de_ataque() -> void:
 	_arma_pivote = Node2D.new()
 	_arma_pivote.visible = false
@@ -536,7 +429,7 @@ func _mostrar_golpe(rect: Rect2) -> void:
 	_golpe_rect = rect
 	_golpe_visible = true
 	queue_redraw()
-	await get_tree().create_timer(0.08).timeout
+	await get_tree().create_timer(0.08, false).timeout
 	_golpe_visible = false
 	queue_redraw()
 
@@ -554,11 +447,10 @@ func recibir_dano(cantidad: int, _origen: Vector2 = Vector2.ZERO) -> void:
 
 	if vida <= 0:
 		murio.emit()
-		_mostrar_derrota()
 		return
 
 	invulnerable = true
 	animated_sprite.modulate = Color(1, 0.4, 0.4)
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7, false).timeout
 	animated_sprite.modulate = Color.WHITE
 	invulnerable = false

@@ -10,10 +10,6 @@ signal murio
 @export var cooldown_ataque := 1.2       # pausa entre ataques
 @export var fuerza_retroceso := 140.0    # empujón al recibir un golpe
 
-@export_group("Jefe de nivel")
-@export var es_jefe := false             # true = al morir dispara la pantalla de victoria
-@export var nivel_index := 0             # qué nivel (0, 1, 2) marca como completo en GameProgress
-
 enum Estado { LIBRE, ATACANDO, MUERTO }
 
 @export_group("Sonido")
@@ -39,7 +35,7 @@ var _barra_vida: ProgressBar
 const MONEDA_SCENE := preload("res://scenes/moneda_pickup.tscn")
 
 func _ready() -> void:
-	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING  # vista cenital, sin "suelo"
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING 
 	add_to_group("enemigos")
 	vida = vida_maxima
 	_crear_barra_vida()
@@ -49,10 +45,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# El jugador se busca acá y no en _ready() porque puede no existir todavía.
-	if jugador == null:
+	if not is_instance_valid(jugador):
 		jugador = get_tree().get_first_node_in_group("jugador") as Node2D
-		if jugador == null:
+		if not is_instance_valid(jugador):
 			return
 
 	var hacia_jugador := jugador.global_position - global_position
@@ -77,9 +72,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# Ataque de Palin al jugador
 
 func _atacar() -> void:
+	if estado != Estado.LIBRE or not puede_atacar or not is_instance_valid(jugador):
+		return
 	estado = Estado.ATACANDO
 	puede_atacar = false
 
@@ -87,24 +83,23 @@ func _atacar() -> void:
 	sprite.play(anim)
 	var duracion := sprite.sprite_frames.get_frame_count(anim) / sprite.sprite_frames.get_animation_speed(anim)
 
-	# El golpe cae a mitad de la animación: si el jugador se aleja antes, lo esquiva.
-	await get_tree().create_timer(duracion * 0.5).timeout
+	await get_tree().create_timer(duracion * 0.5, false).timeout
 	if estado == Estado.MUERTO:
 		return
-	if jugador != null and global_position.distance_to(jugador.global_position) <= rango_ataque * 1.3:
+	if is_instance_valid(jugador) and global_position.distance_to(jugador.global_position) <= rango_ataque * 1.3:
 		if jugador.has_method("recibir_dano"):
 			jugador.recibir_dano(dano, global_position)
 
-	await get_tree().create_timer(duracion * 0.5).timeout
+	await get_tree().create_timer(duracion * 0.5, false).timeout
 	if estado == Estado.MUERTO:
 		return
 	estado = Estado.LIBRE
 
-	await get_tree().create_timer(cooldown_ataque).timeout
-	puede_atacar = true
+	await get_tree().create_timer(cooldown_ataque, false).timeout
+	if estado != Estado.MUERTO:
+		puede_atacar = true
 
 
-# Recibir daño (el ataque corto y la bala del jugador)
 
 func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:
 	if estado == Estado.MUERTO:
@@ -120,7 +115,7 @@ func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:
 		return
 
 	sprite.modulate = Color(1, 0.3, 0.3)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1, false).timeout
 	if estado != Estado.MUERTO:
 		sprite.modulate = Color.WHITE
 
@@ -140,15 +135,8 @@ func _morir() -> void:
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
 	tween.tween_callback(queue_free)
 
-	if es_jefe:
-		GameProgress.agregar_monedas(monedas_al_morir)
-		GameProgress.complete_level(nivel_index)
-		var jugador_actual := get_tree().get_first_node_in_group("jugador")
-		if jugador_actual != null and jugador_actual.has_method("mostrar_victoria"):
-			jugador_actual.mostrar_victoria()
-	else:
-		GameProgress.carpi_evento.emit(&"kill")
-		_soltar_moneda.call_deferred(global_position)
+	GameProgress.carpi_evento.emit(&"kill")
+	_soltar_moneda.call_deferred(global_position)
 
 func _soltar_moneda(pos: Vector2) -> void:
 	var escena := get_tree().current_scene
@@ -170,15 +158,15 @@ func _crear_audio() -> void:
 func _bucle_sonido() -> void:
 	if _audio == null:
 		return
-	# Primer sonido desfasado para que varios enemigos no suenen a la vez.
-	await get_tree().create_timer(randf_range(0.5, intervalo_sonido_max)).timeout
+	await get_tree().create_timer(randf_range(0.5, intervalo_sonido_max), false).timeout
+	if estado == Estado.MUERTO:
+		return
 	while estado != Estado.MUERTO:
 		_audio.play()
 		await _audio.finished
-		await get_tree().create_timer(randf_range(intervalo_sonido_min, intervalo_sonido_max)).timeout
+		await get_tree().create_timer(randf_range(intervalo_sonido_min, intervalo_sonido_max), false).timeout
 
 
-# Animaciones
 
 func _caminar() -> void:
 	if sprite.animation != &"movement" or not sprite.is_playing():
@@ -203,7 +191,7 @@ func _crear_barra_vida() -> void:
 	var alto := 4.0
 	_barra_vida.custom_minimum_size = Vector2(ancho, alto)
 	_barra_vida.size = Vector2(ancho, alto)
-	_barra_vida.position = Vector2(-ancho / 2.0, -22.0)   # centrada, arriba de la cabeza
+	_barra_vida.position = Vector2(-ancho / 2.0, -22.0)
 	_barra_vida.z_index = 10
 
 	var fondo := StyleBoxFlat.new()
