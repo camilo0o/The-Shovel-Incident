@@ -9,9 +9,8 @@ var _lbl_monedas: Label
 var _jugador: Node = null
 var _abierto := false
 var _capa: CanvasLayer
-var _botones: Dictionary = {}   # ArmaData -> Button
+var _botones: Dictionary = {} 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	etiqueta.visible = false
 	_crear_menu()
@@ -21,7 +20,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _abierto:
-		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("interactuar"):
+		if event.is_action_pressed("ui_cancel"):
 			_cerrar()
 			get_viewport().set_input_as_handled()
 		return
@@ -49,7 +48,6 @@ func _crear_menu() -> void:
 	_capa.visible = false
 	add_child(_capa)
 
-	# Fondo oscuro que también bloquea los clics hacia el juego
 	var fondo := ColorRect.new()
 	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
 	fondo.color = Color(0, 0, 0, 0.65)
@@ -107,7 +105,6 @@ func _crear_menu() -> void:
 
 	_refrescar()
 
-
 func _refrescar() -> void:
 	if _lbl_monedas != null:
 		_lbl_monedas.text = "Bananas doradas: %d" % GameProgress.monedas
@@ -128,7 +125,6 @@ func _abrir() -> void:
 	_refrescar()
 	_capa.visible = true
 
-	# Foco en el arma equipada (o en la primera) para poder usar teclado
 	var foco: Button = _botones.get(GameProgress.arma_equipada)
 	if foco == null:
 		for b in _botones.values():

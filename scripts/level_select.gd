@@ -1,3 +1,4 @@
+
 extends Control
 
 @onready var btn1: Button = $Botones/Nivel1
@@ -7,11 +8,31 @@ extends Control
 
 var textura_candado = preload("res://assets/elements/candado.png")
 
+
 func _ready() -> void:
 	configurar_boton(btn1, 0)
 	configurar_boton(btn2, 1)
 	configurar_boton(btn3, 2)
 	btn_volver.pressed.connect(_volver_al_garage)
+
+	for boton in [btn1, btn2, btn3, btn_volver]:
+		if not boton.disabled:
+			boton.grab_focus()
+			break
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_volver_al_garage()
+		get_viewport().set_input_as_handled()
+		return
+
+	if event.is_action_pressed("interactuar"):
+		var boton := get_viewport().gui_get_focus_owner()
+
+		if boton is Button and not boton.disabled:
+			boton.pressed.emit()
+			get_viewport().set_input_as_handled()
 
 
 func configurar_boton(boton: Button, indice: int) -> void:
@@ -26,11 +47,13 @@ func configurar_boton(boton: Button, indice: int) -> void:
 		boton.add_theme_constant_override("icon_max_width", 24)
 
 	boton.pressed.connect(func():
-		GameProgress.go_to_level(indice)
+		_fade_y_ir_a_nivel(indice)
 	)
+
 
 func _volver_al_garage() -> void:
 	Fade.cambiar_escena("res://scenes/garage.tscn")
+
 
 func _fade_y_ir_a_nivel(indice: int) -> void:
 	_bloquear_botones(true)

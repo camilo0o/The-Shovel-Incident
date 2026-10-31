@@ -117,7 +117,7 @@ script = ExtResource("8_jk1qb")
 velocidad = 10.0
 textura = SubResource("GradientTexture2D_tbmy8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1753013631]
+[node name="Botones" type="VBoxContainer" parent="." unique_id=1753013631]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.186
@@ -132,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 11
 
-[node name="Start" type="Button" parent="VBoxContainer" unique_id=142337261]
+[node name="Start" type="Button" parent="Botones" unique_id=142337261]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -144,7 +144,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7vrkn")
 text = "Comenzar"
 
-[node name="Options" type="Button" parent="VBoxContainer" unique_id=1184706995]
+[node name="Options" type="Button" parent="Botones" unique_id=1184706995]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -156,7 +156,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7vrkn")
 text = "Opciones"
 
-[node name="Quit" type="Button" parent="VBoxContainer" unique_id=1150456221]
+[node name="Quit" type="Button" parent="Botones" unique_id=1150456221]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -168,7 +168,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7vrkn")
 text = "Salir"
 
-[node name="WatchIntro" type="Button" parent="VBoxContainer" unique_id=142337262]
+[node name="WatchIntro" type="Button" parent="Botones" unique_id=142337262]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -201,7 +201,7 @@ text = "The Shovel Incident"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="VBoxContainer/WatchIntro" to="." method="_on_watch_intro_pressed"]
+[connection signal="pressed" from="Botones/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Botones/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Botones/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Botones/WatchIntro" to="." method="_on_watch_intro_pressed"]

@@ -392,6 +392,7 @@ func _agregar_boton(overlay: Panel, texto: String, al_presionar: Callable) -> vo
 	var caja: VBoxContainer = overlay.get_meta("caja")
 	var boton := Button.new()
 	boton.text = texto
+	boton.focus_mode = Control.FOCUS_ALL
 	boton.pressed.connect(al_presionar)
 	caja.add_child(boton)
 
@@ -399,8 +400,17 @@ func _agregar_boton(overlay: Panel, texto: String, al_presionar: Callable) -> vo
 func _alternar_pausa() -> void:
 	if _juego_terminado:
 		return
+
 	get_tree().paused = not get_tree().paused
 	_panel_pausa.visible = get_tree().paused
+
+	if get_tree().paused:
+		var caja: VBoxContainer = _panel_pausa.get_meta("caja")
+
+		for hijo in caja.get_children():
+			if hijo is Button:
+				hijo.grab_focus()
+				break
 
 
 # Botón "Volver" del menú de pausa: regresa a la escena en la que estabas antes

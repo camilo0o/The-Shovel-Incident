@@ -1,9 +1,6 @@
 extends Area2D
-# Probador del garage. Al acercarse se abre un menú con las skins disponibles.
-# Las skins bloqueadas se compran con carpinchos (GameProgress.carpinchos).
 
 @export var skins: Array[SkinData] = []
-@export var abrir_al_acercarse := true   # false = hay que apretar [E], como en la armería
 
 const FUENTE := preload("res://assets/ui/fonts/Ancient Medium.ttf")
 const HOJA_CARPINCHO := preload("res://assets/sprites/items/Sprite-moneda-carpincho-naranja-efecto.png")
@@ -14,7 +11,7 @@ var _abierto := false
 var _etiqueta: Label
 var _capa: CanvasLayer
 var _lbl_carpinchos: Label
-var _filas: Array[Dictionary] = []   # [{skin: SkinData o null, boton: Button}]
+var _filas: Array[Dictionary] = []
 
 
 func _ready() -> void:
@@ -28,23 +25,21 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _abierto:
-		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("interactuar"):
+		if event.is_action_pressed("ui_cancel"):
 			_cerrar()
 			get_viewport().set_input_as_handled()
 		return
+
 	if _jugador != null and event.is_action_pressed("interactuar"):
 		_abrir()
 		get_viewport().set_input_as_handled()
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("jugador"):
-		return
-	_jugador = body
-	if abrir_al_acercarse:
-		_abrir()
-	else:
-		_etiqueta.visible = true
+	if body.is_in_group("jugador"):
+		_jugador = body
+		if not _abierto:
+			_etiqueta.visible = true
 
 
 func _on_body_exited(body: Node2D) -> void:
@@ -67,7 +62,7 @@ func _crear_etiqueta() -> void:
 	_etiqueta.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_etiqueta.custom_minimum_size = Vector2(300, 0)
 	_etiqueta.scale = Vector2(0.3, 0.3)
-	_etiqueta.position = Vector2(-45, -72)   # centrada sobre el casillero
+	_etiqueta.position = Vector2(-45, -72)
 	_etiqueta.z_index = 10
 	_etiqueta.visible = false
 	add_child(_etiqueta)
@@ -79,7 +74,6 @@ func _crear_menu() -> void:
 	_capa.visible = false
 	add_child(_capa)
 
-	# Fondo oscuro que también bloquea los clics hacia el juego
 	var fondo := ColorRect.new()
 	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
 	fondo.color = Color(0, 0, 0, 0.65)
@@ -112,7 +106,6 @@ func _crear_menu() -> void:
 	titulo.add_theme_color_override("font_color", Color(1, 0.55, 0.1))
 	caja.add_child(titulo)
 
-	# Contador: ícono de la moneda carpincho + cantidad
 	var fila_monedas := HBoxContainer.new()
 	fila_monedas.alignment = BoxContainer.ALIGNMENT_CENTER
 	fila_monedas.add_theme_constant_override("separation", 8)
@@ -120,7 +113,7 @@ func _crear_menu() -> void:
 
 	var atlas_moneda := AtlasTexture.new()
 	atlas_moneda.atlas = HOJA_CARPINCHO
-	atlas_moneda.region = Rect2(50, 76, 105, 98)   # recorte de la moneda, primer cuadro
+	atlas_moneda.region = Rect2(50, 76, 105, 98)
 	var icono_moneda := TextureRect.new()
 	icono_moneda.texture = atlas_moneda
 	icono_moneda.custom_minimum_size = Vector2(28, 28)
@@ -133,7 +126,6 @@ func _crear_menu() -> void:
 	_lbl_carpinchos.add_theme_color_override("font_color", Color(1, 0.7, 0.3))
 	fila_monedas.add_child(_lbl_carpinchos)
 
-	# Primera fila: el personaje original (skin null) para poder volver a él
 	var atlas_original := AtlasTexture.new()
 	atlas_original.atlas = HOJA_ORIGINAL
 	atlas_original.region = Rect2(0, SkinData.FILA * SkinData.FRAME.y, SkinData.FRAME.x, SkinData.FRAME.y)
@@ -148,7 +140,6 @@ func _crear_menu() -> void:
 	caja.add_child(cerrar)
 
 	_refrescar()
-
 
 func _agregar_fila(caja: VBoxContainer, skin: SkinData, icono: Texture2D) -> void:
 	var boton := Button.new()
@@ -191,7 +182,6 @@ func _abrir() -> void:
 	_refrescar()
 	_capa.visible = true
 
-	# Foco en la skin equipada para poder usar teclado
 	for fila in _filas:
 		if fila["skin"] == GameProgress.skin_equipada:
 			(fila["boton"] as Button).grab_focus()
@@ -203,9 +193,8 @@ func _cerrar() -> void:
 		return
 	_abierto = false
 	_capa.visible = false
-	_etiqueta.visible = _jugador != null and not abrir_al_acercarse
+	_etiqueta.visible = _jugador != null
 
-	# Espera dos frames para que el mismo clic/tecla no active al jugador
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	if not _abierto and is_instance_valid(_jugador):
@@ -214,7 +203,6 @@ func _cerrar() -> void:
 
 func _seleccionar(skin: SkinData) -> void:
 	if not GameProgress.skin_desbloqueada(skin):
-		# Comprar y equipar de una; el menú queda abierto para ver el resultado
 		if GameProgress.comprar_skin(skin):
 			GameProgress.equipar_skin(skin)
 		return
