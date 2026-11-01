@@ -1,6 +1,4 @@
 extends Control
-## Menú de opciones. La interfaz se arma por código con el mismo estilo del menú principal
-## (fuente Ancient Medium, fondo de pared, botones redondeados) y se maneja con teclado o mouse.
 
 const FUENTE := "res://assets/ui/fonts/Ancient Medium.ttf"
 const FONDO := "res://assets/ui/pared.svg"
@@ -34,9 +32,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if foco is Button and not foco.disabled:
 			get_viewport().set_input_as_handled()
 			foco.pressed.emit()
-
-
-# --- Construcción de la interfaz ---------------------------------------------
 
 func _aplicar_tema() -> void:
 	var tema := Theme.new()
@@ -215,9 +210,6 @@ func _fila_volumen(padre: Control, nombre: String, bus: String) -> void:
 	_sliders[bus] = slider
 	_porcentajes[bus] = pct
 
-
-# --- Estado / eventos ----------------------------------------------------------
-
 func _refrescar() -> void:
 	for bus in _sliders.keys():
 		_sliders[bus].set_value_no_signal(Ajustes.volumen[bus])
@@ -253,9 +245,6 @@ func _on_restablecer() -> void:
 func _volver() -> void:
 	Ajustes.guardar()
 	GameProgress.volver()
-
-
-# --- Helpers de estilo ---------------------------------------------------------
 
 func _caja(color: Color, radio: int) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
