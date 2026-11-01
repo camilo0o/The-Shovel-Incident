@@ -13,4 +13,4 @@ descripcion = "Dispara clavos a distancia. Gasta munición."
 cooldown = 0.45
 bala_textura = ExtResource("3_bala")
 velocidad_bala = 280.0
-costo = 3
+costo = 6

@@ -16,4 +16,4 @@ velocidad_bala = 340.0
 vida_util_bala = 1.0
 automatica = true
 distancia_boca = 16.0
-costo = 5
+costo = 12

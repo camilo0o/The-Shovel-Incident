@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://dmadsyfapkrwr" path="res://assets/backgrounds/carnes_congeladas_16x16.png" id="8_xa7n4"]
 [ext_resource type="PackedScene" uid="uid://bw2xtxmu6dxdn" path="res://scenes/carpincho_pickup.tscn" id="9_xa7n4"]
 [ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="10_bo4dx"]
+[ext_resource type="PackedScene" uid="uid://df7patm1b0v0h" path="res://scenes/martin_martillo.tscn" id="11_martin"]
+[ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="12_56gwk"]
+[ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="13_ve5ok"]
+[ext_resource type="AudioStream" uid="uid://dvi2mq1foetal" path="res://assets/audio/music/fondo_level2_music.mp3" id="14_ve5ok"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hrcei"]
 texture = ExtResource("1_2k3dv")
@@ -1841,3 +1845,69 @@ position = Vector2(852, 178)
 
 [node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("10_bo4dx")]
 position = Vector2(33, 100)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1631051635]
+
+[node name="MartinMartillo" parent="Enemies" unique_id=518060837 instance=ExtResource("11_martin")]
+position = Vector2(209, 99)
+
+[node name="MartinMartillo2" parent="Enemies" unique_id=1101736017 instance=ExtResource("11_martin")]
+position = Vector2(481, 160)
+
+[node name="MartinMartillo3" parent="Enemies" unique_id=1374872225 instance=ExtResource("11_martin")]
+position = Vector2(928, 99)
+
+[node name="MartinMartillo4" parent="Enemies" unique_id=275125687 instance=ExtResource("11_martin")]
+position = Vector2(694, 109)
+
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1636491613]
+script = ExtResource("12_56gwk")
+intervalo_minimo = 3.0
+intervalo_maximo = 10.0
+
+[node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=845652113]
+position = Vector2(118, 127)
+
+[node name="Marker2D2" type="Marker2D" parent="MunicionSpawner" unique_id=414580823]
+position = Vector2(286, 158)
+
+[node name="Marker2D3" type="Marker2D" parent="MunicionSpawner" unique_id=280438840]
+position = Vector2(378, 89)
+
+[node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=1609770988]
+position = Vector2(452, 158)
+
+[node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=1004339801]
+position = Vector2(596, 84)
+
+[node name="Marker2D6" type="Marker2D" parent="MunicionSpawner" unique_id=899632539]
+position = Vector2(671, 161)
+
+[node name="Marker2D7" type="Marker2D" parent="MunicionSpawner" unique_id=931300266]
+position = Vector2(848, 93)
+
+[node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=743562313]
+position = Vector2(948, 176)
+
+[node name="VidaPickup" parent="." unique_id=209825015 instance=ExtResource("13_ve5ok")]
+position = Vector2(420, 180)
+
+[node name="VidaPickup2" parent="." unique_id=449012340 instance=ExtResource("13_ve5ok")]
+position = Vector2(551, 99)
+
+[node name="VidaPickup3" parent="." unique_id=1442816571 instance=ExtResource("13_ve5ok")]
+position = Vector2(980, 108)
+
+[node name="VidaPickup4" parent="." unique_id=935358607 instance=ExtResource("13_ve5ok")]
+position = Vector2(784, 99)
+
+[node name="VidaPickup5" parent="." unique_id=578699161 instance=ExtResource("13_ve5ok")]
+position = Vector2(734, 183)
+
+[node name="VidaPickup6" parent="." unique_id=263052055 instance=ExtResource("13_ve5ok")]
+position = Vector2(291, 95)
+
+[node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=136694548]
+stream = ExtResource("14_ve5ok")
+volume_db = -22.545
+autoplay = true
