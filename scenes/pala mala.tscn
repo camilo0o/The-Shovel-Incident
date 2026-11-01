@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bwo8mpx5il58g" path="res://assets/sprites/enemies/pala mala/pala_mala_caminar_derecha.png" id="3_tjuyc"]
 [ext_resource type="Texture2D" uid="uid://dmca3p3dlhm0f" path="res://assets/sprites/enemies/pala mala/pala_mala_izquierda_caminar_izquierdabrazo arriba_v2.png" id="4_x5boe"]
 [ext_resource type="Script" uid="uid://c3wx5guk500cd" path="res://scripts/pala_mala.gd" id="5_pala_mala"]
+[ext_resource type="Texture2D" uid="uid://beny0gi82cb4x" path="res://assets/sprites/enemies/pala mala/pala_mala_ataque_izquierda.png" id="10_ataq_izq"]
+[ext_resource type="Texture2D" uid="uid://cs65hfubhe25e" path="res://assets/sprites/enemies/pala mala/pala_mala_ataque_derecha.png" id="11_ataq_der"]
+[ext_resource type="Texture2D" uid="uid://c5ckhujhod7gm" path="res://assets/sprites/enemies/pala mala/pala_mala_ataque_frente.png" id="12_ataq_fre"]
+[ext_resource type="Texture2D" uid="uid://6k0p1gbqw8nt" path="res://assets/sprites/enemies/pala mala/pala_mala_ataque_espalda.png" id="13_ataq_esp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_40veh"]
 atlas = ExtResource("1_0a51n")
@@ -54,6 +58,102 @@ region = Rect2(800, 0, 200, 200)
 [sub_resource type="AtlasTexture" id="AtlasTexture_aorp5"]
 atlas = ExtResource("2_jlpc7")
 region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_0"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_1"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_2"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_3"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_4"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_fre_5"]
+atlas = ExtResource("12_ataq_fre")
+region = Rect2(1500, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_0"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_1"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_2"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_3"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_4"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_esp_5"]
+atlas = ExtResource("13_ataq_esp")
+region = Rect2(1500, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_0"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_1"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_2"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_3"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_4"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_der_5"]
+atlas = ExtResource("11_ataq_der")
+region = Rect2(1500, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_0"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_1"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_2"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_3"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_4"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ataq_izq_5"]
+atlas = ExtResource("10_ataq_izq")
+region = Rect2(1500, 0, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2p748"]
 atlas = ExtResource("3_tjuyc")
@@ -201,6 +301,98 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_fre_5")
+}],
+"loop": 0,
+"name": &"pala mala ataque abajo",
+"speed": 7.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_esp_5")
+}],
+"loop": 0,
+"name": &"pala mala ataque arriba",
+"speed": 7.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_der_5")
+}],
+"loop": 0,
+"name": &"pala mala ataque derecha",
+"speed": 7.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ataq_izq_5")
+}],
+"loop": 0,
+"name": &"pala mala ataque izquierda",
+"speed": 7.5
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2p748")
 }, {
 "duration": 1.0,
@@ -288,19 +480,15 @@ size = Vector2(23, 54)
 [node name="PalaMala" type="CharacterBody2D" unique_id=1683400480]
 collision_layer = 4
 script = ExtResource("5_pala_mala")
-vida_maxima = 12
-rango_deteccion = 240.0
-rango_ataque = 42.0
-dano = 2
-es_jefe = true
 sonido_idle = ExtResource("2_tjuyc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1131574615]
 position = Vector2(1.9073486e-06, -0.9999981)
 scale = Vector2(0.365, 0.365)
 sprite_frames = SubResource("SpriteFrames_8lruo")
-animation = &"pala mala izquierda"
-frame_progress = 0.9010428
+animation = &"pala mala abajo"
+frame = 3
+frame_progress = 0.63510513
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=319533228]
 position = Vector2(0.5, 1)

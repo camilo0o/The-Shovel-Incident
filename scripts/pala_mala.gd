@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal murio
 
 @export var duracion_ataque := 0.8
+@export_range(0.1, 0.9) var momento_golpe := 0.55
 
 @export var vida_maxima := 12
 @export var velocidad := 40.0
@@ -198,11 +199,13 @@ func _animacion_hacia_jugador() -> StringName:
 
 func _caminar() -> void:
 	var animacion := _animacion_hacia_jugador()
+	sprite.speed_scale = 1.0
 	if sprite.animation != animacion or not sprite.is_playing():
 		sprite.play(animacion)
 
 
 func _pose_reposo() -> void:
+	sprite.speed_scale = 1.0
 	sprite.animation = _animacion_hacia_jugador()
 	sprite.stop()
 	sprite.frame = 0
@@ -213,17 +216,25 @@ func _atacar() -> void:
 		return
 	estado = Estado.ATACANDO
 	puede_atacar = false
-	sprite.play(_animacion_hacia_jugador())
 	var duracion := maxf(duracion_ataque, 0.1)
 
-	await get_tree().create_timer(duracion * 0.5, false).timeout
+	var anim_ataque := StringName(String(_animacion_hacia_jugador()).replace("pala mala ", "pala mala ataque "))
+	if sprite.sprite_frames.has_animation(anim_ataque):
+		var frames := sprite.sprite_frames.get_frame_count(anim_ataque)
+		var fps := sprite.sprite_frames.get_animation_speed(anim_ataque)
+		sprite.speed_scale = frames / (fps * duracion)
+		sprite.play(anim_ataque)
+	else:
+		sprite.play(_animacion_hacia_jugador())
+
+	await get_tree().create_timer(duracion * momento_golpe, false).timeout
 	if estado == Estado.MUERTO:
 		return
 	if is_instance_valid(jugador) and global_position.distance_to(jugador.global_position) <= rango_ataque * 1.3:
 		if jugador.has_method("recibir_dano"):
 			jugador.recibir_dano(dano, global_position)
 
-	await get_tree().create_timer(duracion * 0.5, false).timeout
+	await get_tree().create_timer(duracion * (1.0 - momento_golpe), false).timeout
 	if estado == Estado.MUERTO:
 		return
 	estado = Estado.LIBRE
