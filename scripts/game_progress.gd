@@ -13,7 +13,7 @@ var skins_desbloqueadas: Array[SkinData] = []
 var skin_equipada: SkinData = preload("res://resources/skins/ropa_basica.tres")
 var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
-var level_unlocked: Array[bool] = [true, false, false]
+var level_unlocked: Array[bool] = [true, false, true]
 var level_completed: Array[bool] = [false, false, false]
 var municion := 60
 var vida_jugador := -1
@@ -25,6 +25,8 @@ var level_scenes: Array[String] = [
 ]
 
 var arma_equipada: ArmaData = null
+# Cada rastrillo conserva lo robado si se recarga o se vuelve a entrar al nivel.
+var armas_robadas: Dictionary = {}
 
 func equipar_arma(arma: ArmaData) -> void:
 	if arma != null and not esta_desbloqueada(arma):

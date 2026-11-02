@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://nkjdrpaf8v2" path="res://assets/backgrounds/corridor school.png" id="2_jyq2n"]
 [ext_resource type="Texture2D" uid="uid://c06aabb22iljl" path="res://assets/backgrounds/Dungeon tileset.png" id="3_7uttt"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="4_6lxtr"]
+[ext_resource type="PackedScene" path="res://scenes/rastrillo.tscn" id="5_rastrillo"]
+[ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="6_5mhml"]
+[ext_resource type="PackedScene" uid="uid://bw2xtxmu6dxdn" path="res://scenes/carpincho_pickup.tscn" id="7_rupth"]
+[ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="8_6qt4k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yesqi"]
 texture = ExtResource("1_f0ip2")
@@ -485,3 +489,77 @@ limit_left = 0
 limit_top = 0
 limit_right = 1102
 limit_bottom = 200
+
+[node name="Enemies" type="Node2D" parent="." unique_id=919041347]
+
+[node name="Rastrillo" parent="Enemies" unique_id=1718401688 instance=ExtResource("5_rastrillo")]
+position = Vector2(184, 104)
+
+[node name="Rastrillo2" parent="Enemies" unique_id=831734810 instance=ExtResource("5_rastrillo")]
+position = Vector2(376, 152)
+
+[node name="Rastrillo3" parent="Enemies" unique_id=360928011 instance=ExtResource("5_rastrillo")]
+position = Vector2(568, 88)
+
+[node name="Rastrillo4" parent="Enemies" unique_id=1067202214 instance=ExtResource("5_rastrillo")]
+position = Vector2(792, 136)
+
+[node name="Rastrillo5" parent="Enemies" unique_id=1079564920 instance=ExtResource("5_rastrillo")]
+position = Vector2(1016, 104)
+
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1367303734]
+script = ExtResource("6_5mhml")
+intervalo_minimo = 3.0
+intervalo_maximo = 10.0
+
+[node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=1385241112]
+position = Vector2(118, 127)
+
+[node name="Marker2D2" type="Marker2D" parent="MunicionSpawner" unique_id=1819908565]
+position = Vector2(284, 152)
+
+[node name="Marker2D3" type="Marker2D" parent="MunicionSpawner" unique_id=98239504]
+position = Vector2(372, 82)
+
+[node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=1415881989]
+position = Vector2(469, 149)
+
+[node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=839614452]
+position = Vector2(584, 64)
+
+[node name="Marker2D6" type="Marker2D" parent="MunicionSpawner" unique_id=1434751812]
+position = Vector2(688, 159)
+
+[node name="Marker2D7" type="Marker2D" parent="MunicionSpawner" unique_id=362894218]
+position = Vector2(825, 65)
+
+[node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=1206838417]
+position = Vector2(932, 102)
+
+[node name="MonedasCarpincho" type="Node2D" parent="." unique_id=1417412242]
+
+[node name="CarpinchoPickup2" parent="MonedasCarpincho" unique_id=1710316985 instance=ExtResource("7_rupth")]
+position = Vector2(292, 90)
+
+[node name="CarpinchoPickup3" parent="MonedasCarpincho" unique_id=1810629124 instance=ExtResource("7_rupth")]
+position = Vector2(528, 69)
+
+[node name="CarpinchoPickup" parent="MonedasCarpincho" unique_id=1217511721 instance=ExtResource("7_rupth")]
+position = Vector2(839, 113)
+
+[node name="CarpinchoPickup4" parent="MonedasCarpincho" unique_id=123333993 instance=ExtResource("7_rupth")]
+position = Vector2(935, 151)
+
+[node name="CarpinchoPickup5" parent="MonedasCarpincho" unique_id=609371915 instance=ExtResource("7_rupth")]
+position = Vector2(932, 40)
+
+[node name="VidasPickup" type="Node2D" parent="." unique_id=1295220473]
+
+[node name="VidaPickup2" parent="VidasPickup" unique_id=209825015 instance=ExtResource("8_6qt4k")]
+position = Vector2(570, 157)
+
+[node name="VidaPickup3" parent="VidasPickup" unique_id=105305837 instance=ExtResource("8_6qt4k")]
+position = Vector2(863, 154)
+
+[node name="VidaPickup" parent="VidasPickup" unique_id=1852763140 instance=ExtResource("8_6qt4k")]
+position = Vector2(264, 149)

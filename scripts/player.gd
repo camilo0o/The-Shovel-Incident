@@ -52,6 +52,8 @@ var _arma_sprite: Sprite2D
 var _puno_sprite: Sprite2D
 var _animando_arma := false
 var _direccion_dibujada := ""
+var _tween_arma: Tween
+var _version_arma := 0
 
 var _golpe_visible := false
 var _golpe_rect := Rect2()
@@ -189,32 +191,41 @@ func atacar_con_arma() -> void:
 	if arma.tipo == ArmaData.Tipo.DISTANCIA and arma.consume_municion and municion <= 0:
 		return
 	puede_usar_arma = false
+	var arma_del_ataque := arma
+	var version := _version_arma
 
-	match arma.tipo:
+	match arma_del_ataque.tipo:
 		ArmaData.Tipo.CUERPO_A_CUERPO:
 			_giro_de_arma()
 		ArmaData.Tipo.DISTANCIA:
 			_disparar()
 
-	await get_tree().create_timer(arma.cooldown, false).timeout
-	puede_usar_arma = true
+	await get_tree().create_timer(arma_del_ataque.cooldown, false).timeout
+	if version == _version_arma:
+		puede_usar_arma = true
 
 func _giro_de_arma() -> void:
 	_animando_arma = true
+	var arma_del_ataque := arma
+	var version := _version_arma
 	var base := _direccion_vector().angle() + PI / 2.0
 	var signo := -1.0 if last_direction == "left" else 1.0
 	var inicio := base - signo * deg_to_rad(70.0)
 	inicio = _arma_pivote.rotation + angle_difference(_arma_pivote.rotation, inicio)
 
-	var tween := create_tween()
-	tween.tween_property(_arma_pivote, "rotation", inicio, 0.05)
-	tween.tween_callback(_impactar_arma)
-	tween.tween_property(_arma_pivote, "rotation", inicio + signo * deg_to_rad(140.0), 0.09)
-	await tween.finished
-	_animando_arma = false
+	_tween_arma = create_tween()
+	_tween_arma.tween_property(_arma_pivote, "rotation", inicio, 0.05)
+	_tween_arma.tween_callback(_impactar_arma.bind(arma_del_ataque, version))
+	_tween_arma.tween_property(_arma_pivote, "rotation", inicio + signo * deg_to_rad(140.0), 0.09)
+	_tween_arma.tween_callback(func():
+		if version == _version_arma:
+			_animando_arma = false
+	)
 
-func _impactar_arma() -> void:
-	if _golpear(arma.dano, arma.alcance, arma.tamano_golpe) == 0:
+func _impactar_arma(arma_del_ataque: ArmaData, version: int) -> void:
+	if version != _version_arma:
+		return
+	if _golpear(arma_del_ataque.dano, arma_del_ataque.alcance, arma_del_ataque.tamano_golpe) == 0:
 		GameProgress.carpi_evento.emit(&"fallo")
 
 func _disparar() -> void:
@@ -236,12 +247,46 @@ func _disparar() -> void:
 	bala.global_position = global_position + dir * arma.distancia_boca
 
 	_animando_arma = true
+	var version := _version_arma
 	var pos0 := _arma_pivote.position
+	_tween_arma = create_tween()
+	_tween_arma.tween_property(_arma_pivote, "position", pos0 - dir * 3.0, 0.04)
+	_tween_arma.tween_property(_arma_pivote, "position", pos0, 0.08)
+	_tween_arma.tween_callback(func():
+		if version == _version_arma:
+			_animando_arma = false
+	)
+
+func recibir_ataque_desarmante(cantidad: int, origen: Vector2) -> ArmaData:
+	if invulnerable or vida <= 0:
+		return null
+	var robada := arma
+	if robada != null:
+		GameProgress.equipar_arma(null)
+		_mostrar_aviso_arma("¡El rastrillo te quitó el arma!")
+	recibir_dano(cantidad, origen)
+	return robada
+
+func recuperar_arma(recuperada: ArmaData) -> void:
+	GameProgress.equipar_arma(recuperada)
+	_mostrar_aviso_arma("¡Arma recuperada!")
+
+func _mostrar_aviso_arma(texto: String) -> void:
+	var aviso := Label.new()
+	aviso.text = texto
+	aviso.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	aviso.add_theme_font_size_override("font_size", 18)
+	aviso.add_theme_color_override("font_color", Color(1.0, 0.82, 0.35))
+	aviso.add_theme_color_override("font_outline_color", Color.BLACK)
+	aviso.add_theme_constant_override("outline_size", 5)
+	aviso.scale = Vector2(0.4, 0.4)
+	aviso.position = Vector2(-aviso.get_minimum_size().x * 0.2, -32)
+	aviso.z_index = 20
+	add_child(aviso)
 	var tween := create_tween()
-	tween.tween_property(_arma_pivote, "position", pos0 - dir * 3.0, 0.04)
-	tween.tween_property(_arma_pivote, "position", pos0, 0.08)
-	await tween.finished
-	_animando_arma = false
+	tween.tween_interval(1.5)
+	tween.tween_property(aviso, "modulate:a", 0.0, 0.3)
+	tween.tween_callback(aviso.queue_free)
 
 func agregar_municion(cantidad: int) -> void:
 	municion += cantidad
@@ -384,7 +429,11 @@ func _crear_visuales_de_ataque() -> void:
 	add_child(_puno_sprite)
 
 func _on_arma_cambiada(nueva: ArmaData) -> void:
+	_version_arma += 1
+	if _tween_arma != null and _tween_arma.is_valid():
+		_tween_arma.kill()
 	arma = nueva
+	puede_usar_arma = true
 	_animando_arma = false
 	_direccion_dibujada = ""
 	_arma_pivote.visible = arma != null and arma.icono != null
