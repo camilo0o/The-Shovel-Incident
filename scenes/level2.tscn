@@ -1964,7 +1964,7 @@ position = Vector2(291, 95)
 
 [node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=136694548]
 stream = ExtResource("14_ve5ok")
-volume_db = -22.545
+volume_db = -19.945
 autoplay = true
 
 [node name="Portal" type="Area2D" parent="." unique_id=2029780028]

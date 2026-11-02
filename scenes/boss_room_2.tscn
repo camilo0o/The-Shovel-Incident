@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bbl8vdy2cmvae" path="res://assets/backgrounds/TX Tileset Wall.png" id="3_gyfry"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="4_aur7c"]
 [ext_resource type="Texture2D" uid="uid://dsyae26yfkldf" path="res://assets/backgrounds/TX Props.png" id="4_yo8df"]
+[ext_resource type="AudioStream" uid="uid://26mm8fmgu61q" path="res://assets/audio/music/churchMusic_bossroom2.mp3" id="5_xq377"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ed35"]
 texture = ExtResource("2_xq377")
@@ -931,3 +932,8 @@ limit_left = 9
 limit_top = 0
 limit_right = 663
 limit_bottom = 470
+
+[node name="bossRoomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1413116376]
+stream = ExtResource("5_xq377")
+volume_db = -18.909
+autoplay = true
