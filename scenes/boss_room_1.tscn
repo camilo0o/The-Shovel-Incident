@@ -617,7 +617,7 @@ collision_mask = 2
 
 [node name="bossroomMusic" type="AudioStreamPlayer2D" parent="." unique_id=596157743]
 stream = ExtResource("5_hsimh")
-volume_db = -22.961
+volume_db = -18.909
 autoplay = true
 
 [node name="VidaPickup" parent="." unique_id=1915583679 instance=ExtResource("6_12c1s")]

@@ -653,7 +653,7 @@ position = Vector2(338, 157)
 
 [node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=431786885]
 stream = ExtResource("8_bbk5w")
-volume_db = -22.545
+volume_db = -18.493
 autoplay = true
 
 [node name="CarpinchoPickup2" parent="." unique_id=989019183 instance=ExtResource("9_conm7")]
