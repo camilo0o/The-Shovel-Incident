@@ -10,6 +10,9 @@ var textura_candado = preload("res://assets/elements/candado.png")
 
 
 func _ready() -> void:
+	var tema := Theme.new()
+	tema.default_font = preload("res://assets/ui/fonts/Ancient Medium.ttf")
+	theme = tema
 	configurar_boton(btn1, 0)
 	configurar_boton(btn2, 1)
 	configurar_boton(btn3, 2)

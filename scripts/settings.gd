@@ -42,21 +42,31 @@ func _aplicar_tema() -> void:
 	tema.set_color("font_color", "Label", TEXTO)
 
 	# Botones (mismo look que el menú principal: blancos y redondeados).
-	for estado in ["normal", "hover", "pressed", "disabled"]:
+	for estado in ["normal", "hover", "pressed", "hover_pressed", "disabled"]:
 		var color := Color(1.0, 0.99, 1.0)
-		if estado == "hover":
+		if estado in ["hover", "hover_pressed"]:
 			color = Color(0.85, 0.85, 0.85)
 		elif estado == "pressed":
 			color = Color(0.5, 0.5, 0.49)
 		tema.set_stylebox(estado, "Button", _caja(color, 16))
 	tema.set_stylebox("focus", "Button", _caja_borde(Color(0, 0, 0, 0), ORO, 16, 3))
-	for c in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+	for c in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color",
+			"font_hover_pressed_color", "font_disabled_color"]:
 		tema.set_color(c, "Button", Color.BLACK)
 
-	# Casillas: texto claro sobre el panel oscuro, y resaltado dorado al enfocar.
-	for c in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color",
-			"font_hover_pressed_color"]:
-		tema.set_color(c, "CheckButton", TEXTO)
+	# Casillas: texto claro en reposo y oscuro sobre los fondos de selección.
+	for estado in ["normal", "disabled"]:
+		tema.set_stylebox(estado, "CheckButton", _caja(Color(0, 0, 0, 0), 10))
+	for estado in ["hover", "pressed", "hover_pressed"]:
+		var color := Color(0.85, 0.85, 0.85)
+		if estado == "pressed":
+			color = Color(0.5, 0.5, 0.49)
+		tema.set_stylebox(estado, "CheckButton", _caja(color, 10))
+	for c in ["font_hover_color", "font_pressed_color", "font_hover_pressed_color"]:
+		tema.set_color(c, "CheckButton", Color.BLACK)
+	tema.set_color("font_color", "CheckButton", TEXTO)
+	tema.set_color("font_focus_color", "CheckButton", ORO)
+	tema.set_color("font_disabled_color", "CheckButton", Color(0.65, 0.62, 0.75))
 	tema.set_stylebox("focus", "CheckButton", _caja_borde(Color(0, 0, 0, 0), ORO, 10, 2))
 
 	# Sliders: pista oscura, relleno dorado.

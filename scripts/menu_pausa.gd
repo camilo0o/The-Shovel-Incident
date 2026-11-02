@@ -13,6 +13,9 @@ func _ready() -> void:
 	if not ruta_jugador.is_empty():
 		_jugador = get_node(ruta_jugador)
 	_panel_pausa = _crear_overlay("Pausa")
+	var tema := Theme.new()
+	tema.default_font = preload("res://assets/ui/fonts/Ancient Medium.ttf")
+	_panel_pausa.theme = tema
 	_agregar_boton(_panel_pausa, "Continuar", _alternar_pausa)
 	_agregar_boton(_panel_pausa, "Volver", _volver)
 	add_child(_panel_pausa)
