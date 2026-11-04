@@ -3,11 +3,39 @@
 [ext_resource type="VideoStream" uid="uid://6aiwh4vhwi8w" path="res://assets/cinematics/intro/introduction.ogv" id="1_fiwxd"]
 [ext_resource type="Script" uid="uid://7a53yh08o8ot" path="res://scripts/introduction.gd" id="1_tgans"]
 
-[node name="Introduction" type="Node2D" unique_id=599931519]
+[node name="Introduction" type="Control" unique_id=599931519]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_tgans")
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=866298577]
-offset_right = 1153.0
-offset_bottom = 648.0
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 1.5
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer" unique_id=866298577]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
 stream = ExtResource("1_fiwxd")
 expand = true

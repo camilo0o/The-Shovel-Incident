@@ -9,6 +9,7 @@ signal murio
 @export var dano := 1
 @export var cooldown_ataque := 1.2       # pausa entre ataques
 @export var fuerza_retroceso := 140.0    # empujón al recibir un golpe
+@export_range(0.1, 0.9) var momento_golpe := 0.5  # en qué punto de la animación de ataque conecta el golpe
 
 enum Estado { LIBRE, ATACANDO, MUERTO }
 
@@ -83,14 +84,14 @@ func _atacar() -> void:
 	sprite.play(anim)
 	var duracion := sprite.sprite_frames.get_frame_count(anim) / sprite.sprite_frames.get_animation_speed(anim)
 
-	await get_tree().create_timer(duracion * 0.5, false).timeout
+	await get_tree().create_timer(duracion * momento_golpe, false).timeout
 	if estado == Estado.MUERTO:
 		return
 	if is_instance_valid(jugador) and global_position.distance_to(jugador.global_position) <= rango_ataque * 1.3:
 		if jugador.has_method("recibir_dano"):
 			jugador.recibir_dano(dano, global_position)
 
-	await get_tree().create_timer(duracion * 0.5, false).timeout
+	await get_tree().create_timer(duracion * (1.0 - momento_golpe), false).timeout
 	if estado == Estado.MUERTO:
 		return
 	estado = Estado.LIBRE

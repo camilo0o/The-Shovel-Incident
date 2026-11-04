@@ -653,31 +653,35 @@ position = Vector2(338, 157)
 
 [node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=431786885]
 stream = ExtResource("8_bbk5w")
-volume_db = -22.545
+volume_db = -18.493
 autoplay = true
 
-[node name="CarpinchoPickup2" parent="." unique_id=989019183 instance=ExtResource("9_conm7")]
+[node name="MonedasCarpincho" type="Node2D" parent="." unique_id=160137556]
+
+[node name="CarpinchoPickup2" parent="MonedasCarpincho" unique_id=989019183 instance=ExtResource("9_conm7")]
 position = Vector2(292, 90)
 
-[node name="CarpinchoPickup3" parent="." unique_id=1965803585 instance=ExtResource("9_conm7")]
+[node name="CarpinchoPickup3" parent="MonedasCarpincho" unique_id=1965803585 instance=ExtResource("9_conm7")]
 position = Vector2(530, 54)
 
-[node name="CarpinchoPickup" parent="." unique_id=1629271323 instance=ExtResource("9_conm7")]
+[node name="CarpinchoPickup" parent="MonedasCarpincho" unique_id=1629271323 instance=ExtResource("9_conm7")]
 position = Vector2(799, 143)
 
-[node name="CarpinchoPickup4" parent="." unique_id=1173208780 instance=ExtResource("9_conm7")]
+[node name="CarpinchoPickup4" parent="MonedasCarpincho" unique_id=1173208780 instance=ExtResource("9_conm7")]
 position = Vector2(935, 151)
 
-[node name="CarpinchoPickup5" parent="." unique_id=250722533 instance=ExtResource("9_conm7")]
+[node name="CarpinchoPickup5" parent="MonedasCarpincho" unique_id=250722533 instance=ExtResource("9_conm7")]
 position = Vector2(932, 40)
 
-[node name="VidaPickup2" parent="." unique_id=2122426806 instance=ExtResource("10_u3awl")]
+[node name="VidasPickup" type="Node2D" parent="." unique_id=1626517286]
+
+[node name="VidaPickup2" parent="VidasPickup" unique_id=2122426806 instance=ExtResource("10_u3awl")]
 position = Vector2(570, 157)
 
-[node name="VidaPickup3" parent="." unique_id=2076190618 instance=ExtResource("10_u3awl")]
+[node name="VidaPickup3" parent="VidasPickup" unique_id=2076190618 instance=ExtResource("10_u3awl")]
 position = Vector2(863, 154)
 
-[node name="VidaPickup" parent="." unique_id=1557935519 instance=ExtResource("10_u3awl")]
+[node name="VidaPickup" parent="VidasPickup" unique_id=1557935519 instance=ExtResource("10_u3awl")]
 position = Vector2(224, 119)
 
 [node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("11_2ku1j")]

@@ -1,8 +1,8 @@
-extends Node2D
+extends Control
 
 const MAIN_MENU_PATH := "res://scenes/main_menu.tscn"
 
-@onready var video: VideoStreamPlayer = $VideoStreamPlayer
+@onready var video: VideoStreamPlayer = $AspectRatioContainer/VideoStreamPlayer
 
 func _ready() -> void:
 	video.finished.connect(_go_to_main_menu)

@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://df7patm1b0v0h"]
+
+[ext_resource type="Texture2D" uid="uid://c7xibgc3d4t3d" path="res://assets/sprites/enemies/martin el martillo/Sprite-Martin-el-martillo-caminata.png" id="1_dtnej"]
+[ext_resource type="Texture2D" uid="uid://h7bevt8ujul8" path="res://assets/sprites/enemies/martin el martillo/Sprite-Martin-el-martillo-ataque-izquierda.png" id="1_vrrjn"]
+[ext_resource type="Texture2D" uid="uid://blfdikfbfxufk" path="res://assets/sprites/enemies/martin el martillo/Sprite-Martin-el-martillo-ataque-derecha.png" id="2_e2k0h"]
+[ext_resource type="AudioStream" uid="uid://bl858in21w6qo" path="res://assets/audio/enemies/sound_martin_el_martillo.mp3" id="2_ka67y"]
+[ext_resource type="Script" uid="uid://xi71tgqssbbw" path="res://scripts/martin_martillo.gd" id="4_martin"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc2v8"]
+atlas = ExtResource("1_vrrjn")
+region = Rect2(619, 0, 202, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b34i7"]
+atlas = ExtResource("1_vrrjn")
+region = Rect2(417, 0, 202, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iebbj"]
+atlas = ExtResource("1_vrrjn")
+region = Rect2(215, 0, 202, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1doh"]
+atlas = ExtResource("1_vrrjn")
+region = Rect2(13, 0, 202, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hamte"]
+atlas = ExtResource("2_e2k0h")
+region = Rect2(37, 0, 204, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imkf8"]
+atlas = ExtResource("2_e2k0h")
+region = Rect2(241, 0, 204, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfxl3"]
+atlas = ExtResource("2_e2k0h")
+region = Rect2(445, 0, 204, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgpa0"]
+atlas = ExtResource("2_e2k0h")
+region = Rect2(649, 0, 204, 195)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrrjn"]
+atlas = ExtResource("1_dtnej")
+region = Rect2(71, 46, 125, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2k0h"]
+atlas = ExtResource("1_dtnej")
+region = Rect2(370, 46, 125, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4pmv"]
+atlas = ExtResource("1_dtnej")
+region = Rect2(669, 46, 125, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka67y"]
+atlas = ExtResource("1_dtnej")
+region = Rect2(968, 46, 125, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b2hyj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc2v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b34i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iebbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1doh")
+}],
+"loop": 0,
+"name": &"attack_left",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hamte")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imkf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfxl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgpa0")
+}],
+"loop": 0,
+"name": &"attack_right",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrrjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2k0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4pmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka67y")
+}],
+"loop": 1,
+"name": &"movement",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beye7"]
+size = Vector2(14, 24)
+
+[node name="MartinMartillo" type="CharacterBody2D" unique_id=275125687]
+collision_layer = 4
+script = ExtResource("4_martin")
+vida_maxima = 5
+velocidad = 32.0
+rango_deteccion = 130.0
+rango_ataque = 30.0
+dano = 2
+cooldown_ataque = 1.6
+fuerza_retroceso = 90.0
+momento_golpe = 0.7
+sonido_idle = ExtResource("2_ka67y")
+monedas_al_morir = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=793991048]
+scale = Vector2(0.16, 0.16)
+sprite_frames = SubResource("SpriteFrames_b2hyj")
+animation = &"attack_left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1898156809]
+shape = SubResource("RectangleShape2D_beye7")

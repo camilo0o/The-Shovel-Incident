@@ -58,10 +58,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -21.0
-offset_top = -18.0
-offset_right = -21.0
-offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
@@ -71,10 +67,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = 9.0
-offset_right = 23.0
-offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_y1oqn")
@@ -101,8 +93,22 @@ script = ExtResource("5_rtw2f")
 position = Vector2(1.73, 9.031)
 script = ExtResource("6_5dd4i")
 
-[node name="Herramientas" type="Sprite2D" parent="Decoraciones" unique_id=1232571253]
-position = Vector2(898, 478.00003)
+[node name="AnclajeHerramientas" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 370.0
+offset_top = 170.0
+offset_right = 370.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Herramientas" type="Sprite2D" parent="AnclajeHerramientas" unique_id=1232571253]
 scale = Vector2(0.22300704, 0.20331186)
 texture = ExtResource("6_tbmy8")
 
@@ -119,15 +125,15 @@ textura = SubResource("GradientTexture2D_tbmy8")
 
 [node name="Botones" type="VBoxContainer" parent="." unique_id=1753013631]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.186
-anchor_top = 0.758
-anchor_right = 0.186
-anchor_bottom = 0.758
-offset_left = 132.228
-offset_top = -280.18402
-offset_right = 580.728
-offset_bottom = 2.815979
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.25
+offset_top = -113.0
+offset_right = 224.25
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 11
@@ -187,9 +193,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -236.0
+offset_left = -230.5
 offset_top = -230.0
-offset_right = 225.0
+offset_right = 230.5
 offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
