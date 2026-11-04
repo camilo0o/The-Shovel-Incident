@@ -162,4 +162,4 @@ script = ExtResource("1_hvrt8")
 position = Vector2(0.49999875, -2.9999998)
 scale = Vector2(0.7187499, 0.68750006)
 sprite_frames = SubResource("SpriteFrames_8lruo")
-animation = &"derecha"
+animation = &"abajo"
