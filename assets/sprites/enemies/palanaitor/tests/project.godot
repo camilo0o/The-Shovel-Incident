@@ -1,0 +1,8 @@
+; Proyecto minimo para validar el proyectil sin modificar la cache del juego.
+config_version=5
+
+[application]
+config/name="Pruebas de bola de energia"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"

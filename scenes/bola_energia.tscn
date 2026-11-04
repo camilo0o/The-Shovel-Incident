@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://assets/sprites/enemies/palanaitor/bola_energia.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/palanaitor/Fire-Ball.Flame(Smok3r).png" id="2_textura"]
+[ext_resource type="Shader" path="res://assets/sprites/enemies/palanaitor/bola_energia.gdshader" id="3_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_transparencia"]
+shader = ExtResource("3_shader")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_0"]
+atlas = ExtResource("2_textura")
+region = Rect2(11, 659, 224, 224)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_1"]
+atlas = ExtResource("2_textura")
+region = Rect2(231, 656, 224, 224)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_2"]
+atlas = ExtResource("2_textura")
+region = Rect2(470, 654, 224, 224)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_3"]
+atlas = ExtResource("2_textura")
+region = Rect2(714, 655, 224, 224)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_4"]
+atlas = ExtResource("2_textura")
+region = Rect2(976, 655, 224, 224)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energia_5"]
+atlas = ExtResource("2_textura")
+region = Rect2(1249, 657, 224, 224)
+filter_clip = true
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_energia"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energia_5")
+}],
+"loop": true,
+"name": &"energia",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_impacto"]
+radius = 12.0
+
+[node name="BolaEnergia" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_transparencia")
+scale = Vector2(0.18, 0.18)
+sprite_frames = SubResource("SpriteFrames_energia")
+animation = &"energia"
+autoplay = "energia"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_impacto")
