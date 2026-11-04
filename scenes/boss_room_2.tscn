@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="4_aur7c"]
 [ext_resource type="Texture2D" uid="uid://dsyae26yfkldf" path="res://assets/backgrounds/TX Props.png" id="4_yo8df"]
 [ext_resource type="AudioStream" uid="uid://26mm8fmgu61q" path="res://assets/audio/music/churchMusic_bossroom2.mp3" id="5_xq377"]
+[ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="6_aur7c"]
+[ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="7_3ed35"]
+[ext_resource type="PackedScene" uid="uid://domxba1e0qb74" path="res://scenes/palateka.tscn" id="8_palateka"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ed35"]
 texture = ExtResource("2_xq377")
@@ -937,3 +940,55 @@ limit_bottom = 470
 stream = ExtResource("5_xq377")
 volume_db = -18.909
 autoplay = true
+
+[node name="MunicionSpawner" type="Node2D" parent="." unique_id=1574517605]
+script = ExtResource("6_aur7c")
+intervalo_minimo = 3.0
+intervalo_maximo = 10.0
+
+[node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=1886044060]
+position = Vector2(124, 142)
+
+[node name="Marker2D2" type="Marker2D" parent="MunicionSpawner" unique_id=1379551506]
+position = Vector2(117, 397)
+
+[node name="Marker2D3" type="Marker2D" parent="MunicionSpawner" unique_id=581155065]
+position = Vector2(430, 250)
+
+[node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=748952955]
+position = Vector2(576, 422)
+
+[node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=1850144231]
+position = Vector2(574, 137)
+
+[node name="Marker2D6" type="Marker2D" parent="MunicionSpawner" unique_id=1841819434]
+position = Vector2(343, 361)
+
+[node name="Marker2D7" type="Marker2D" parent="MunicionSpawner" unique_id=695509280]
+position = Vector2(51, 269)
+
+[node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=230711202]
+position = Vector2(416, 101)
+
+[node name="VidasPickup" type="Node2D" parent="." unique_id=1836353932]
+
+[node name="VidaPickup" parent="VidasPickup" unique_id=209825015 instance=ExtResource("7_3ed35")]
+position = Vector2(282, 237)
+
+[node name="VidaPickup2" parent="VidasPickup" unique_id=469923343 instance=ExtResource("7_3ed35")]
+position = Vector2(504, 102)
+
+[node name="VidaPickup3" parent="VidasPickup" unique_id=513176620 instance=ExtResource("7_3ed35")]
+position = Vector2(270, 411)
+
+[node name="VidaPickup4" parent="VidasPickup" unique_id=1629569124 instance=ExtResource("7_3ed35")]
+position = Vector2(59, 425)
+
+[node name="VidaPickup5" parent="VidasPickup" unique_id=194593094 instance=ExtResource("7_3ed35")]
+position = Vector2(489, 394)
+
+[node name="VidaPickup6" parent="VidasPickup" unique_id=946848247 instance=ExtResource("7_3ed35")]
+position = Vector2(106, 204)
+
+[node name="Palateka" parent="." unique_id=1190422637 instance=ExtResource("8_palateka")]
+position = Vector2(507, 346)

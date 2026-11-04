@@ -2,12 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://ded2dinu0c3tu" path="res://assets/sprites/enemies/palateka/palateka_ataque_derecha.png" id="1_787pq"]
 [ext_resource type="Texture2D" uid="uid://bh1sm6fysejbv" path="res://assets/sprites/enemies/palateka/palateka_base_caminar_frente.png" id="1_om4sx"]
+[ext_resource type="AudioStream" uid="uid://cgom5pwrlpfen" path="res://assets/audio/enemies/palateka/hawa.mp3" id="2_7xd63"]
 [ext_resource type="Texture2D" uid="uid://bfpwmc7udv4pk" path="res://assets/sprites/enemies/palateka/palateka_espalda.png" id="2_c2ads"]
 [ext_resource type="Texture2D" uid="uid://jkpcl3gh0234" path="res://assets/sprites/enemies/palateka/palateka_atacar_espalda.png" id="2_jak46"]
+[ext_resource type="AudioStream" uid="uid://dxq33cuihwvfn" path="res://assets/audio/enemies/palateka/male-scream.mp3" id="3_al4vp"]
 [ext_resource type="Texture2D" uid="uid://4lnd416uiprq" path="res://assets/sprites/enemies/palateka/palateka_atacar_frente.png" id="3_j5cyn"]
 [ext_resource type="Texture2D" uid="uid://dmrirlwjielit" path="res://assets/sprites/enemies/palateka/palateka_caminar_izquierda.png" id="3_mkix7"]
 [ext_resource type="Texture2D" uid="uid://d343m10rsf2ov" path="res://assets/sprites/enemies/palateka/palateka_ataque_izquierda.png" id="4_7xd63"]
 [ext_resource type="Texture2D" uid="uid://bjhx1i2wjxxf7" path="res://assets/sprites/enemies/palateka/palateka_caminar_derecha.png" id="4_rrkm0"]
+[ext_resource type="Script" uid="uid://pen3bev7nbwo" path="res://scripts/palateka.gd" id="9_palateka"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a5q5y"]
 atlas = ExtResource("1_787pq")
@@ -465,9 +468,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Palateka" type="Node2D" unique_id=1408909532]
+[sub_resource type="RectangleShape2D" id="Shape_palateka"]
+size = Vector2(22, 66)
+
+[node name="Palateka" type="CharacterBody2D" unique_id=1408909532]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("9_palateka")
+gritos_ataque = Array[AudioStream]([ExtResource("2_7xd63")])
+grito_muerte = ExtResource("3_al4vp")
+pitch_voz = 0.678
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=799106652]
+position = Vector2(0, -26)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_8lruo")
-animation = &"palateka_ataque_derecha"
-frame_progress = 0.8293531
+animation = &"palateka_camina_abajo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1822031447]
+position = Vector2(1, -27)
+shape = SubResource("Shape_palateka")

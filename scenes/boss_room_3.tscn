@@ -4326,7 +4326,7 @@ intervalo_minimo = 3.0
 intervalo_maximo = 10.0
 
 [node name="Marker2D" type="Marker2D" parent="MunicionSpawner" unique_id=1554918584]
-position = Vector2(18, 66)
+position = Vector2(65, 99)
 
 [node name="Marker2D4" type="Marker2D" parent="MunicionSpawner" unique_id=1496342653]
 position = Vector2(538, 428)

@@ -15,6 +15,11 @@ enum Estado { LIBRE, ATACANDO, MUERTO }
 @export var fuerza_retroceso := 120.0
 @export var monedas_al_morir := 2
 
+@export_group("Sonido")
+@export var sonido_idle: AudioStream
+@export var intervalo_sonido_min := 3.0
+@export var intervalo_sonido_max := 7.0
+
 const MONEDA_SCENE := preload("res://scenes/moneda_pickup.tscn")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -29,6 +34,7 @@ var empuje := Vector2.ZERO
 var arma_robada: ArmaData
 var _identificador_robo: String
 var _barra_vida: ProgressBar
+var _audio: AudioStreamPlayer2D
 
 
 func _ready() -> void:
@@ -40,6 +46,8 @@ func _ready() -> void:
 	_crear_barra_vida()
 	_actualizar_indicador_arma()
 	_pose_reposo()
+	_crear_audio()
+	_bucle_sonido()
 
 
 func _physics_process(delta: float) -> void:
@@ -140,6 +148,8 @@ func _morir() -> void:
 	set_physics_process(false)
 	colision.set_deferred("disabled", true)
 	_barra_vida.hide()
+	if _audio != null:
+		_audio.stop()
 	indicador_arma.hide()
 	_devolver_arma()
 	murio.emit()
@@ -198,3 +208,22 @@ func _crear_barra_vida() -> void:
 	_barra_vida.add_theme_stylebox_override("background", fondo)
 	_barra_vida.add_theme_stylebox_override("fill", relleno)
 	add_child(_barra_vida)
+
+
+func _crear_audio() -> void:
+	if sonido_idle == null:
+		return
+	_audio = AudioStreamPlayer2D.new()
+	_audio.stream = sonido_idle
+	_audio.max_distance = 300.0
+	add_child(_audio)
+
+
+func _bucle_sonido() -> void:
+	if _audio == null:
+		return
+	await get_tree().create_timer(randf_range(0.5, intervalo_sonido_max), false).timeout
+	while estado != Estado.MUERTO:
+		_audio.play()
+		await _audio.finished
+		await get_tree().create_timer(randf_range(intervalo_sonido_min, intervalo_sonido_max), false).timeout

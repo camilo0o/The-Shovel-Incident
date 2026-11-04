@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bkvpnpi5hdrp8"]
 
 [ext_resource type="Script" uid="uid://c71mavjocqv7c" path="res://scripts/rastrillo.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://3n136etcw7ax" path="res://assets/audio/enemies/sound_rastrillo.mp3" id="2_g00yr"]
 [ext_resource type="Texture2D" uid="uid://c5t2lcs4cv45n" path="res://assets/sprites/enemies/rastrillo/Sprite1-rasttrillo-caminata.png" id="2_movement"]
 [ext_resource type="Texture2D" uid="uid://c2puksl68h2a8" path="res://assets/sprites/enemies/rastrillo/Sprite-rastrillo-ataque-derecha.png" id="3_right"]
 [ext_resource type="Texture2D" uid="uid://dn3j6443knyfl" path="res://assets/sprites/enemies/rastrillo/Sprite-rastrillo-ataque-izquierda.png" id="4_left"]
@@ -113,6 +114,7 @@ size = Vector2(10, 32)
 [node name="Rastrillo" type="CharacterBody2D" unique_id=2074576084]
 collision_layer = 4
 script = ExtResource("1_script")
+sonido_idle = ExtResource("2_g00yr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1141527038]
 scale = Vector2(0.18, 0.18)
