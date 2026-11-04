@@ -1,11 +1,5 @@
 class_name SkinData
 extends Resource
-# Datos de una skin del jugador. Cada skin es un .tres en res://resources/skins/
-#
-# Las hojas tienen el mismo formato que las del personaje original (player.tscn):
-# 4 columnas de 32x32 y se usa la fila 1 (y = 32). Si exportás una skin nueva
-# con otro layout, cambiá FILA / FRAME / COLUMNAS acá.
-
 @export var nombre := "Skin"
 @export_multiline var descripcion := ""
 @export var costo := 0                    # en carpinchos. 0 = gratis

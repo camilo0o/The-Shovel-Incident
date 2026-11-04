@@ -1,7 +1,4 @@
 extends Area2D
-# Ítem de munición: al tocarlo el jugador, le suma munición y desaparece.
-# Se instancia desde MunicionSpawner (municion_spawner.gd) en posiciones aleatorias.
-
 @export var cantidad := 15
 
 

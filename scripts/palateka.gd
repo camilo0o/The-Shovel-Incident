@@ -1,7 +1,4 @@
 extends CharacterBody2D
-# Jefe de la boss room 2. Karateca: persigue al jugador y lo golpea cuerpo a cuerpo.
-# Grita (kiai) al atacar. La voz oscura se logra bajando el pitch (pitch_voz).
-
 signal murio
 
 enum Estado { LIBRE, ATACANDO, MUERTO }
@@ -94,8 +91,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# --- Animaciones -------------------------------------------------------------
-
 func _actualizar_direccion(v: Vector2) -> void:
 	if v == Vector2.ZERO:
 		return
@@ -138,8 +133,6 @@ func _pose_reposo() -> void:
 	sprite.frame = 0
 
 
-# --- Ataque ------------------------------------------------------------------
-
 func _atacar() -> void:
 	if estado != Estado.LIBRE or not puede_atacar or not is_instance_valid(jugador):
 		return
@@ -176,8 +169,6 @@ func _atacar() -> void:
 	if estado != Estado.MUERTO:
 		puede_atacar = true
 
-
-# --- Daño y muerte -----------------------------------------------------------
 
 func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:
 	if estado == Estado.MUERTO:
@@ -234,8 +225,6 @@ func _soltar_moneda(pos: Vector2) -> void:
 	moneda.global_position = pos
 
 
-# --- Sonido ------------------------------------------------------------------
-
 func _crear_audio() -> void:
 	_audio = AudioStreamPlayer2D.new()
 	_audio.volume_db = volumen_voz_db
@@ -262,8 +251,6 @@ func _reproducir_voz(stream: AudioStream, forzar := false) -> void:
 	_audio.pitch_scale = pitch_voz * randf_range(1.0 - variacion_pitch, 1.0 + variacion_pitch)
 	_audio.play()
 
-
-# --- UI ----------------------------------------------------------------------
 
 func _crear_barra_vida() -> void:
 	_barra_vida = ProgressBar.new()

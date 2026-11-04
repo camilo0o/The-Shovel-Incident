@@ -1,6 +1,4 @@
 extends Node
-# Conecta los eventos de la partida con dos interfaces independientes.
-
 @export var ruta_jugador: NodePath = NodePath("..")
 
 @onready var menu_pausa: CanvasLayer = $MenuPausa

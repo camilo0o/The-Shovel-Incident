@@ -1,6 +1,4 @@
 extends CharacterBody2D
-# Jefe final del nivel 3: patada cuerpo a cuerpo + bolas de energía a distancia.
-# Por debajo de la mitad de vida entra en "furia": más rápido y dispara 3 bolas.
 
 signal murio
 
@@ -103,7 +101,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# --- Gritos ----------------------------------------------------------------
 
 func _crear_audio() -> void:
 	_audio = AudioStreamPlayer2D.new()
@@ -112,8 +109,6 @@ func _crear_audio() -> void:
 	add_child(_audio)
 
 
-# Cada cierto tiempo (aleatorio) grita algo distinto. Espera a que termine el
-# grito anterior, así que nunca se pisan.
 func _bucle_gritos() -> void:
 	if gritos.is_empty() and gritos_furia.is_empty():
 		return
@@ -147,11 +142,6 @@ func _elegir_sin_repetir(lista: Array[AudioStream]) -> AudioStream:
 		i = (i + 1) % lista.size()
 	_ultimo_grito = i
 	return lista[i]
-
-
-# --- Direcciones -----------------------------------------------------------
-# Las animaciones de ataque usan frente/espalda/derecha/izquierda;
-# las de caminar usan abajo/arriba/derecha/izquierda.
 
 func _actualizar_direccion() -> void:
 	if not is_instance_valid(jugador):
@@ -188,8 +178,6 @@ func _reproducir_ataque(prefijo: String, duracion: float) -> void:
 		sprite.speed_scale = frames / (fps * duracion)
 		sprite.play(anim)
 
-
-# --- Ataques ---------------------------------------------------------------
 
 func _patear() -> void:
 	if estado != Estado.LIBRE or not puede_patear or not is_instance_valid(jugador):
@@ -259,8 +247,6 @@ func _lanzar_bola(direccion: Vector2) -> void:
 	get_tree().current_scene.add_child(bola)
 	bola.global_position = global_position + Vector2(0, -20)
 
-
-# --- Vida ------------------------------------------------------------------
 
 func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:
 	if estado == Estado.MUERTO:

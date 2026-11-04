@@ -1,5 +1,4 @@
 extends CanvasLayer
-# Pantallas de fin de partida. No administra el menú ni la tecla de pausa.
 
 var _panel_derrota: Panel
 var _panel_victoria: Panel
@@ -88,5 +87,3 @@ func _agregar_boton(overlay: Panel, texto: String, al_presionar: Callable) -> vo
 	boton.text = texto
 	boton.pressed.connect(al_presionar)
 	caja.add_child(boton)
-
-
