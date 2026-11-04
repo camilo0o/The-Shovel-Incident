@@ -6,10 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://p272pj267kvx" path="res://assets/backgrounds/PostApoc_Workshop_RoomTiles.png" id="3_3fejc"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="3_aqblp"]
 [ext_resource type="Texture2D" uid="uid://dueh7sqh4nkla" path="res://assets/backgrounds/lab_tileset_base.png" id="4_r4j7v"]
-[ext_resource type="AudioStream" uid="uid://bmxhre35vl24r" path="res://assets/audio/music/horror_bossroom1.mp3" id="5_3fejc"]
 [ext_resource type="Texture2D" uid="uid://brtyleq1j3blc" path="res://assets/backgrounds/tilesStuff.png" id="5_l7opf"]
 [ext_resource type="Texture2D" uid="uid://cq0v5c7sqf17l" path="res://assets/backgrounds/PostApoc_Workshop.png" id="6_1jec6"]
+[ext_resource type="AudioStream" uid="uid://0m0v62uux1k6" path="res://assets/audio/music/creepy_bossroom3.mp3" id="9_o508d"]
 [ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="10_r4j7v"]
+[ext_resource type="PackedScene" uid="uid://bj717dlc8fw2y" path="res://scenes/palanaitor.tscn" id="11_l7opf"]
+[ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="12_1jec6"]
+[ext_resource type="AudioStream" uid="uid://ihh3sy2xssqp" path="res://assets/audio/enemies/palanaitor/evil-laugh-muahaha.wav" id="12_o508d"]
+[ext_resource type="AudioStream" uid="uid://66agiehuuulr" path="res://assets/audio/enemies/palanaitor/huff 34 heavy breathing (medium).mp3" id="13_x140s"]
+[ext_resource type="AudioStream" uid="uid://b87wywx5htw21" path="res://assets/audio/enemies/palanaitor/monster-roar.mp3" id="14_srnvc"]
+[ext_resource type="AudioStream" uid="uid://byp0qopjgkket" path="res://assets/audio/enemies/palanaitor/holler 6 oauhhhhh longer (weak).wav" id="15_neqxh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgfhg"]
 texture = ExtResource("2_l1hor")
@@ -4302,7 +4308,7 @@ tile_map_data = PackedByteArray("AAAuACAAAAARAAAAAAAuACEAAAARAAEAAAAjAB8AAAAOAAA
 tile_set = SubResource("TileSet_fbdut")
 
 [node name="Player" parent="." unique_id=194799799 instance=ExtResource("2_ktk81")]
-position = Vector2(19, 88)
+position = Vector2(18, 85)
 scale = Vector2(1.2, 1.2)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1708452040]
@@ -4326,13 +4332,13 @@ position = Vector2(18, 66)
 position = Vector2(538, 428)
 
 [node name="Marker2D6" type="Marker2D" parent="MunicionSpawner" unique_id=160022452]
-position = Vector2(538, 428)
+position = Vector2(752, 293)
 
 [node name="Marker2D7" type="Marker2D" parent="MunicionSpawner" unique_id=1867811280]
 position = Vector2(808, 653)
 
 [node name="Marker2D8" type="Marker2D" parent="MunicionSpawner" unique_id=1304128458]
-position = Vector2(808, 653)
+position = Vector2(845, 463)
 
 [node name="Marker2D5" type="Marker2D" parent="MunicionSpawner" unique_id=773389983]
 position = Vector2(46, 175)
@@ -4347,9 +4353,48 @@ position = Vector2(372, 82)
 position = Vector2(619, 269)
 
 [node name="bossroomMusic" type="AudioStreamPlayer2D" parent="." unique_id=596157743]
-stream = ExtResource("5_3fejc")
-volume_db = -22.961
+stream = ExtResource("9_o508d")
+volume_db = -20.26
 autoplay = true
 
 [node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("10_r4j7v")]
 position = Vector2(11, 117)
+
+[node name="palanaitor" parent="." unique_id=25987825 instance=ExtResource("11_l7opf")]
+position = Vector2(989, 604)
+gritos = Array[AudioStream]([ExtResource("12_o508d"), ExtResource("13_x140s")])
+gritos_furia = Array[AudioStream]([ExtResource("14_srnvc")])
+grito_muerte = ExtResource("15_neqxh")
+
+[node name="VidaPickup" parent="." unique_id=209825015 instance=ExtResource("12_1jec6")]
+position = Vector2(153, 133)
+
+[node name="VidaPickup2" parent="." unique_id=1317391798 instance=ExtResource("12_1jec6")]
+position = Vector2(297, 110)
+
+[node name="VidaPickup3" parent="." unique_id=873936886 instance=ExtResource("12_1jec6")]
+position = Vector2(413, 264)
+
+[node name="VidaPickup4" parent="." unique_id=1283714308 instance=ExtResource("12_1jec6")]
+position = Vector2(847, 288)
+
+[node name="VidaPickup5" parent="." unique_id=126345490 instance=ExtResource("12_1jec6")]
+position = Vector2(492, 363)
+
+[node name="VidaPickup6" parent="." unique_id=1704072543 instance=ExtResource("12_1jec6")]
+position = Vector2(652, 278)
+
+[node name="VidaPickup7" parent="." unique_id=1527317005 instance=ExtResource("12_1jec6")]
+position = Vector2(399, 150)
+
+[node name="VidaPickup8" parent="." unique_id=890601401 instance=ExtResource("12_1jec6")]
+position = Vector2(638, 521)
+
+[node name="VidaPickup9" parent="." unique_id=456224628 instance=ExtResource("12_1jec6")]
+position = Vector2(894, 479)
+
+[node name="VidaPickup10" parent="." unique_id=1049610729 instance=ExtResource("12_1jec6")]
+position = Vector2(1052, 680)
+
+[node name="VidaPickup11" parent="." unique_id=794071122 instance=ExtResource("12_1jec6")]
+position = Vector2(1133, 494)

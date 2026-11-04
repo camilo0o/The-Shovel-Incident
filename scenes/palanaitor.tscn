@@ -757,7 +757,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_la3er"]
-size = Vector2(75, 37)
+size = Vector2(54, 95)
 
 [node name="palanaitor" type="CharacterBody2D" unique_id=25987825]
 collision_layer = 4
@@ -772,4 +772,5 @@ animation = &"palanaitor_patada_frente"
 frame_progress = 0.8649088
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1527567651]
+position = Vector2(0, -41.5)
 shape = SubResource("RectangleShape2D_la3er")

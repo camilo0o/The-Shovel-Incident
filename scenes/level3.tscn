@@ -4,10 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://nkjdrpaf8v2" path="res://assets/backgrounds/corridor school.png" id="2_jyq2n"]
 [ext_resource type="Texture2D" uid="uid://c06aabb22iljl" path="res://assets/backgrounds/Dungeon tileset.png" id="3_7uttt"]
 [ext_resource type="PackedScene" uid="uid://cc74ntlygyglh" path="res://scenes/player.tscn" id="4_6lxtr"]
-[ext_resource type="PackedScene" path="res://scenes/rastrillo.tscn" id="5_rastrillo"]
+[ext_resource type="PackedScene" uid="uid://bkvpnpi5hdrp8" path="res://scenes/rastrillo.tscn" id="5_rastrillo"]
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="6_5mhml"]
 [ext_resource type="PackedScene" uid="uid://bw2xtxmu6dxdn" path="res://scenes/carpincho_pickup.tscn" id="7_rupth"]
 [ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="8_6qt4k"]
+[ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="9_rupth"]
+[ext_resource type="Script" uid="uid://dsupgkb1n7i1s" path="res://scripts/portal.gd" id="10_fh4ka"]
+[ext_resource type="Texture2D" uid="uid://dy6lw0qdw5nrq" path="res://assets/sprites/structures/Dimensional_Portal.png" id="11_qewby"]
+[ext_resource type="AudioStream" uid="uid://cd6kj88qrt7x2" path="res://assets/audio/music/fondo_level3.mp3" id="12_qewby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yesqi"]
 texture = ExtResource("1_f0ip2")
@@ -470,6 +474,59 @@ sources/0 = SubResource("TileSetAtlasSource_qyetb")
 sources/1 = SubResource("TileSetAtlasSource_b72m1")
 sources/2 = SubResource("TileSetAtlasSource_5mhml")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b66fj"]
+atlas = ExtResource("11_qewby")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rerw"]
+atlas = ExtResource("11_qewby")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mk4e"]
+atlas = ExtResource("11_qewby")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma4t3"]
+atlas = ExtResource("11_qewby")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkjvb"]
+atlas = ExtResource("11_qewby")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkeat"]
+atlas = ExtResource("11_qewby")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bradm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b66fj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rerw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mk4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ma4t3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkjvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkeat")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_got4s"]
+radius = 5.0
+
 [node name="Level3" type="Node2D" unique_id=2073449747]
 
 [node name="Base" type="TileMapLayer" parent="." unique_id=1068776547]
@@ -563,3 +620,25 @@ position = Vector2(863, 154)
 
 [node name="VidaPickup" parent="VidasPickup" unique_id=1852763140 instance=ExtResource("8_6qt4k")]
 position = Vector2(264, 149)
+
+[node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("9_rupth")]
+position = Vector2(38, 96)
+
+[node name="Portal" type="Area2D" parent="." unique_id=1415524210]
+input_pickable = false
+script = ExtResource("10_fh4ka")
+escena_destino = "uid://cv2dtey3pcwkp"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal" unique_id=291266019]
+position = Vector2(1036, 144)
+sprite_frames = SubResource("SpriteFrames_bradm")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal" unique_id=412529416]
+position = Vector2(1037, 143)
+shape = SubResource("CapsuleShape2D_got4s")
+
+[node name="bossroomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1754109768]
+stream = ExtResource("12_qewby")
+volume_db = -20.26
+autoplay = true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://66agiehuuulr"
+path="res://.godot/imported/huff 34 heavy breathing (medium).mp3-21d7f01239d52127434b181d2c0de078.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/enemies/palanaitor/huff 34 heavy breathing (medium).mp3"
+dest_files=["res://.godot/imported/huff 34 heavy breathing (medium).mp3-21d7f01239d52127434b181d2c0de078.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
