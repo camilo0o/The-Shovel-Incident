@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	var distancia := hacia_jugador.length()
 	if estado == Estado.ATACANDO:
 		velocity = Vector2.ZERO
-	elif distancia > rango_deteccion:
+	elif distancia > rango_deteccion or jugador.invisible:
 		velocity = Vector2.ZERO
 		_pose_reposo()
 	elif distancia > rango_ataque:

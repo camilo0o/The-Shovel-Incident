@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal vida_cambiada(vida_actual: int, vida_maxima: int)
 signal municion_cambiada(cantidad: int)
 signal murio
+signal invisibilidad_cambiada(activa: bool)
 
 const MASK_ENEMIGOS := 1 << 2
 
@@ -24,6 +25,11 @@ var municion := 0
 @export_group("Proyectil")
 @export var bala_scene: PackedScene = preload("res://scenes/bala.tscn")
 
+@export_group("Invisibilidad")
+@export var invis_duracion := 25.0        # entre 20 y 30 s
+@export var invis_recarga := 35.0         # entre 30 y 40 s
+@export_range(0.0, 1.0) var invis_alfa := 0.3
+
 @export_group("Debug")
 @export var debug_hitbox := false
 
@@ -33,6 +39,11 @@ var mira_vector := Vector2.DOWN
 
 var vida := 0
 var invulnerable := false
+
+var invisible := false
+var _invis_tiempo := 0.0
+var _invis_recarga_t := 0.0
+var _hud_habilidad: Label
 
 var _hud_layer: CanvasLayer
 var _hud_barra: ProgressBar
@@ -81,7 +92,8 @@ func _ready() -> void:
 	aplicar_skin(GameProgress.skin_equipada)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	_actualizar_habilidad(delta)
 	if controles_bloqueados:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -96,6 +108,9 @@ func _physics_process(_delta: float) -> void:
 		atacar_con_puno()
 	elif Input.is_action_just_pressed(ACCION_ARMA) or (arma != null and arma.automatica and Input.is_action_pressed(ACCION_ARMA)):
 		atacar_con_arma()
+
+	if Input.is_action_just_pressed("habilidad"):
+		activar_invisibilidad()
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -388,6 +403,20 @@ func _crear_hud_vida() -> void:
 
 	GameProgress.carpinchos_cambiados.connect(_actualizar_hud_carpinchos)
 
+	_hud_habilidad = Label.new()
+	_hud_habilidad.add_theme_font_size_override("font_size", 16)
+	_hud_habilidad.add_theme_color_override("font_color", Color(0.5, 0.85, 1.0))
+	_hud_habilidad.add_theme_color_override("font_outline_color", Color.BLACK)
+	_hud_habilidad.add_theme_constant_override("outline_size", 4)
+	_hud_habilidad.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_hud_habilidad.offset_left = 16
+	_hud_habilidad.offset_right = 16 + 200
+	_hud_habilidad.offset_top = -104
+	_hud_habilidad.offset_bottom = -88
+	_hud_habilidad.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_hud_habilidad.visible = false
+	_hud_layer.add_child(_hud_habilidad)
+
 func _actualizar_hud_vida(vida_actual: int, vida_max: int) -> void:
 	if _hud_barra == null:
 		return
@@ -485,6 +514,45 @@ func _mostrar_golpe(rect: Rect2) -> void:
 func _draw() -> void:
 	if _golpe_visible:
 		draw_rect(_golpe_rect, Color(1, 1, 1, 0.35))
+
+# ---------------- Invisibilidad ----------------
+func activar_invisibilidad() -> void:
+	if not GameProgress.invisibilidad_equipada or not GameProgress.invisibilidad_desbloqueada():
+		return
+	if invisible or _invis_recarga_t > 0.0:
+		return
+	invisible = true
+	_invis_tiempo = invis_duracion
+	modulate.a = invis_alfa
+	invisibilidad_cambiada.emit(true)
+
+func _actualizar_habilidad(delta: float) -> void:
+	if invisible:
+		_invis_tiempo -= delta
+		if _invis_tiempo < 3.0:   # parpadea los últimos 3 s como aviso
+			modulate.a = lerpf(invis_alfa, 1.0, 0.5 + 0.5 * sin(_invis_tiempo * 14.0))
+		if _invis_tiempo <= 0.0:
+			_terminar_invisibilidad()
+	elif _invis_recarga_t > 0.0:
+		_invis_recarga_t = maxf(_invis_recarga_t - delta, 0.0)
+	_actualizar_hud_habilidad()
+
+func _terminar_invisibilidad() -> void:
+	invisible = false
+	modulate.a = 1.0
+	_invis_recarga_t = invis_recarga       # la recarga empieza al terminar
+	invisibilidad_cambiada.emit(false)
+
+func _actualizar_hud_habilidad() -> void:
+	if _hud_habilidad == null:
+		return
+	_hud_habilidad.visible = GameProgress.invisibilidad_equipada
+	if invisible:
+		_hud_habilidad.text = "Invisible: %ds" % ceili(_invis_tiempo)
+	elif _invis_recarga_t > 0.0:
+		_hud_habilidad.text = "Recargando: %ds" % ceili(_invis_recarga_t)
+	else:
+		_hud_habilidad.text = "Invisibilidad lista [Q]"
 
 func recibir_dano(cantidad: int, _origen: Vector2 = Vector2.ZERO) -> void:
 	if invulnerable or vida <= 0:

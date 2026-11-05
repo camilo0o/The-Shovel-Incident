@@ -6,6 +6,7 @@ signal monedas_cambiadas(cantidad: int)
 signal carpinchos_cambiados(cantidad: int)
 signal skin_cambiada(skin: SkinData)
 signal carpi_evento(evento: StringName)   # Carpi reacciona: &"kill", &"fallo"
+signal habilidad_cambiada(equipada: bool)
 
 var monedas := 0
 var carpinchos := 0
@@ -13,7 +14,7 @@ var skins_desbloqueadas: Array[SkinData] = []
 var skin_equipada: SkinData = preload("res://resources/skins/ropa_basica.tres")
 var armas_desbloqueadas: Array[ArmaData] = []
 # true = desbloqueado, false = bloqueado
-var level_unlocked: Array[bool] = [true, false, true]
+var level_unlocked: Array[bool] = [true, false, false]
 var level_completed: Array[bool] = [false, false, false]
 var municion := 60
 var vida_jugador := -1
@@ -51,6 +52,19 @@ func comprar_arma(arma: ArmaData) -> bool:
 	armas_desbloqueadas.append(arma)
 	monedas_cambiadas.emit(monedas)
 	return true
+
+
+const NIVEL_INVISIBILIDAD := 1            # nivel 2 = índice 1
+var invisibilidad_equipada := false
+
+func invisibilidad_desbloqueada() -> bool:
+	return level_completed[NIVEL_INVISIBILIDAD]
+
+func equipar_invisibilidad(valor: bool) -> void:
+	if valor and not invisibilidad_desbloqueada():
+		return
+	invisibilidad_equipada = valor
+	habilidad_cambiada.emit(valor)
 
 
 func agregar_carpinchos(cantidad: int) -> void:

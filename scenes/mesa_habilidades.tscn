@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cps3n8bxs0pih"]
+
+[ext_resource type="Script" uid="uid://dju645insxehv" path="res://scripts/mesa_habilidades.gd" id="1_mb66k"]
+[ext_resource type="FontFile" uid="uid://c14nho0uwlctg" path="res://assets/ui/fonts/Ancient Medium.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://dvn14imieljmq" path="res://scripts/mesa_visual.gd" id="3_visual"]
+[ext_resource type="Texture2D" uid="uid://1dddhlkg4ma6" path="res://assets/sprites/garage/altar_cruz.png" id="4_cruz"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mesa"]
+size = Vector2(30, 44)
+
+[sub_resource type="LabelSettings" id="LabelSettings_etiqueta"]
+font = ExtResource("2_font")
+font_size = 24
+font_color = Color(1, 0.98669523, 0.13335153, 0.94)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wqac"]
+size = Vector2(72, 71)
+
+[node name="MesaHabilidades" type="Area2D" unique_id=1148541293]
+script = ExtResource("1_mb66k")
+
+[node name="Cruz" type="Sprite2D" parent="." unique_id=525940280]
+texture = ExtResource("4_cruz")
+centered = false
+offset = Vector2(-15, -45)
+script = ExtResource("3_visual")
+
+[node name="Cuerpo" type="StaticBody2D" parent="." unique_id=1210579293]
+
+[node name="Mesa" type="CollisionShape2D" parent="Cuerpo" unique_id=98503838]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_mesa")
+
+[node name="Etiqueta" type="Label" parent="." unique_id=1754764024]
+z_index = 10
+custom_minimum_size = Vector2(300, 0)
+offset_left = -45.0
+offset_top = -78.0
+offset_right = 255.0
+offset_bottom = -21.0
+scale = Vector2(0.3, 0.3)
+text = "
+[E] Mesa de habilidades"
+label_settings = SubResource("LabelSettings_etiqueta")
+horizontal_alignment = 1
+
+[node name="Zona" type="CollisionShape2D" parent="." unique_id=600030267]
+position = Vector2(-1, -26.5)
+shape = SubResource("RectangleShape2D_8wqac")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
