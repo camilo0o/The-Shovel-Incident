@@ -65,4 +65,4 @@ text = "Nivel 3"
 [node name="Volver" type="Button" parent="Botones" unique_id=1937182447]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
-text = "Volver"
+text = "Garage"
