@@ -1878,9 +1878,9 @@ position = Vector2(40, 75)
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=646717740]
 position = Vector2(2, 17)
 zoom = Vector2(3, 3)
-limit_left = 0
-limit_top = 0
-limit_right = 1080
+limit_left = 4
+limit_top = 4
+limit_right = 1084
 limit_bottom = 200
 
 [node name="MonedasCarpincho" type="Node2D" parent="." unique_id=2009488312]

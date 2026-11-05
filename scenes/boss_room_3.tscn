@@ -4283,10 +4283,10 @@ sources/3 = SubResource("TileSetAtlasSource_j4dfo")
 position = Vector2(10, 0)
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1189877828]
-offset_left = -60.0
-offset_top = -14.0
-offset_right = 1363.0
-offset_bottom = 747.0
+offset_left = -116.0
+offset_top = -93.0
+offset_right = 1708.0
+offset_bottom = 854.0
 color = Color(0.08468992, 0.08468992, 0.08468992, 1)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1242665966]
@@ -4312,12 +4312,12 @@ position = Vector2(18, 85)
 scale = Vector2(1.2, 1.2)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1708452040]
-position = Vector2(-92, -44)
+position = Vector2(0.8333359, 1.6666679)
 zoom = Vector2(3, 3)
-limit_left = -1
-limit_top = 4
-limit_right = 1357
-limit_bottom = 732
+limit_left = -52
+limit_top = -21
+limit_right = 1368
+limit_bottom = 740
 
 [node name="MunicionSpawner" type="Node2D" parent="." unique_id=1174929468 node_paths=PackedStringArray("puntos_spawn")]
 script = ExtResource("3_aqblp")
