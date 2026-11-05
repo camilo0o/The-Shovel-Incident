@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://assets/sprites/enemies/palanaitor/bola_energia.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/sprites/enemies/palanaitor/Fire-Ball.Flame(Smok3r).png" id="2_textura"]
-[ext_resource type="Shader" path="res://assets/sprites/enemies/palanaitor/bola_energia.gdshader" id="3_shader"]
+[ext_resource type="Script" uid="uid://b810ycdlsx4jk" path="res://scripts/bola_energia.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://byaggqrsvk1v4" path="res://assets/sprites/enemies/palanaitor/Fire-Ball.Flame(Smok3r).png" id="2_textura"]
+[ext_resource type="Shader" uid="uid://di4yxmmwoo5sy" path="res://assets/sprites/enemies/palanaitor/bola_energia.gdshader" id="3_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_transparencia"]
 shader = ExtResource("3_shader")

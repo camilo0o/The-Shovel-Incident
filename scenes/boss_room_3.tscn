@@ -4367,35 +4367,37 @@ gritos = Array[AudioStream]([ExtResource("12_o508d"), ExtResource("13_x140s")])
 gritos_furia = Array[AudioStream]([ExtResource("14_srnvc")])
 grito_muerte = ExtResource("15_neqxh")
 
-[node name="VidaPickup" parent="." unique_id=209825015 instance=ExtResource("12_1jec6")]
+[node name="VidasPickup" type="Node2D" parent="." unique_id=2043394533]
+
+[node name="VidaPickup" parent="VidasPickup" unique_id=209825015 instance=ExtResource("12_1jec6")]
 position = Vector2(153, 133)
 
-[node name="VidaPickup2" parent="." unique_id=1317391798 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup2" parent="VidasPickup" unique_id=1317391798 instance=ExtResource("12_1jec6")]
 position = Vector2(297, 110)
 
-[node name="VidaPickup3" parent="." unique_id=873936886 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup3" parent="VidasPickup" unique_id=873936886 instance=ExtResource("12_1jec6")]
 position = Vector2(413, 264)
 
-[node name="VidaPickup4" parent="." unique_id=1283714308 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup4" parent="VidasPickup" unique_id=1283714308 instance=ExtResource("12_1jec6")]
 position = Vector2(847, 288)
 
-[node name="VidaPickup5" parent="." unique_id=126345490 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup5" parent="VidasPickup" unique_id=126345490 instance=ExtResource("12_1jec6")]
 position = Vector2(492, 363)
 
-[node name="VidaPickup6" parent="." unique_id=1704072543 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup6" parent="VidasPickup" unique_id=1704072543 instance=ExtResource("12_1jec6")]
 position = Vector2(652, 278)
 
-[node name="VidaPickup7" parent="." unique_id=1527317005 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup7" parent="VidasPickup" unique_id=1527317005 instance=ExtResource("12_1jec6")]
 position = Vector2(399, 150)
 
-[node name="VidaPickup8" parent="." unique_id=890601401 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup8" parent="VidasPickup" unique_id=890601401 instance=ExtResource("12_1jec6")]
 position = Vector2(638, 521)
 
-[node name="VidaPickup9" parent="." unique_id=456224628 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup9" parent="VidasPickup" unique_id=456224628 instance=ExtResource("12_1jec6")]
 position = Vector2(894, 479)
 
-[node name="VidaPickup10" parent="." unique_id=1049610729 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup10" parent="VidasPickup" unique_id=1049610729 instance=ExtResource("12_1jec6")]
 position = Vector2(1052, 680)
 
-[node name="VidaPickup11" parent="." unique_id=794071122 instance=ExtResource("12_1jec6")]
+[node name="VidaPickup11" parent="VidasPickup" unique_id=794071122 instance=ExtResource("12_1jec6")]
 position = Vector2(1133, 494)
