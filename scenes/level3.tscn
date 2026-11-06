@@ -638,7 +638,3 @@ autoplay = "default"
 position = Vector2(1037, 143)
 shape = SubResource("CapsuleShape2D_got4s")
 
-[node name="bossroomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1754109768]
-stream = ExtResource("12_qewby")
-volume_db = -20.26
-autoplay = true

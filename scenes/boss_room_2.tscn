@@ -937,11 +937,6 @@ limit_top = 0
 limit_right = 663
 limit_bottom = 470
 
-[node name="bossRoomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1413116376]
-stream = ExtResource("5_xq377")
-volume_db = -18.909
-autoplay = true
-
 [node name="MunicionSpawner" type="Node2D" parent="." unique_id=1574517605]
 script = ExtResource("6_aur7c")
 intervalo_minimo = 3.0
