@@ -22,8 +22,8 @@ const FRASES := {
 @export_group("Seguimiento")
 @export var velocidad := 80.0
 
-@export var distancia_seguir := 28.0
-@export var distancia_parar := 18.0
+@export var distancia_seguir := 40.0
+@export var distancia_parar := 30.0
 
 @export_group("Espíritu")
 @export_range(0.0, 1.0) var opacidad := 0.45
@@ -122,16 +122,33 @@ func _process(delta: float) -> void:
 	
 	if distancia > distancia_seguir:
 		_siguiendo = true
-	elif distancia < distancia_parar:
+	elif distancia <= distancia_parar:
 		_siguiendo = false
 		
 	if _siguiendo:
-		global_position += al_jugador.normalized() * velocidad * delta
+		var paso := minf(velocidad * delta, maxf(distancia - distancia_parar, 0.0))
+		global_position += al_jugador.normalized() * paso
 		_animar(al_jugador)
 	else:
 		sprite.stop()
 		sprite.frame = 0
-		
+
+	_actualizar_profundidad()
+
+
+func _actualizar_profundidad() -> void:
+	var padre := get_parent()
+	if padre != _jugador.get_parent():
+		return
+	# Pies de los sprites actuales. El flote no debe cambiar la profundidad.
+	var pies_carpi := to_global(Vector2(0, 10)).y
+	var pies_jugador := _jugador.to_global(Vector2(0, 13)).y
+	var delante := pies_carpi > pies_jugador
+	# Solo intercambiamos el orden entre los personajes: el suelo queda debajo.
+	if delante != (get_index() > _jugador.get_index()):
+		padre.move_child(self, _jugador.get_index())
+
+
 func _animar(dir: Vector2) -> void:
 	var anim: StringName
 	if abs(dir.x) > abs(dir.y):

@@ -1966,11 +1966,6 @@ position = Vector2(734, 183)
 [node name="VidaPickup6" parent="VidasPickup" unique_id=263052055 instance=ExtResource("13_ve5ok")]
 position = Vector2(291, 95)
 
-[node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=136694548]
-stream = ExtResource("14_ve5ok")
-volume_db = -19.945
-autoplay = true
-
 [node name="Portal" type="Area2D" parent="." unique_id=2029780028]
 input_pickable = false
 script = ExtResource("15_wvb8j")

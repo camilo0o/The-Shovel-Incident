@@ -219,12 +219,13 @@ func _disparar_energia() -> void:
 	if estado == Estado.MUERTO:
 		return
 	if is_instance_valid(jugador):
-		var base := (jugador.global_position - global_position).normalized()
+		var origen := _origen_energia()
+		var base := (jugador.global_position - origen).normalized()
 		if furia:
 			for angulo in [-0.35, 0.0, 0.35]:
-				_lanzar_bola(base.rotated(angulo))
+				_lanzar_bola(base.rotated(angulo), origen)
 		else:
-			_lanzar_bola(base)
+			_lanzar_bola(base, origen)
 
 	await get_tree().create_timer(duracion * 0.5, false).timeout
 	if estado == Estado.MUERTO:
@@ -238,14 +239,26 @@ func _disparar_energia() -> void:
 		puede_disparar = true
 
 
-func _lanzar_bola(direccion: Vector2) -> void:
+func _origen_energia() -> Vector2:
+	# Centro de la palma en el cuadro de disparo, relativo al centro del sprite.
+	# Usamos la pose del ataque: el jugador puede moverse durante la preparacion.
+	var palma: Vector2
+	match _ultima_direccion:
+		&"derecha": palma = Vector2(64, -35)
+		&"izquierda": palma = Vector2(-64, -35)
+		&"espalda": palma = Vector2(74, -40)
+		_: palma = Vector2(-56, -30)
+	return sprite.to_global(palma)
+
+
+func _lanzar_bola(direccion: Vector2, origen: Vector2) -> void:
 	var bola := BOLA_SCENE.instantiate()
 	bola.direccion = direccion
 	bola.velocidad = velocidad_bola
 	bola.dano = dano_energia
 	bola.tirador = self
 	get_tree().current_scene.add_child(bola)
-	bola.global_position = global_position + Vector2(0, -20)
+	bola.global_position = origen
 
 
 func recibir_dano(cantidad: int, origen: Vector2 = Vector2.ZERO) -> void:

@@ -94,6 +94,9 @@ func _aplicar_volumen(bus: String) -> void:
 func _asignar_bus(nodo: Node) -> void:
 	if not (nodo is AudioStreamPlayer or nodo is AudioStreamPlayer2D or nodo is AudioStreamPlayer3D):
 		return
+
+	if OS.has_feature("web"):
+		nodo.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 	if nodo.bus != &"Master":
 		return   # ya tiene un bus asignado a mano: se respeta
 	var ruta: String = nodo.stream.resource_path if nodo.stream != null else ""

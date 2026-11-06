@@ -4353,11 +4353,6 @@ position = Vector2(372, 82)
 [node name="Enemies" type="Node2D" parent="." unique_id=1412098411]
 position = Vector2(619, 269)
 
-[node name="bossroomMusic" type="AudioStreamPlayer2D" parent="." unique_id=596157743]
-stream = ExtResource("9_o508d")
-volume_db = -20.26
-autoplay = true
-
 [node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("10_r4j7v")]
 position = Vector2(11, 117)
 

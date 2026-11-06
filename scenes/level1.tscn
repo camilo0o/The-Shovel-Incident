@@ -651,11 +651,6 @@ position = Vector2(316, 41)
 [node name="Palin7" parent="Enemies" unique_id=1755282248 instance=ExtResource("6_6sh32")]
 position = Vector2(338, 157)
 
-[node name="MusicaNivel" type="AudioStreamPlayer2D" parent="." unique_id=431786885]
-stream = ExtResource("8_bbk5w")
-volume_db = -18.493
-autoplay = true
-
 [node name="MonedasCarpincho" type="Node2D" parent="." unique_id=160137556]
 
 [node name="CarpinchoPickup2" parent="MonedasCarpincho" unique_id=989019183 instance=ExtResource("9_conm7")]
