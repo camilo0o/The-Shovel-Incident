@@ -12,12 +12,12 @@ func _ready() -> void:
 	GameProgress.nivel_completado.connect(_on_nivel_completado)
 
 
-func _on_nivel_completado(_nivel_index: int) -> void:
+func _on_nivel_completado(nivel_index: int) -> void:
 	if _finalizada:
 		return
 	_finalizada = true
 	menu_pausa.deshabilitar()
-	resultado.mostrar_victoria()
+	resultado.mostrar_victoria(nivel_index)
 
 
 func _on_jugador_murio() -> void:

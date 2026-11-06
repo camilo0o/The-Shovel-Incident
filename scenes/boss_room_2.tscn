@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://gcoonh2qvi7j" path="res://scripts/municion_spawner.gd" id="6_aur7c"]
 [ext_resource type="PackedScene" uid="uid://3130lnf3aavr" path="res://scenes/vida_pickup.tscn" id="7_3ed35"]
 [ext_resource type="PackedScene" uid="uid://domxba1e0qb74" path="res://scenes/palateka.tscn" id="8_palateka"]
+[ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="9_jsorm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ed35"]
 texture = ExtResource("2_xq377")
@@ -992,3 +993,6 @@ position = Vector2(106, 204)
 
 [node name="Palateka" parent="." unique_id=1190422637 instance=ExtResource("8_palateka")]
 position = Vector2(507, 346)
+
+[node name="Carpi2" parent="." unique_id=114980856 instance=ExtResource("9_jsorm")]
+position = Vector2(38, 120)
