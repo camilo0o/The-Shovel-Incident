@@ -68,13 +68,15 @@ func cargar() -> void:
 	for bus in volumen.keys():
 		volumen[bus] = clampf(float(cfg.get_value("audio", bus, VOLUMEN_POR_DEFECTO)), 0.0, 1.0)
 	silenciar = bool(cfg.get_value("audio", "silenciar", false))
-	pantalla_completa = bool(cfg.get_value("pantalla", "completa", false))
+	# En web, solo se puede pedir pantalla completa tras una acción del jugador.
+	pantalla_completa = not OS.has_feature("web") and bool(cfg.get_value("pantalla", "completa", false))
 
 func _crear_buses() -> void:
 	for nombre in BUSES_EXTRA:
 		if AudioServer.get_bus_index(nombre) != -1:
 			continue
-		AudioServer.add_bus()
+		# add_bus() desordena los buses de audio en la exportación web de Godot 4.7.
+		AudioServer.bus_count += 1
 		var idx := AudioServer.bus_count - 1
 		AudioServer.set_bus_name(idx, nombre)
 		AudioServer.set_bus_send(idx, "Master")
