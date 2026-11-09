@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bjb2a0t5eydn3" path="res://scenes/carpi2.tscn" id="9_rupth"]
 [ext_resource type="Script" uid="uid://dsupgkb1n7i1s" path="res://scripts/portal.gd" id="10_fh4ka"]
 [ext_resource type="Texture2D" uid="uid://dy6lw0qdw5nrq" path="res://assets/sprites/structures/Dimensional_Portal.png" id="11_qewby"]
-[ext_resource type="AudioStream" uid="uid://cd6kj88qrt7x2" path="res://assets/audio/music/fondo_level3.mp3" id="12_qewby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yesqi"]
 texture = ExtResource("1_f0ip2")
@@ -637,4 +636,3 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Portal" unique_id=412529416]
 position = Vector2(1037, 143)
 shape = SubResource("CapsuleShape2D_got4s")
-
